@@ -16,7 +16,7 @@
 \makeatletter
 \renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
 \renewcommand{\thispagestyle}[1]{}
-\markright{\textbf{\textsc{AIF401/AIF402 \textemdash Rencana Kerja Skripsi \textemdash Sem. Genap 2022/2023}}}
+\markright{\textbf{\textsc{AIF184001/AIF184002 \textemdash Rencana Kerja Skripsi \textemdash Sem. Genap 2022/2023}}}
 
 \newcommand{\HRule}{\rule{\linewidth}{0.4mm}}
 \renewcommand{\baselinestretch}{1}
@@ -35,7 +35,7 @@
 \newcommand{\@npm}{6181801060}
 \newcommand{\@judultopik}{Evaluasi PHP Standards Recommendations pada proyek SharIF Judge} % Judul/topik anda
 \newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
-\newcommand{\tanggal}{01/01/1900}
+\newcommand{\tanggal}{27/03/2023}
 
 % Dokumen hasil template ini harus dicetak bolak-balik !!!!
 
@@ -44,28 +44,54 @@
 \pagenumbering{arabic}
 
 \section{Deskripsi}
-SharIF Judge merupakan perangkat lunak berbasis web yang dapat digunakan oleh mahasiswa Teknik Informatika UNPAR. SharIF Judge dibuat oleh Mohammad Javad Naderi. Mahasiswa dapat mengunggah kode program dan akan dinilai kebenarannya secara otomatis oleh SharIF Judge.
+SharIF Judge merupakan perangkat lunak berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas pada dokumen ini adalah fork dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi fork ini sudah dikembangkan sesuai kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah.
 
-PHP Standards Recommendations (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Pada saat skripsi ini dibuat, terdapat 14 standar yang sudah diterima dan digunakan.
+PHP Standards Recommendations (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Pada saat skripsi ini dibuat, terdapat 14 bab yang sudah diterima (Accepted) untuk digunakan, 4 bab masih didiskusikan (Draft), 3 bab ditinggalkan (Abandoned), dan 2 bab sudah usang (Deprecated). Bab-bab standar yang sudah diterima dan digunakan antara lain: 
+\begin {enumerate}
+\item Basic Coding Standard
+\item Logger Interface
+\item Autoloading Standard
+\item Caching Interface
+\item HTTP Message Interface
+\item Container Interface
+\item Extended Coding Style Guide
+\item Hypermedia Links
+\item Event Dispatcher
+\item HTTP Handlers
+\item Simple Cache
+\item HTTP Factories
+\item HTTP Client
+\item Clock
+\end {enumerate}	
 
-Pada skripsi ini, keseluruhan PHP pada SharIF Judge akan dilihat dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Alat yang digunakan adalah PHP linter yang dapat membantu proses pemeriksaan sesuai salah satu standar, yaitu Extended Coding Style Guide atau aturan penulisan PHP yang sudah diperbarui. Sementara itu standar lainnya diperiksa secara manual. 
+Pada skripsi ini, keseluruhan PHP pada SharIF Judge akan dilihat dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Walaupun demikian, masih akan ditentukan strategi untuk melakukannya, misalnya menggunakan tools atau alat tertentu untuk membantu, bab-bab apa saja yang relevan untuk dievaluasi sesuai yang digunakan pada SharIF Judge, dan seberapa banyak bab yang harus diperiksa secara manual. Salah satu alat yang digunakan adalah PHP linter. PHP linter membantu proses pemeriksaan sesuai salah satu standar, yaitu Extended Coding Style Guide atau aturan penulisan PHP yang sudah diperbarui. 
 
 \section{Rumusan Masalah}
 Rumusan masalah yang akan dibahas pada skripsi ini sebagai berikut:
 \begin{itemize}
-	\item Apakah SharIF Judge sudah memenuhi PSR?
-	\item Bagaimana mengevaluasi SharIF Judge agar sesuai dengan PSR?  
+	\item Seberapa jauh PSR yang sudah terpenuhi pada SharIF Judge?
+	\item Bagaimana mengevaluasi file PHP pada SharIF Judge agar sesuai dengan PSR?  
 \end{itemize}
 
 \section{Tujuan}
 Tujuan yang ingin dicapai dalam penulisan skripsi ini sebagai berikut:
 \begin{itemize}
 	\item Mengetahui seberapa jauh PSR yang sudah terpenuhi pada SharIF Judge.
-	\item Membuat evaluasi SharIF Judge agar sesuai dengan PSR.
+	\item Mengevaluasi file PHP pada SharIF Judge agar sesuai dengan PSR.
 \end{itemize}
 
 \section{Deskripsi Perangkat Lunak}
-Perangkat lunak akhir yang akan dibuat memiliki fitur yang sama persis dengan SharIf Judge yang sudah ada. Perbedaannya terdapat pada struktur php yang sudah dievaluasi sehingga memenuhi PSR.
+Perangkat lunak akhir yang akan dibuat memiliki fitur yang sama persis dengan SharIf Judge yang sudah ada. Perbedaannya terdapat pada struktur php yang sudah dievaluasi sehingga memenuhi PSR. Berikut adalah fitur-fitur dari dokumentasi SharIF Judge:
+\begin{itemize}
+	\item Dapat diakses untuk empat role : admin, head instructor, instructor, dan student
+	\item Dapat mendeteksi plagiarisme pada kode
+	\item Pengaturan khusus untuk keterlambatan pengumpulan
+	\item Menunjukkan antrean pengumpulan
+	\item Hasil penilaian dapat diekspor dalam file excel
+	\item Dapat melakukan penilaian ulang
+	\item Terdapat Scoreboard dan Notifications
+	\item Tersedia log untuk 24 jam 
+\end{itemize}
 
 \section{Detail Pengerjaan Skripsi}
 Bagian-bagian pekerjaan skripsi ini adalah sebagai berikut :
@@ -82,13 +108,14 @@ Rincian capaian yang direncanakan di Skripsi 1 adalah sebagai berikut:
 \begin{enumerate}
 \item Mempelajari SharIF Judge saat ini
 \item Melakukan studi literatur mengenai PHP linter dan PSR
-\item Mengevaluasi sebagian kecil PHP pada SharIF Judge dengan PHP linter
+\item Menentukan strategi untuk mengevaluasi keseluruhan PHP SharIF Judge
+\item Mengevaluasi sebagian PHP pada SharIF Judge, khususnya yang dapat dilakukan dengan bantuan tools
 \item Menulis sebagian dokumen skripsi yaitu bab 1, 2, dan 3
 \end{enumerate}
 
 Sedangkan yang akan diselesaikan di Skripsi 2 adalah sebagai berikut:
 \begin{enumerate}
-\item Mengevaluasi sebagian besar PHP pada SharIF Judge secara manual
+\item Mengevaluasi sebagian PHP pada SharIF Judge, khususnya yang tidak bisa dilakukan oleh tools
 \item Melakukan pengujian terhadap SharIF Judge yang sudah dievaluasi
 \item Menulis dan melengkapi dokumen skripsi untuk bab 4, 5, dan 6
 
