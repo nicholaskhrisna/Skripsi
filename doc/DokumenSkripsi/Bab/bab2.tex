@@ -2,28 +2,148 @@
 \chapter{Landasan Teori}
 \label{chap:teori}
 
-\section{Skripsi}
-\label{sec:skripsi} 
+\section{SharIF Judge}
+\label{sec:sharifjudge} 
  
-Rencananya akan diisi dengan penjelasan umum mengenai buku skripsi.
+SharIF Judge (dengan huruf kapital "IF") merupakan perangkat lunak berbasis web yang digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas dalam dokumen ini adalah versi fork dari Sharif Judge (dengan huruf kecil "if") yang dibuat oleh Mohammad Javad Naderi. Versi fork ini dikembangkan sesuai dengan kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah. SharIF judge dibuat dengan PHP pada framework CodeIgniter dan BASH untuk backend.
 
-\dtext{11-12} 
+\subsection{Fitur}
+Berikut adalah fitur-fitur dari SharIF Judge.
+\begin{enumerate}
+	\item  Terdapat beberapa role pengguna, antara lain admin, head instructor, instructor, dan student.
+	\item  Sandboxing (belum tersedia untuk Python)
+	\item Deteksi kecurangan (mendeteksi kemiripan kode) menggunakan Moss
+	\item Pengaturan untuk keterlambatan pengumpulan
+	\item Antrian pengiriman
+	\item Mengunduh hasil dalam bentuk file excel
+	\item Mengunduh kode yang dikirim dalam bentuk file zip
+	\item Metode "Output Comporison" dan "Tester Code" untuk memeriksa kebenaran dari hasil output
+	\item Menambahkan beberapa pengguna sekaligus
+	\item Deskripsi masalah (PDF/Markdown/HTML)
+	\item Penilaian ulang (rejudge)
+	\item Papan Nilai (Scoreboard) dan Notifikasi (Notifications)
+	
+\end{enumerate}
 
-\section{\LaTeX}
-\label{sec:latex}
+\subsection{Instalasi}
+Untuk menjalankan SharIF Judge, dibutuhkan sebuah server Linux dengan syarat sebagai berikut:
+\begin{itemize}
+	\item Webserver menjalankan PHP versi 5.3 atau lebih baru
+	\item Pengguna dapat menjalankan PHP melalui command line.
+	\item Menggunakan database MySql atau PostgreSql.
+	\item PHP harus diberikan akses untuk untuk menjalankan perintah menggunakan fungsi shell_exec.
+	\item Tools yang digunakan untuk melakukan kompilasi dan menjalankan kode yang dikumpulkan.
+	\item Perl lebih baik diinstal untuk alasan ketepatan waktu, batas memori dan memaksimalkan batas ukuran pada output kode yang dikirim.
+\end{itemize}
 
-Mengapa menggunakan \LaTeX{} untuk buku skripsi dan apa keunggulan/kerugiannya bagi mahasiswa dan pembuat template. 
-
-\dtext{13-14}
 
 
-\section{Template Skripsi FTIS UNPAR}
-\label{sec:template}
+%\dtext{11-12} 
+
+%\section{\LaTeX}
+\section{PHP Standards Recommendations}
+\label{sec:psr}
+
+PHP Standards Recommendations (PSR) adalah kumpulan rekomendasi yang dibuat oleh PHP Framework Interop Group (PHP-FIG) untuk membantu para pengembang PHP dalam menciptakan kode yang lebih mudah dibaca, dipahami, dan dipelihara. Setiap PSR memiliki status, antara lain Accepted, Draft, Abandoned, dan Deprecated. 
+Saat dokumen ini dibuat, terdapat 23 bab PSR dengan rincian sebagai berikut.
+\begin{itemize}
+	\item{Accepted}
+	\begin{enumerate}
+		\item (1) Basic Coding Standard
+		\item (3) Logger Interface
+		\item (4) Autoloading Standard
+		\item (6) Caching Interface
+		\item (7) HTTP Message Interface
+		\item (11) Container Interface
+		\item (12) Extended Coding Style Guide
+		\item (13) Hypermedia Links
+		\item (14) Event Dispatcher
+		\item (15) HTTP Handlers
+		\item (16) Simple Cache
+		\item (17) HTTP Factories
+		\item (18) HTTP Client
+		\item (20) Clock
+	\end{enumerate}
+
+	\item{Draft}
+	\begin{enumerate}
+		\item (5) PHPDoc Standard
+		\item (19) PHPDoc Tags
+		\item (21) Internationalization
+		\item (22) Application Tracing
+	\end{enumerate}
+	
+	\item{Abandoned}
+	\begin{enumerate}
+		\item (8) Huggable Interface
+		\item (9) Security Advisories
+		\item (10) Security Reporting Process
+	\end{enumerate}
+	
+	\item{Deprecated}
+	\begin{enumerate}
+		\item (0) Autoloading Standard
+		\item (2) Coding Style Guide
+	\end{enumerate}
+	
+	
+\end{itemize}
+
+%\dtext{13-14}
+
+
+\section{PHP Linter}
+\label{sec:phplinter}
  
-Akan dipaparkan bagaimana menggunakan template ini, termasuk petunjuk singkat membuat referensi, gambar dan tabel.
-Juga hal-hal lain yang belum terpikir sampai saat ini. 
- 
-\dtext{15-16}
+Lint awalnya merujuk pada tool yang digunakan untuk menganalisis suatu kode program dengan tujuan menemukan kesalahan pada bahasa C. Kemudian istilah ini menjadi sebutan untuk mendeskripsikan hal-hal yang berkaitan dengan pengecekan kode program. PHP linter adalah tool yang digunakan untuk menganalisis kode PHP sesuai dengan standar tertentu. 
+PHP linter yang digunakan adalah yang dibuat oleh Brueggern. Linter ini berdasar pada standar PSR ke-2 dan ke-12, yaitu Coding Style Guide yang sudah usang (deprecated) dan Extended Coding Style Guide sebagai penggantinya (accepted). 
+
+%\dtext{15-16}
+
+\subsection{Syarat Instalasi}
+Sebelum menginstal linter, perlu dilakukan penginstalan Composer terlebih dahulu. Composer adalah alat untuk mengelola dependency pada PHP. 
+
+\subsection{Instalasi}
+Berikut adalah langkah instalasi PHP linter.
+\begin{enumerate}
+	\item Pada bagian root project, buka file composer.json.
+	\item Pada bagian "Repositories", tambahkan kode berikut.
+	\begin{lstlisting}[language=php, caption=kode kode, label=kode:aneh]
+		{
+			"repositories": [
+			{
+				"type": "vcs",
+				"url": "git@github.com:brueggern/php-linter.git"
+			}
+			]
+		}
+		
+	\end{lstlisting}
+	
+	\item Install composer package.
+	\verb|composer require brueggern/php-linter|  
+	
+	\item Tambahkan script berikut untuk menjalankan linting/fixing. "app" dapat diganti dengan nama file atau folder yang akan di-lint. 
+	\begin{lstlisting}[language=php, caption=kode kode, label=kode:aneh]
+		{
+			"scripts": {
+				"lint": "php-linter app",
+				"lint:fix": "php-linter --fix app"
+			}
+		}
+		
+	\end{lstlisting}
+\end{enumerate}
+
+
+\subsection{Penggunaan}
+Untuk menjalankan linter perintah yang digunakan adalah:
+	\verb|composer run lint|    
+
+Untuk memperbaiki error secara otomatis, perintah yang digunakan adalah:
+
+	\verb|composer run lint:fix|    
+
 
 \subsection{Tabel}  
 Berikut adalah contoh pembuatan tabel. 
@@ -132,7 +252,7 @@ Beberapa hal yang harus diperhatikan pada saat menempatkan gambar:
 	\end{itemize}
 \end{itemize}
  
-\dtext{17-18}
+%\dtext{17-18}
 \begin{figure} 
 	\centering  
 	\includegraphics[scale=1]{ular-png}  
@@ -140,14 +260,14 @@ Beberapa hal yang harus diperhatikan pada saat menempatkan gambar:
 	\label{fig:ularpng} 
 \end{figure} 
 
-\dtext{19-20}
+%\dtext{19-20}
 \begin{figure}[H]
 	\centering  
 	\includegraphics[scale=0.5]{ular-jpg}  
 	\caption[Ular kecil]{Ular kecil} 
 	\label{fig:ularjpg} 
 \end{figure} 
-\dtext{21-22}
+%\dtext{21-22}
 
 \begin{figure}[ht] 
 	\centering  

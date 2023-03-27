@@ -5,59 +5,98 @@
 \section{Latar Belakang}
 \label{sec:label}
 
-SharIF Judge merupakan perangkat lunak berbasis web yang dapat digunakan oleh mahasiswa Teknik Informatika UNPAR. SharIF Judge dibuat oleh Mohammad Javad Naderi. Mahasiswa dapat mengunggah kode program dan akan dinilai kebenarannya secara otomatis oleh SharIF Judge.
+SharIF Judge merupakan perangkat lunak berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas pada dokumen ini adalah \textit{fork} dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi \textit{fork} ini sudah dikembangkan sesuai kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah.
 
-PHP Standards Recommendations (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Pada saat skripsi ini dibuat, terdapat 14 standar yang sudah diterima dan digunakan.
+PHP Standards Recommendations (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Pada saat skripsi ini dibuat, terdapat 14 bab yang sudah diterima (Accepted) untuk digunakan, 4 bab masih didiskusikan (Draft), 3 bab ditinggalkan (Abandoned), dan 2 bab sudah usang (Deprecated). Bab-bab standar yang sudah diterima dan digunakan antara lain: 
+\begin {enumerate}
+\item Basic Coding Standard
+\item Logger Interface
+\item Autoloading Standard
+\item Caching Interface
+\item HTTP Message Interface
+\item Container Interface
+\item Extended Coding Style Guide
+\item Hypermedia Links
+\item Event Dispatcher
+\item HTTP Handlers
+\item Simple Cache
+\item HTTP Factories
+\item HTTP Client
+\item Clock
+\end {enumerate}	
 
-Pada skripsi ini, keseluruhan PHP pada SharIF Judge akan dilihat dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Alat yang digunakan adalah PHP linter yang dapat membantu proses pemeriksaan sesuai salah satu standar, yaitu Extended Coding Style Guide atau aturan penulisan PHP yang sudah diperbarui. Sementara itu standar lainnya diperiksa secara manual. 
+Pada skripsi ini, keseluruhan PHP pada SharIF Judge akan dilihat dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Selanjutnya akan dibuat rekomendasi berdasarkan hasil evaluasi. Walaupun demikian, masih akan ditentukan strategi untuk melakukannya, misalnya menggunakan tools atau alat tertentu untuk membantu, bab-bab apa saja yang relevan untuk dievaluasi sesuai yang digunakan pada SharIF Judge, dan seberapa banyak bab yang harus diperiksa secara manual. Salah satu alat yang digunakan adalah PHP linter. PHP linter membantu proses pemeriksaan sesuai salah satu standar, yaitu Extended Coding Style Guide atau aturan penulisan PHP yang sudah diperbarui. 
 
-\dtext{5-10}
+Perangkat lunak akhir yang akan dibuat memiliki fitur yang sama persis dengan SharIf Judge yang sudah ada. Perbedaannya terdapat pada struktur PHP yang sudah dievaluasi sehingga memenuhi PSR. Berikut adalah fitur-fitur dari dokumentasi SharIF Judge:
+\begin{itemize}
+	\item Dapat diakses untuk empat role : \textit{admin}, \textit{head instructor}, \textit{instructor}, dan \textit{student}
+	\item Dapat mendeteksi plagiarisme pada kode
+	\item Pengaturan khusus untuk keterlambatan pengumpulan
+	\item Menunjukkan antrean pengumpulan
+	\item Hasil penilaian dapat diekspor dalam dokumen Excel
+	\item Dapat melakukan penilaian ulang
+	\item Terdapat Scoreboard dan Notifications
+	\item Tersedia log untuk 24 jam 
+\end{itemize}
+
+%\dtext{5-10}
 
 \section{Rumusan Masalah}
 \label{sec:rumusan}
 Rumusan masalah yang akan dibahas pada skripsi ini sebagai berikut:
 \begin{itemize}
-	\item Apakah SharIF Judge sudah memenuhi PSR?
-	\item Bagaimana mengevaluasi SharIF Judge agar sesuai dengan PSR?  
+	\item Seberapa jauh PSR yang sudah terpenuhi ada SharIF Judge?
+	\item Bagaimana mengevaluasi kode PHP pada SharIF Judge sesuai PSR?  
+	\item Bagaimana memberikan rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi?
 \end{itemize}
 
-\dtext{6}
+%\dtext{6}
 
 \section{Tujuan}
 \label{sec:tujuan}
 Tujuan yang ingin dicapai dalam penulisan skripsi ini sebagai berikut:
 \begin{itemize}
 	\item Mengetahui seberapa jauh PSR yang sudah terpenuhi pada SharIF Judge.
-	\item Membuat evaluasi SharIF Judge agar sesuai dengan PSR.
+	\item Mengevaluasi kode PHP pada SharIF Judge sesuai PSR.
+	\item Memberikan rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi.
 \end{itemize}
 
-\dtext{7}
+%\dtext{7}
 
 \section{Batasan Masalah}
 \label{sec:batasan}
-Untuk mempermudah pembuatan template ini, tentu ada hal-hal yang harus dibatasi, misalnya saja bahwa template ini bukan berupa style \LaTeX{} pada umumnya (dengan alasannya karena belum mampu jika diminta membuat seperti itu)
 
-\dtext{8}
+
+%\dtext{8}
 
 \section{Metodologi}
 \label{sec:metlit}
 Metode penelitian yang akan digunakan dalam skripsi ini adalah:
 \begin{enumerate}
 	\item Memperlajari SharIF Judge saat ini
-	\item Melakukan studi literatur mengenai PHP linter dan PSR
+	\item Melakukan studi literatur mengenai PSR dan PHP linter
 	\item Mengevaluasi PHP dari SharIF Judge sesuai dengan PSR
 	\item Menguji SharIF Judge yang sudah dievaluasi
+	\item Memberikan rekomendasi sesuai hasil evaluasi
 	\item Menulis dokumen skripsi
 \end{enumerate}
 
-\dtext{9}
+%\dtext{9}
 
 \section{Sistematika Pembahasan}
 \label{sec:sispem}
 Untuk penulisan skripsi ini akan dibagi dalam lima bagian sebagai berikut:
+
 Bab 1 Pendahuluan
+
 Bab 2 Landasan Teori 
-Bab 3 
-Bab 4 
-Bab 5 
-\dtext{10}
+
+Bab 3 Analisis
+
+Bab 4 Perancangan
+
+Bab 5 Implementasi
+
+Bab 6 Kesimpulan
+
+%\dtext{10}
