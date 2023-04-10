@@ -5,7 +5,7 @@
 \section{SharIF Judge}
 \label{sec:sharifjudge} 
  
-SharIF Judge (dengan huruf kapital "IF") merupakan perangkat lunak berbasis web yang digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas dalam dokumen ini adalah versi fork dari Sharif Judge (dengan huruf kecil "if") yang dibuat oleh Mohammad Javad Naderi. Versi fork ini dikembangkan sesuai dengan kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah. SharIF judge dibuat dengan PHP pada framework CodeIgniter dan BASH untuk backend.
+SharIF Judge \cite{SharIF_Judge} (dengan huruf kapital ''IF'') merupakan perangkat lunak berbasis web yang digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas dalam dokumen ini adalah versi fork dari Sharif Judge \cite{Sharif_Judge_Original} (dengan huruf kecil ''if'') yang dibuat oleh Mohammad Javad Naderi. Versi fork ini dikembangkan sesuai dengan kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah. SharIF judge dibuat dengan PHP pada framework CodeIgniter dan BASH untuk backend.
 
 \subsection{Fitur}
 Berikut adalah fitur-fitur dari SharIF Judge.
@@ -31,7 +31,7 @@ Untuk menjalankan SharIF Judge, dibutuhkan sebuah server Linux dengan syarat seb
 	\item Webserver menjalankan PHP versi 5.3 atau lebih baru
 	\item Pengguna dapat menjalankan PHP melalui command line.
 	\item Menggunakan database MySql atau PostgreSql.
-	\item PHP harus diberikan akses untuk untuk menjalankan perintah menggunakan fungsi shell_exec.
+	\item PHP harus diberikan akses untuk untuk menjalankan perintah menggunakan fungsi shell exec (pakai underscore).
 	\item Tools yang digunakan untuk melakukan kompilasi dan menjalankan kode yang dikumpulkan.
 	\item Perl lebih baik diinstal untuk alasan ketepatan waktu, batas memori dan memaksimalkan batas ukuran pada output kode yang dikirim.
 \end{itemize}
@@ -44,49 +44,224 @@ Untuk menjalankan SharIF Judge, dibutuhkan sebuah server Linux dengan syarat seb
 \section{PHP Standards Recommendations}
 \label{sec:psr}
 
-PHP Standards Recommendations (PSR) adalah kumpulan rekomendasi yang dibuat oleh PHP Framework Interop Group (PHP-FIG) untuk membantu para pengembang PHP dalam menciptakan kode yang lebih mudah dibaca, dipahami, dan dipelihara. Setiap PSR memiliki status, antara lain Accepted, Draft, Abandoned, dan Deprecated. 
-Saat dokumen ini dibuat, terdapat 23 bab PSR dengan rincian sebagai berikut.
+PHP Standards Recommendations (PSR) adalah kumpulan rekomendasi yang dibuat oleh PHP Framework Interop Group (PHP-FIG) untuk membantu para pengembang PHP dalam menciptakan kode yang lebih mudah dibaca, dipahami, dan dipelihara. 
+Dalam PSR, terdapat kata kunci prioritas yang diatur dalam dokumen RFC 2119 dari PSR sendiri. Dikarenakan sumber referensi berbahasa Inggris, maka ada beberapa penyesuaian yang diperlukan untuk dokumen ini.
+
 \begin{itemize}
+	\item ''MUST'', ''REQUIRED'', ''SHALL'' akan ditulis sebagai ''HARUS'' dengan arti harus sesuai.
+	\item ''MUST NOT'', ''SHALL NOT'' akan ditulis sebagai ''DILARANG'' atau ''TIDAK'' dengan arti dilarang atau tidak diperbolehkan.
+	\item ''SHOULD'', ''RECOMMENDED'' akan ditulis sebagai ''SEBAIKNYA'' dengan arti direkomendasikan untuk digunakan namun tetap memperhatikan keadaan dan kebutuhan.
+	\item ''SHOULD NOT'', ''NOT RECOMMENDED'' akan ditulis sebagai ''SEBAIKNYA TIDAK'' dengan arti direkomendasikan untuk tidak digunakan namun tetap memperhatikan keadaan dan kebutuhan.
+	\item ''MAY'', ''OPTIONAL'' akan ditulis ''OPSIONAL'' dengan arti bersifat tidak wajib.
+\end{itemize}
+
+
+Setiap PSR memiliki status, antara lain Accepted, Draft, Abandoned, dan Deprecated. Saat dokumen ini dibuat, terdapat 23 bab PSR dengan rincian sebagai berikut.
+\begin{comment}
+\begin{enumerate}
 	\item{Accepted}
-	\begin{enumerate}
-		\item (1) Basic Coding Standard
-		\item (3) Logger Interface
-		\item (4) Autoloading Standard
-		\item (6) Caching Interface
-		\item (7) HTTP Message Interface
-		\item (11) Container Interface
-		\item (12) Extended Coding Style Guide
-		\item (13) Hypermedia Links
-		\item (14) Event Dispatcher
-		\item (15) HTTP Handlers
-		\item (16) Simple Cache
-		\item (17) HTTP Factories
-		\item (18) HTTP Client
-		\item (20) Clock
-	\end{enumerate}
+	\begin{itemize}
+		\item PSR-01: Basic Coding Standard
+		\item PSR-03: Logger Interface
+		\item PSR-04: Autoloading Standard
+		\item PSR-06: Caching Interface
+		\item PSR-07: HTTP Message Interface
+		\item PSR-11: Container Interface
+		\item PSR-12: Extended Coding Style Guide
+		\item PSR-13: Hypermedia Links
+		\item PSR-14: Event Dispatcher
+		\item PSR-15: HTTP Handlers
+		\item PSR-16: Simple Cache
+		\item PSR-17: HTTP Factories
+		\item PSR-18: HTTP Client
+		\item PSR-20: Clock
+	\end{itemize}
 
 	\item{Draft}
-	\begin{enumerate}
-		\item (5) PHPDoc Standard
-		\item (19) PHPDoc Tags
-		\item (21) Internationalization
-		\item (22) Application Tracing
-	\end{enumerate}
+	\begin{itemize}
+		\item PSR-05: PHPDoc Standard
+		\item PSR-19: PHPDoc Tags
+		\item PSR-21: Internationalization
+		\item PSR-22: Application Tracing
+	\end{itemize}
 	
 	\item{Abandoned}
-	\begin{enumerate}
-		\item (8) Huggable Interface
-		\item (9) Security Advisories
-		\item (10) Security Reporting Process
-	\end{enumerate}
+	\begin{itemize}
+		\item PSR-08: Huggable Interface
+		\item PSR-09: Security Advisories
+		\item PSR-10: Security Reporting Process
+	\end{itemize}
 	
 	\item{Deprecated}
-	\begin{enumerate}
-		\item (0) Autoloading Standard
-		\item (2) Coding Style Guide
-	\end{enumerate}
+	\begin{itemize}
+		\item PSR-00: Autoloading Standard
+		\item PSR-02: Coding Style Guide
+	\end{itemize}
 	
 	
+\end{enumerate}
+\end{comment}
+
+\subsection{Accepted}
+\label{subsec:accepted}
+Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi oleh tim kerja bersangkutan untuk digunakan oleh para pengembang.
+
+\subsubsection{PSR-01: Basic Coding Standard}
+\label{subsubsec:psr01}
+\begin{itemize}
+	\item File HARUS menggunakan hanya tag \verb|<?php|  dan \verb|<?=| .
+	\item File HARUS menggunakan hanya UTF-8 tanpa BOM untuk kode PHP.
+	\item File HARUS mendeklarasikan simbol (kelas, fungsi, konstanta, dan lain-lain) atau menyebabkan efek samping (misalnya menghasilkan output, mengubah pengaturan .ini, dan lain-lain) tetapi TIDAK HARUS melakukan keduanya.
+	\item \textit{Namespace} dan kelas HARUS mengikuti PSR ''autoloading'': [PSR-0, PSR-4].
+	\item Nama kelas HARUS dideklarasikan di StudlyCaps.
+	\item Konstanta kelas HARUS dideklarasikan dalam huruf kapital dengan pemisah garis bawah.
+	\item Nama \textit{method} HARUS dideklarasikan dalam camelCase.
+\end{itemize}
+
+\subsubsection{PSR-03: Logger Interface}
+\label{subsubsec:psr03}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-04: Autoloading Standard}
+\label{subsubsec:psr04}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-06: Caching Interface}
+\label{subsubsec:psr06}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-07: HTTP Message Interface}
+\label{subsubsec:psr07}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-11: Container Interface}
+\label{subsubsec:psr11}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-12: Extended Coding Style Guide}
+\label{subsubsec:psr12}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-13: Hypermedia Links}
+\label{subsubsec:psr13}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-14: Event Dispatcher}
+\label{subsubsec:psr14}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-15: HTTP Handlers}
+\label{subsubsec:psr15}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-16: Simple Cache}
+\label{subsubsec:psr16}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-17: HTTP Factories}
+\label{subsubsec:psr17}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-18: HTTP Client}
+\label{subsubsec:psr18}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-20: Clock}
+\label{subsubsec:psr20}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsection{Draft}
+\label{subsec:draft}
+Status ''Draft'' adalah bab-bab yang masih dalam tahap diskusi dan pengembangan lebih lanjut agar isinya layak untuk menjadi standar.
+
+\subsubsection{PSR-05: PHPDoc Standard}
+\label{subsubsec:psr05}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-19: PHPDoc tags}
+\label{subsubsec:psr19}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-21: Internationalization}
+\label{subsubsec:psr21}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-22: Application Tracing}
+\label{subsubsec:psr22}
+\begin{itemize}
+	\item
+\end{itemize}
+
+
+\subsection{Abandoned}
+\label{subsec:abandoned}
+Status ''Abandoned'' adalah bab-bab yang tidak lagi dikerjakan ataupun dikembangkan. oleh tim kerja yang bersangkutan. 
+
+\subsubsection{PSR-08: Huggable Interface}
+\label{subsubsec:psr08}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-09: Security Advisories}
+\label{subsubsec:psr09}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-10: Security Reporting Process}
+\label{subsubsec:psr10}
+\begin{itemize}
+	\item
+\end{itemize}
+
+
+\subsection{Deprecated}
+\label{subsec:deprecated}
+Status ''Deprecated'' adalah bab-bab yang sudah pernah disetujui sebelumnya, namun dianggap sudah tidak relevan karena perubahan-perubahan seiring berjalannya waktu. Bab-bab ini tidak direkomendasikan untuk digunakan. Salah satu alasan lain adalah karena adanya bab baru yang lebih baik untuk menggantikannya.
+
+\subsubsection{PSR-00: Autoloading Standard}
+\label{subsubsec:psr00}
+\begin{itemize}
+	\item
+\end{itemize}
+
+\subsubsection{PSR-02: Coding Style Guide}
+\label{subsubsec:psr02}
+\begin{itemize}
+	\item
 \end{itemize}
 
 %\dtext{13-14}
@@ -144,7 +319,7 @@ Untuk memperbaiki error secara otomatis, perintah yang digunakan adalah:
 
 	\verb|composer run lint:fix|    
 
-
+\begin{comment}
 \subsection{Tabel}  
 Berikut adalah contoh pembuatan tabel. 
 Penempatan tabel dan gambar secara umum diatur secara otomatis oleh \LaTeX{}, perhatikan contoh di file bab2.tex untuk melihat bagaimana cara memaksa tabel ditempatkan sesuai keinginan kita.
@@ -319,4 +494,4 @@ Cara memasukkan sebuah simbol ke dalam Daftar Notasi adalah menggunakan perintah
 \nomenclature[]{$n$}{banyaknya ular}
 \nomenclature[]{$k$}{jumlah kepala per seekor ular\nomrefpage}
 Argumen opsional digunakan untuk mengurutkan notasi. Silahkan lihat sendiri dokumentasi package \verb|nomencl|
-
+\end{comment}

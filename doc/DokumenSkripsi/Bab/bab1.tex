@@ -5,25 +5,27 @@
 \section{Latar Belakang}
 \label{sec:label}
 
-SharIF Judge merupakan perangkat lunak berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas pada dokumen ini adalah \textit{fork} dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi \textit{fork} ini sudah dikembangkan sesuai kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah.
+Pengembangan aplikasi berbasis web dengan bahasa PHP cukup populer di kalangan pengembang web. Banyak \textit{framework} yang tersedia untuk memudahkan pengembangannya, salah satunya adalah CodeIgniter. Walaupun sudah tersedia \textit{tools} yang membantu, masih ditemukan beberapa masalah seperti penulisan kode yang tidak konsisten karena tidak ada standar yang baku penulisannya. Hal ini membuat pengembangan aplikasi web menjadi rumit dan sulit dipelihara, terutama jika proyek tersebut melibatkan banyak pengembang.
 
-PHP Standards Recommendations (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Pada saat skripsi ini dibuat, terdapat 14 bab yang sudah diterima (Accepted) untuk digunakan, 4 bab masih didiskusikan (Draft), 3 bab ditinggalkan (Abandoned), dan 2 bab sudah usang (Deprecated). Bab-bab standar yang sudah diterima dan digunakan antara lain: 
-\begin {enumerate}
-\item Basic Coding Standard
-\item Logger Interface
-\item Autoloading Standard
-\item Caching Interface
-\item HTTP Message Interface
-\item Container Interface
-\item Extended Coding Style Guide
-\item Hypermedia Links
-\item Event Dispatcher
-\item HTTP Handlers
-\item Simple Cache
-\item HTTP Factories
-\item HTTP Client
-\item Clock
-\end {enumerate}	
+PHP Standards Recommendations \cite{PSR} (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Pada saat skripsi ini dibuat, terdapat 14 bab yang sudah diterima (Accepted) untuk digunakan, 4 bab masih didiskusikan (Draft), 3 bab ditinggalkan (Abandoned), dan 2 bab sudah usang (Deprecated). Bab-bab standar yang sudah diterima dan digunakan antara lain: 
+\begin{itemize}
+	\item PSR-01: Basic Coding Standard
+	\item PSR-03: Logger Interface
+	\item PSR-04: Autoloading Standard
+	\item PSR-06: Caching Interface
+	\item PSR-07: HTTP Message Interface
+	\item PSR-11: Container Interface
+	\item PSR-12: Extended Coding Style Guide
+	\item PSR-13: Hypermedia Links
+	\item PSR-14: Event Dispatcher
+	\item PSR-15: HTTP Handlers
+	\item PSR-16: Simple Cache
+	\item PSR-17: HTTP Factories
+	\item PSR-18: HTTP Client
+	\item PSR-20: Clock
+\end{itemize}
+
+SharIF Judge merupakan perangkat lunak berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge \cite{SharIF_Judge} yang dibahas pada dokumen ini adalah \textit{fork} dari Sharif Judge \cite{Sharif_Judge_Original} yang dibuat oleh Mohammad Javad Naderi. Versi \textit{fork} ini sudah dikembangkan sesuai kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah.
 
 Pada skripsi ini, keseluruhan PHP pada SharIF Judge akan dilihat dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Selanjutnya akan dibuat rekomendasi berdasarkan hasil evaluasi. Walaupun demikian, masih akan ditentukan strategi untuk melakukannya, misalnya menggunakan tools atau alat tertentu untuk membantu, bab-bab apa saja yang relevan untuk dievaluasi sesuai yang digunakan pada SharIF Judge, dan seberapa banyak bab yang harus diperiksa secara manual. Salah satu alat yang digunakan adalah PHP linter. PHP linter membantu proses pemeriksaan sesuai salah satu standar, yaitu Extended Coding Style Guide atau aturan penulisan PHP yang sudah diperbarui. 
 
