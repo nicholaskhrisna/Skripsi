@@ -45,14 +45,14 @@ Untuk menjalankan SharIF Judge, dibutuhkan sebuah server Linux dengan syarat seb
 \label{sec:psr}
 
 PHP Standards Recommendations (PSR) adalah kumpulan rekomendasi yang dibuat oleh PHP Framework Interop Group (PHP-FIG) untuk membantu para pengembang PHP dalam menciptakan kode yang lebih mudah dibaca, dipahami, dan dipelihara. 
-Dalam PSR, terdapat kata kunci prioritas yang diatur dalam dokumen RFC 2119 dari PSR sendiri. Dikarenakan sumber referensi berbahasa Inggris, maka ada beberapa penyesuaian yang diperlukan untuk dokumen ini.
+Dalam PSR, terdapat kata kunci prioritas yang diatur dalam dokumen RFC 2119 dari PSR sendiri. Dikarenakan sumber referensi berbahasa Inggris, maka ada beberapa penyesuaian yang diperlukan untuk dokumen ini \footnote{Beberapa kata kunci memiliki tingkatan yang sama berdasarkan RFC 2119 sehingga dikategorikan dan ditulis dalam satu baris. Misalnya, ``MUST'', ``REQUIRED'', dan ``SHALL'' berada dalam satu tingkatan prioritas yang sama sehingga hanya perlu diartikan ke satu kata untuk menunjukkan kategori tingkatannya. }.
 
 \begin{itemize}
-	\item ''MUST'', ''REQUIRED'', ''SHALL'' akan ditulis sebagai ''HARUS'' dengan arti harus sesuai.
-	\item ''MUST NOT'', ''SHALL NOT'' akan ditulis sebagai ''DILARANG'' atau ''TIDAK'' dengan arti dilarang atau tidak diperbolehkan.
-	\item ''SHOULD'', ''RECOMMENDED'' akan ditulis sebagai ''SEBAIKNYA'' dengan arti direkomendasikan untuk digunakan namun tetap memperhatikan keadaan dan kebutuhan.
-	\item ''SHOULD NOT'', ''NOT RECOMMENDED'' akan ditulis sebagai ''SEBAIKNYA TIDAK'' dengan arti direkomendasikan untuk tidak digunakan namun tetap memperhatikan keadaan dan kebutuhan.
-	\item ''MAY'', ''OPTIONAL'' akan ditulis ''OPSIONAL'' dengan arti bersifat tidak wajib.
+	\item ``MUST'', ``REQUIRED'', ``SHALL'' akan ditulis sebagai ``HARUS'' dengan arti harus sesuai.
+	\item ``MUST NOT'', ``SHALL NOT'' akan ditulis sebagai ``DILARANG'' atau ``TIDAK'' dengan arti dilarang atau tidak diperbolehkan.
+	\item ``SHOULD'', ``RECOMMENDED'' akan ditulis sebagai ``SEBAIKNYA'' atau ``DIREKOMENDASIKAN'' dengan arti direkomendasikan untuk digunakan namun tetap memperhatikan keadaan dan kebutuhan.
+	\item ``SHOULD NOT'', ``NOT RECOMMENDED'' akan ditulis sebagai ``SEBAIKNYA TIDAK'' atau ``TIDAK DIREKOMENDASIKAN'' dengan arti tidak direkomendasikan untuk digunakan namun tetap memperhatikan keadaan dan kebutuhan.
+	\item ``MAY'', ``OPTIONAL'' akan ditulis ``BOLEH'' atau ``BISA'' dengan arti bersifat tidak wajib.
 \end{itemize}
 
 
@@ -139,13 +139,24 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-07: HTTP Message Interface}
 \label{subsubsec:psr07}
 \begin{itemize}
-	\item
+	\item MAY SHOULD
+	\item MUST
+	\item SHOULD
+	\item Selama konstruksi, implementasi HARUS berusaha menyetel header  \verb|Host| dari URI yang disediakan jika tidak ada header \verb|Host| yang tersedia.
+	\item Klien HTTP HARUS mengabaikan nilai dari \verb|Uri::getPath()| dan \verb|Uri::getQuery()|, sebaliknya menggunakan nilai yang dikembalikan oleh \verb|getRequestTarget()|, yang secara default menggabungkan kedua nilai ini.
+	\item Klien yang memilih untuk tidak mengimplementasi 1 atau lebih dari 4 formulir \textit{request-target}, HARUS tetap menggunakan \verb|RequestTarget()|. Klien-klien ini HARUS menolak \textit{request-target} yang tidak mereka dukung, dan DILARANG kembali ke nilai dari \verb|getUri()|.
 \end{itemize}
 
 \subsubsection{PSR-11: Container Interface}
 \label{subsubsec:psr11}
 \begin{itemize}
-	\item
+	\item \textit{Entry identifier} adalah string legal PHP apa pun yang setidaknya terdiri dari satu karakter unik yang mengidentifikasi sebuah item dalam suatu \textit{container}. \textit{Entry identifier} adalah sebuah string buram, maka pemanggil SEBAIKNYA TIDAK berasumsi bahwa struktur string memiliki makna semantik apa pun.
+	\item Dalam \verb|Psr\Container\ContainerInterface| terdapat 2 metode: \verb|get| dan \verb|has|.
+	\item 
+	\item 
+	\item Pengecualian yang diberikan secara langsung oleh \textit{container} SEBAIKNYA mengimplementasi \verb|Psr\Container\ContainerExceptionInterface|.
+	\item Panggilan ke metode \verb|get| dengan id yang tidak ada HARUS memunculkan \verb|Psr\Container\NotFoundExceptionInterface|.
+	\item Pengguna SEBAIKNYA TIDAK meneruskan suatu \textit{container} ke objek sehingga objek dapat mengambil sendiri dependensinya. Hal ini berarti \textit{container} digunakan sebagai \textit{Service Locator} yang merupakan pola yang umumnya tidak dianjurkan.
 \end{itemize}
 
 \subsubsection{PSR-12: Extended Coding Style Guide}
@@ -169,7 +180,12 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-15: HTTP Handlers}
 \label{subsubsec:psr15}
 \begin{itemize}
-	\item
+	\item \textit{Request handler} BOLEH memberi pengecualian jika kondisi permintaan mencegahnya untuk membuat respons. Jenis pengecualiannya tidak ditentukan.
+	\item Setiap \textit{request handler} yang menggunakan standar ini HARUS mengimplementasikan \textit{interface} \verb|Psr\Http\Server\RequestHandlerInterface|.
+	\item Komponen \textit{middleware} BOLEH membuat dan mengembalikan respons tanpa mendelegasikan ke \textit{request handler}, jika kondisi yang dibutuhkan sudah terpenuhi.
+	\item \textit{Middleware} yang menggunakan standar ini HARUS mengimplementasikan \textit{interface} \verb|Psr\Http\Server\MiddlewareInterface|.
+	\item Setiap \textit{middleware} atau \textit{request handler} yang menghasilkan respons DIREKOMENDASIKAN untuk membuat prototipe PSR-07 \verb|ResponseInterface| atau pabrik yang mampu menghasilkan \textit{instance} \verb|ResponseInterface| untuk mencegah ketergantungan pada implementasi pesan HTTP tertentu.
+	\item Setiap aplikasi yang menggunakan \textit{middleware} DIREKOMENDASIKAN untuk menyertakan komponen yang menangkap pengecualian dan mengubahnya menjadi respons. \textit{Middleware} ini HARUS menjadi komponen pertama yang dieksekusi dan mencakup semua pemrosesan lebih lanjut untuk memasukan bahwa respons selalu dibuat. 
 \end{itemize}
 
 \subsubsection{PSR-16: Simple Cache}
@@ -181,19 +197,37 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-17: HTTP Factories}
 \label{subsubsec:psr17}
 \begin{itemize}
-	\item
+	\item HTTP \textit{factory} adalah metode yang digunakan untuk membuat objek HTTP baru sesuai yang didefinisikan oleh PSR-07. Setiap HTTP \textit{factory} HARUS mengimplementasi semua \textit{interface} berikut untuk setiap tipe objek yang disediakan oleh \textit{package}. \textit{Interface} berikut ini BOLEH diimplementasikan bersama dalam satu kelas atau kelas terpisah.
+	\begin{enumerate}
+		\item RequestFactoryInterface
+		\item ResponseFactoryInterface
+		\item ServerRequestFactoryInterface
+		\item StreamFactoryInterface
+		\item UploadFileFactoryInterface
+		\item UriFactoryInterface
+	\end{enumerate} 
 \end{itemize}
 
 \subsubsection{PSR-18: HTTP Client}
 \label{subsubsec:psr18}
 \begin{itemize}
-	\item
+	\item Klien BOLEH mengirim permintaan HTTP yang diubah dari yang disediakan, misalnya melakukan \textit{compress} pada badan pesan yang dikirim.
+	\item Klien BOLEH memilih untuk mengubah respons HTTP yang diterima sebelum mengembalikannya ke \textit{library} pemanggil, misalnya melakukan \textit{decompress} isi pesan yang masuk. 
+	\item Jika klien memilih untuk mengubah permintaan HTTP atau respons HTTP, klien HARUS memastikan bahwa objek tetap konsisten secara internal. Misalnya, jika klien memilih untuk dekompresi isi pesan, maka klien juga HARUS menghapus header \verb|Content-Encoding| dan menyesuaikan header \verb|Content-Length|.
+	\item 
+	\item Klien HARUS menyusun kembali respons HTTP 1xx multi-langkah secara mandiri sehingga apa yang dikembalikan ke \textit{library} pemanggil adalah respons HTTP yang valid dengan kode status 200 atau di atasnya.
+	
+	\item Klien TIDAK BOLEH memperlakukan permintaan atau respons HTTP yang dibuat dengan baik sebagai kondisi \textit{error}. Sebagai contoh, kode status respons dalam rentang 400 dan 500 TIDAK BOLEH menimbulkan pengecualian dan HARUS dikembalikan ke \textit{library} pemanggil seperti biasa.
+	\item Klien HARUS memberikan \textit{instance} \verb|Psr\Http\Client\ClientExceptionInterface| jika dan hanya jika tidak dapat mengirim permintaan HTTP sama sekali atau jika respons HTTP tidak dapat diuraikan menjadi objek respons PSR-07.
+	\item Jika permintaan tidak dapat dikirim karena pesan permintaan bukan permintaan HTTP yang dibuat dengan baik atau kehilangan beberapa informasi penting (seperti Host atau Method), klien HARUS memberikan \textit{instance} \verb|Psr\Http\Client\RequestExceptionInterface|.
+	\item Jika permintaan tidak dapat dikirim karena kegagalan jaringan dalam bentuk apa pun, termasuk \textit{timeout}, klien HARUS memberi instance \verb|Psr\Http\Client\NetworkExceptionInterface|.
+	\item Klien MUNGKIN memberikan pengecualian yang lebih spesifik daripada yang ditentukan di sini (misalnya \verb|TimeOutException| atau \verb|HostNotFoundException|), asalkan mereka mengimplementasikan antarmuka yang sesuai yang ditentukan di atas.
 \end{itemize}
 
 \subsubsection{PSR-20: Clock}
 \label{subsubsec:psr20}
 \begin{itemize}
-	\item
+	\item Kembalian waktu harus ditulis sebagai \verb|\DateTimeImmutable|    
 \end{itemize}
 
 \subsection{Draft}
