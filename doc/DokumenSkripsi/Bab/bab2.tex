@@ -121,7 +121,11 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-03: Logger Interface}
 \label{subsubsec:psr03}
 \begin{itemize}
-	\item
+	\item Metode ke-9, \verb|log|, menerima level log sebagai argumen pertama. Memanggil metode ini dengan salah satu konstanta level log HARUS memiliki hasil yang sama dengan memanggil metode khusus level. MUST SHOULDN'T
+	\item Setiap metode menerima string sebagai pesan, atau objek dengan metode \verb|__toString()|. \textit{Implementor} BOLEH memiliki \textit{handling} khusus untuk objek yang diteruskan. Jika bukan demikian, maka \textit{implementor} harus mengubahnya ke sebuah string.
+	\item Pesan BOLEH memiliki \textit{placeholder} yang BISA diganti oleh \textit{implementor} dari \textit{context array}.
+	\item Nama \textit{placeholder} harus sesuai dengan kunci dalam \textit{context array}.
+	\item Nama placeholder HARUS dipisahkan dengan kurung kurawal buka tunggal \verb|{| dan kurung kurawal tutup tunggal \verb|}|. TIDAK BOLEH ada spasi kosong antara pembatas dan nama \textit{placeholder}.
 \end{itemize}
 
 \subsubsection{PSR-04: Autoloading Standard}
@@ -133,6 +137,12 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-06: Caching Interface}
 \label{subsubsec:psr06}
 \begin{itemize}
+	\item
+	\item
+	\item 
+	\item Dalam mengimplementasikan \textit{library} semuanya HARUS mendukung semua tipe data PHP bersambung, termasuk: String, Integer, Float, Boolean, Null, Array, dan Object.
+	\item 
+	\item 
 	\item
 \end{itemize}
 
