@@ -109,47 +109,61 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-01: Basic Coding Standard}
 \label{subsubsec:psr01}
 \begin{itemize}
-	\item File HARUS menggunakan hanya tag \verb|<?php|  dan \verb|<?=| .
-	\item File HARUS menggunakan hanya UTF-8 tanpa BOM untuk kode PHP.
-	\item File HARUS mendeklarasikan simbol (kelas, fungsi, konstanta, dan lain-lain) atau menyebabkan efek samping (misalnya menghasilkan output, mengubah pengaturan .ini, dan lain-lain) tetapi TIDAK HARUS melakukan keduanya.
+	\item \textit{File} HARUS menggunakan \textit{tag} \verb|<?php|  dan \verb|<?=| dan TIDAK menggunakan variasi \textit{tag} lainnya.
+	\item \textit{File} HARUS menggunakan UTF-8 tanpa BOM untuk kode PHP.
+	\item \textit{File} SEBAIKNYA mendeklarasikan simbol (kelas, fungsi, konstanta, dan lain-lain) atau menyebabkan efek samping (misalnya menghasilkan output, mengubah pengaturan .ini, dan lain-lain), tetapi SEBAIKNYA TIDAK keduanya.
 	\item \textit{Namespace} dan kelas HARUS mengikuti PSR ''autoloading'': [PSR-0, PSR-4].
-	\item Nama kelas HARUS dideklarasikan di StudlyCaps.
+	\item Nama kelas HARUS dideklarasikan di \verb|StudlyCaps|.
+	\item Kode yang ditulis untuk PHP 5.3 dan setelahnya harus menggunakan \textit{namespace} formal.
+	\item Kode yang ditulis untuk PHP 5.2.x dan sebelumnya SEBAIKNYA menggunakan konvensi \textit{pseudo-namepsacing} dengan awalan  \verb|Vendor_|  pada nama kelas.
 	\item Konstanta kelas HARUS dideklarasikan dalam huruf kapital dengan pemisah garis bawah.
-	\item Nama \textit{method} HARUS dideklarasikan dalam camelCase.
+	\item Konvensi penamaan apa pun SEBAIKNYA diterapkan secara konsisten dalam lingkup yang masuk akal, baik itu tingkat \textit{vendor}, tingkat \textit{package}, tingkat \textit{class}, atau tingkat \textit{method}.
+	\item Nama \textit{method} HARUS dideklarasikan dalam \verb|camelCase|.
 \end{itemize}
 
 \subsubsection{PSR-03: Logger Interface}
 \label{subsubsec:psr03}
 \begin{itemize}
-	\item Metode ke-9, \verb|log|, menerima level log sebagai argumen pertama. Memanggil metode ini dengan salah satu konstanta level log HARUS memiliki hasil yang sama dengan memanggil metode khusus level. MUST SHOULDN'T
-	\item Setiap metode menerima string sebagai pesan, atau objek dengan metode \verb|__toString()|. \textit{Implementor} BOLEH memiliki \textit{handling} khusus untuk objek yang diteruskan. Jika bukan demikian, maka \textit{implementor} harus mengubahnya ke sebuah string.
-	\item Pesan BOLEH memiliki \textit{placeholder} yang BISA diganti oleh \textit{implementor} dari \textit{context array}.
+	\item \verb|Logger Interface| memiliki delapan \textit{method} untuk menulis log ke delapan level RFC 5424 (debug, info, notice, warning, error, critical, alert, emergency). Terdapat satu \textit{method} lainnya, \verb|log|, menerima level log sebagai argumen pertama. Memanggil \textit{method} ini dengan salah satu konstanta level log HARUS memiliki hasil yang sama dengan memanggil \textit{method} pada level yang spesifik. Memanggil \textit{method} ini dengan level yang tidak ada pada spesifikasi ini HARUS melempar \verb|Psr\Log\InvalidArgumentException| jika implementasinya tidak tahu tentang level tersebut. Pengguna SEBAIKNYA JANGAN menggunakan level versi berbeda tanpa tahu dengan pasti jika implementasi yang sekarang mendukung. 
+	\item Setiap \textit{method} menerima string sebagai pesan, atau objek dengan \textit{method} \verb|__toString()|. \textit{Implementor} BISA memiliki \textit{handling} khusus untuk objek yang diteruskan. Jika bukan demikian, maka \textit{implementor} harus mengubahnya ke sebuah string.
+	\item Pesan BISA memiliki \textit{placeholder} yang BISA diganti oleh \textit{implementor} dari \textit{context array}.
 	\item Nama \textit{placeholder} harus sesuai dengan kunci dalam \textit{context array}.
 	\item Nama placeholder HARUS dipisahkan dengan kurung kurawal buka tunggal \verb|{| dan kurung kurawal tutup tunggal \verb|}|. TIDAK BOLEH ada spasi kosong antara pembatas dan nama \textit{placeholder}.
+	\item Nama \textit{placeholder} sebaiknya hanya terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, garis bawah \verb|_|, dan titik \verb|.|.
+	\item \textit{Implementor} BISA menggunakan \textit{placeholder} untuk menerapkan berbagai strategi \textit{escaping} dan menerjemahkan log untuk ditampilkan. Pengguna SEBAIKNYA TIDAK melakukan \textit{pre-escape} nilai dalam \textit{placeholder} karena mereka tidak tahu dalam konteks mana data akan ditampilkan. 
+	\item Setiap \textit{method} menerima array sebagai data konteks. Ini dimaksudkan untuk menyimpan informasi asing yang tidak sesuai dengan string. Array dapat berisi apa saja. \textit{Implementor} HARUS memastikan mereka memperlakukan data konteks dengan kelonggaran sebanyak mungkin. Nilai yang diberikan dalam konteks TIDAK BOLEH melempar \textit{exception} atau menimbulkan \textit{error}, peringatan, atau pemberitahuan PHP apa pun.
+	\item Jika objek \verb|Exception| diteruskan dalam data konteks, maka HARUS berada dalam \textit{key} \verb|`exception'|. \textit{Implementor} HARUS tetap memastikan bahwa\textit{key} \verb|`exception'| adalah sebuah objek \verb|Exception|, karena isinya BISA mengandung apa saja.
 \end{itemize}
 
 \subsubsection{PSR-04: Autoloading Standard}
 \label{subsubsec:psr04}
 \begin{itemize}
-	\item
+	\item Istilah ``kelas'' mengacu pada kelas, \textit{interface}, \textit{traits}, dan struktur lain yang serupa.
+	\item Nama kelas yang memenuhi syarat memiliki bentuk \verb|\<NamespaceName>(\<SubNamespaceNames>)*\<ClassName>| dengan spesifikasi berikut:
+	\begin{enumerate}
+		\item HARUS memiliki nama \textit{namespace} tingkat tertinggi, atau dikenal sebagai ``vendor namespace''.
+		\item BISA memiliki satu atau lebih nama \textit{sub-space}.
+		\item HARUS memiliki nama kelas di akhir.
+		\item Garis bawah tidak memiliki makna khusus.
+		\item Karakter abjad BISA berisi kombinasi dari huruf kapital dan huruf kecil.
+		\item Semua nama kelas harus direferensikan dengan cara yang \textit{case-sensitive}.
+	\end{enumerate}
+	\item Implementasi \textit{autoloader} TIDAK BOLEH melempar \textit{exception}, TIDAK BOLEH memunculkan \textit{error} dalam tingkat apa pun, dan SEBAIKNYA TIDAK mengembalikan nilai. 
 \end{itemize}
 
 \subsubsection{PSR-06: Caching Interface}
 \label{subsubsec:psr06}
 \begin{itemize}
-	\item
-	\item
-	\item 
+	\item \textit{Library} pelaksana HARUS menyediakan kelas yang mengimplementasikan \textit{interface} \verb|Cache\CacheItemPoolInterface| dan \verb|Cache\CacheItemInterface|. Impementasinya HARUS mendukung fungsionalitas TTL minimum dengan perincian detik yang penuh. Time To Live (TTL) suatu item adalah jumlah waktu antara waktu saat item tersebut disimpan dan ketika item dianggap kedaluwarsa. TTL biasanya didefinisikan dalam bentuk bilangan bulat (integer) yang mewakili waktu dalam detik, atau sebuah objek DateInterval.
+	\item \textit{Libarary} pelaksana BISA mengakhiri masa berlaku item sebelum \textit{Expiration Time} yang diminta, tetapi HARUS mengakhiri masa berlaku item tersebut jika \textit{Expiration Time} sudah tercapai. Jika suatu \textit{libary} meminta item untuk disimpan tanpa menentukan waktu kedaluwarsa, atau ditentukan isinya null atau TTL,  \textit{library} pelaksana BISA menggunakan durasi default yang sudah dikonfigurasi. Jika belum ada durasi defaut yang dikonfigurasi, maka \textit{library} pelaksana HARUS menafsirkannya sebagai permintaan untuk menyimpan item dalam cache selamanya, atau selama implementasi yang mendasarinya mendukung.
+	\item \textit{Key} adalah suatu string yang terdiri dari minimal satu karakter yang secara unik mengidentifikasi item yang di-\textit{cache}. \textit{Library} pelaksana HARUS mendukung \textit{key} yang terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, \verb|_|, dan \verb|.| dengan urutan apa pun dalam pengkodean UTF-8 dan maksimum 64 karakter. \textit{Library} pelaksana BISA mendukung karakter tambahan dan pengkodean atau karakter yang lebih banyak, namun harus memenuhi syarat minimum di atas.
 	\item Dalam mengimplementasikan \textit{library} semuanya HARUS mendukung semua tipe data PHP bersambung, termasuk: String, Integer, Float, Boolean, Null, Array, dan Object.
-	\item 
-	\item 
-	\item
 \end{itemize}
 
 \subsubsection{PSR-07: HTTP Message Interface}
 \label{subsubsec:psr07}
 \begin{itemize}
-	\item MAY SHOULD
+	\item Pesan HTTP dapat berupa permintaan dari klien ke server atau respons dari server ke klien.
 	\item MUST
 	\item SHOULD
 	\item Selama konstruksi, implementasi HARUS berusaha menyetel header  \verb|Host| dari URI yang disediakan jika tidak ada header \verb|Host| yang tersedia.
@@ -201,7 +215,7 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-16: Simple Cache}
 \label{subsubsec:psr16}
 \begin{itemize}
-	\item
+	\item \textit{Library} pelaksana 
 \end{itemize}
 
 \subsubsection{PSR-17: HTTP Factories}
