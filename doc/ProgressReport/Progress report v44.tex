@@ -1,0 +1,163 @@
+\documentclass[a4paper,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[bahasa]{babel}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage[cm]{fullpage}
+\pagestyle{myheadings}
+\usepackage{etoolbox}
+\usepackage{setspace} 
+\usepackage{lipsum} 
+\setlength{\headsep}{30pt}
+\usepackage[inner=2cm,outer=2.5cm,top=2.5cm,bottom=2cm]{geometry} %margin
+% \pagestyle{empty}
+
+\makeatletter
+\renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
+\renewcommand{\thispagestyle}[1]{}
+\markright{\textbf{\textsc{Laporan Perkembangan Pengerjaan Skripsi\textemdash Sem. Genap 2022/2023}}}
+
+\onehalfspacing
+ 
+\begin{document}
+
+\title{\@judultopik}
+\author{\nama \textendash \@npm} 
+
+%ISILAH DATA BERIKUT INI:
+\newcommand{\nama}{Nicholas Khrisna Sandyawan}
+\newcommand{\@npm}{6181801060}
+\newcommand{\tanggal}{19/06/2023} %Tanggal pembuatan dokumen
+\newcommand{\@judultopik}{Evaluasi PHP Standards Recommendations pada Proyek SharIF Judge} % Judul/topik anda
+\newcommand{\kodetopik}{PAN5401}
+\newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
+\newcommand{\pembA}{Pascal Alfadian Nugroho}
+\newcommand{\pembB}{-}
+\newcommand{\semesterPertama}{54 - Genap 22/23} % semester pertama kali topik diambil, angka 1 dimulai dari sem Ganjil 96/97
+\newcommand{\lamaSkripsi}{1} % Jumlah semester untuk mengerjakan skripsi s.d. dokumen ini dibuat
+\newcommand{\kulPertama}{Skripsi 1} % Kuliah dimana topik ini diambil pertama kali
+\newcommand{\tipePR}{A} % tipe progress report :
+% A : dokumen pendukung untuk pengambilan ke-2 di Skripsi 1
+% B : dokumen untuk reviewer pada presentasi dan review Skripsi 1
+% C : dokumen pendukung untuk pengambilan ke-2 di Skripsi 2
+
+% Dokumen hasil template ini harus dicetak bolak-balik !!!!
+
+\maketitle
+
+\pagenumbering{arabic}
+
+\section{Data Skripsi} %TIDAK PERLU MENGUBAH BAGIAN INI !!!
+Pembimbing utama/tunggal: {\bf \pembA}\\
+Pembimbing pendamping: {\bf \pembB}\\
+Kode Topik : {\bf \kodetopik}\\
+Topik ini sudah dikerjakan selama : {\bf \lamaSkripsi} semester\\
+Pengambilan pertama kali topik ini pada : Semester {\bf \semesterPertama} \\
+Pengambilan pertama kali topik ini di kuliah : {\bf \kulPertama} \\
+Tipe Laporan : {\bf \tipePR} -
+\ifdefstring{\tipePR}{A}{
+			Dokumen pendukung untuk {\bf pengambilan ke-2 di Skripsi 1} }
+		{
+		\ifdefstring{\tipePR}{B} {
+				Dokumen untuk reviewer pada presentasi dan {\bf review Skripsi 1}}
+			{	Dokumen pendukung untuk {\bf pengambilan ke-2 di Skripsi 2}}
+		}
+		
+\section{Latar Belakang}
+Pengembangan aplikasi berbasis web dengan bahasa PHP cukup populer di kalangan pengembang web. Bahkan tersedia banyak \textit{framework} yang dapat digunakan untuk memudahkan pengembangannya. Salah satu \textit{framework} yang cukup populer adalah CodeIgniter. Walaupun demikian, masih cukup sering dijumpai masalah dalam pengembangan. Salah satunya adalah penulisan kode program yang tidak konsisten karena belum ditentukan aturan atau standar penulisan tertentu. Hal ini membuat suatu proyek aplikasi web menjadi rumit dan sulit dipelihara, terutama jika melibatkan banyak pengembang. 
+
+Salah satu proyek aplikasi berbasis web adalah SharIF Judge. SharIF Judge merupakan aplikasi berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas pada skripsi ini adalah \textit{fork} dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi fork ini sudah dikembangkan sesuai kebutuhan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah.
+
+PHP Standards Recommendation (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Standar-standar ini berisi aturan dan rekomendasi penulisan kode program PHP yang dapat memudahkan pengembangan aplikasi. Pada saat dokumen ini dibuat, terdapat 14 bab PSR yang berlaku untuk digunakan (Accepted). Di dalamnya terdapat kata kunci seperti ``MUST'', ``SHOULD'', ``MAY'', dan beberapa kata kunci lain sesuai dengan yang sudah diperinci dalam dokumen skripsi.
+
+Pada skripsi ini, kode-kode program PHP pada SharIF Judge akan diperiksa secara umum dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Selanjutnya akan dibuat rekomendasi berdasarkan hasil evaluasi tersebut. Masih akan ditentukan lagi strategi untuk melakukan semuanya itu, misalnya menggunakan bantuan \textit{tools} tertentu untuk automasi, bab-bab PSR apa saja yang relevan untuk digunakan sebagai standar evaluasi, dan seberapa banyak kode yang harus diperiksa secara manual. 
+\section{Rumusan Masalah}
+\begin{itemize}
+	\item Seberapa jauh PSR yang sudah terpenuhi ada SharIF Judge?
+	\item Bagaimana mengevaluasi kode PHP pada SharIF Judge sesuai PSR?  
+	\item Bagaimana memberikan rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi?
+\end{itemize}
+
+\section{Tujuan}
+Tujuan yang ingin dicapai dalam penulisan skripsi ini sebagai berikut:
+\begin{itemize}
+	\item Mengetahui seberapa jauh PSR yang sudah terpenuhi pada SharIF Judge.
+	\item Mengevaluasi kode PHP pada SharIF Judge sesuai PSR.
+	\item Memberikan rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi.
+\end{itemize}
+
+
+\section{Detail Perkembangan Pengerjaan Skripsi}
+Detail bagian pekerjaan skripsi sesuai dengan rencana kerja/laporan perkembangan terkahir :
+	\begin{enumerate}
+		\item \textbf{Mempelajari SharIF Judge versi \textit{fork}.}\\
+		{\bf Status :} Ada sejak rencana kerja skripsi.\\
+		{\bf Hasil :} Masih dipelajari lebih lanjut. SharIF Judge menggunakan \textit{framework} CodeIgniter dengan struktur yang baru bagi saya. Target kode program PHP yang akan dievaluasi adalah bagian yang bukan dari \textit{template} CodeIgniter.
+		
+		\item \textbf{Melakukan studi literatur mengenai PSR dan PHP Linter.}\\
+		{\bf Status :} Ada sejak rencana kerja skripsi.\\
+		{\bf Hasil :} Untuk saat ini PSR dicantumkan semuanya dalam Landasan Teori, kecuali dua bab yaitu PSR-07 dan PSR-12. Hal ini dikarenakan jumlah aturan yang harus diterjemahkan dan ditulis kembali sangat banyak sehingga dikhawatirkan akan memakan waktu yang lama. Setelah dipelajari lebih lanjut, PHP Linter tidak dijadikan sebagai Landasan Teori karena pada dasarnya \textit{linter} ini menggunakan PHP CS Fixer yang dimodifikasi. Maka dari itu, PHP Linter akan digantikan dengan PHP CS Fixer sebagai Landasan Teori. 
+
+		\item \textbf{Mengevaluasi PHP dari SharIF Judge sesuai dengan PSR.}\\
+		{\bf Status :} Ada sejak rencana kerja skripsi.\\
+		{\bf Hasil :} Proses evaluasi belum dilakukan karena saat ini sedang berada di tahap awal Bab 3.
+
+		\item \textbf{Menguji SharIF Judge yang sudah dievaluasi.}\\
+		{\bf Status :} Ada sejak rencana kerja skripsi.\\
+		{\bf Hasil :} Belum terlaksana karena proses evaluasi belum dilakukan.
+
+		\item \textbf{Memberikan rekomendasi sesuai hasil evaluasi.}\\
+		{\bf Status :} Ada sejak rencana kerja skripsi.\\
+		{\bf Hasil :} Belum terlaksana karena SharIF Judge belum dievaluasi.
+
+		\item \textbf{Menulis dokumen skripsi.}\\
+		{\bf Status :} Ada sejak rencana kerja skripsi.\\
+		{\bf Hasil :} Dokumen skripsi yang sudah dibuat adalah Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori. Pada saat ini sedang berada di tahap awal pengerjaan Bab 3.
+
+	\end{enumerate}
+
+\section{Pencapaian Rencana Kerja}
+Langkah-langkah kerja yang berhasil diselesaikan dalam Skripsi 1 ini adalah sebagai berikut:
+\begin{enumerate}
+\item Membuat dokumen skripsi Bab 1 Pendahuluan 
+\item Melakukan studi literasi PSR
+\item Mencoba salah satu \textit{linter} untuk melakukan automasi pemeriksaan \textit{file} PHP pada SharIF Judge yang berdasar pada PSR-01 dan PSR-12
+\end{enumerate}
+
+
+
+\section{Kendala yang Dihadapi}
+%TULISKAN BAGIAN INI JIKA DOKUMEN ANDA TIPE A ATAU C
+Kendala - kendala yang dihadapi selama mengerjakan skripsi :
+\begin{itemize}
+	\item Terlambat mengumpulkan dokumen Rencana Kerja Skripsi
+	\item Melakukan penundaan kerja atau prokrastinasi
+	\item Ada beberapa masalah pribadi yang cukup menyita waktu dan konsentrasi
+	
+\end{itemize}
+
+\vspace{1cm}
+\centering Bandung, \tanggal\\
+\vspace{2cm} \nama \\ 
+\vspace{1cm}
+
+Menyetujui, \\
+\ifdefstring{\jumpemb}{2}{
+\vspace{1.5cm}
+\begin{centering} Menyetujui,\\ \end{centering} \vspace{0.75cm}
+\begin{minipage}[b]{0.45\linewidth}
+% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013 \\
+\vspace{2cm} Nama: \pembA \\ Pembimbing Utama
+\end{minipage} \hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+\vspace{2cm} Nama: \pembB \\ Pembimbing Pendamping
+\end{minipage}
+\vspace{0.5cm}
+}{
+% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+\vspace{2cm} Nama: \pembA \\ Pembimbing Tunggal
+}
+\end{document}
+
