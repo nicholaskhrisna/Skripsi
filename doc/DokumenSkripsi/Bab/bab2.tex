@@ -109,30 +109,30 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-01: Basic Coding Standard}
 \label{subsubsec:psr01}
 \begin{itemize}
-	\item \textit{File} HARUS(1) menggunakan \textit{tag} \verb|<?php|  dan \verb|<?=| dan TIDAK(2) menggunakan variasi \textit{tag} lainnya.
-	\item \textit{File} HARUS(3) menggunakan UTF-8 tanpa BOM untuk kode PHP.
-	\item \textit{File} SEBAIKNYA(4) mendeklarasikan simbol (kelas, fungsi, konstanta, dan lain-lain) atau menyebabkan efek samping (misalnya menghasilkan output, mengubah pengaturan .ini, dan lain-lain), tetapi SEBAIKNYA TIDAK(5) keduanya.
-	\item \textit{Namespace} dan kelas HARUS(6) mengikuti PSR ``autoloading'': [PSR-0, PSR-4].
-	\item Nama kelas HARUS(7) dideklarasikan di \verb|StudlyCaps|.
-	\item Kode yang ditulis untuk PHP 5.3 dan setelahnya HARUS(8) menggunakan \textit{namespace} formal.
-	\item Kode yang ditulis untuk PHP 5.2.x dan sebelumnya SEBAIKNYA(9) menggunakan konvensi \textit{pseudo-namepsacing} dengan awalan  \verb|Vendor_|  pada nama kelas.
-	\item Konstanta kelas HARUS(10) dideklarasikan dalam huruf kapital dengan pemisah garis bawah.
-	\item Konvensi penamaan apa pun SEBAIKNYA(11) diterapkan secara konsisten dalam lingkup yang masuk akal, baik itu tingkat \textit{vendor}, tingkat \textit{package}, tingkat \textit{class}, atau tingkat \textit{method}.
-	\item Nama \textit{method} HARUS(12) dideklarasikan dalam \verb|camelCase|.
+	\item \textit{File} (PSR-0101) HARUS menggunakan \textit{tag} \verb|<?php|  dan \verb|<?=| dan (PSR-0102)TIDAK menggunakan variasi \textit{tag} lainnya.
+	\item \textit{File} (PSR-0103) HARUS menggunakan UTF-8 tanpa BOM untuk kode PHP.
+	\item \textit{File} (PSR-0104) SEBAIKNYA mendeklarasikan simbol (kelas, fungsi, konstanta, dan lain-lain) atau menyebabkan efek samping (misalnya menghasilkan output, mengubah pengaturan .ini, dan lain-lain), tetapi (PSR-0105) SEBAIKNYA TIDAK keduanya.
+	\item \textit{Namespace} dan kelas (PSR-0106) HARUS mengikuti PSR ``autoloading'': [PSR-4].
+	\item Nama kelas (PSR-0107) HARUS dideklarasikan di \verb|StudlyCaps|.
+	\item Kode yang ditulis untuk PHP 5.3 dan setelahnya (PSR-0108) HARUS menggunakan \textit{namespace} formal.
+	\item Kode yang ditulis untuk PHP 5.2.x dan sebelumnya (PSR-0109) SEBAIKNYA menggunakan konvensi \textit{pseudo-namepsacing} dengan awalan  \verb|Vendor_|  pada nama kelas.
+	\item Konstanta kelas (PSR-0110) HARUS dideklarasikan dalam huruf kapital dengan pemisah garis bawah.
+	\item Konvensi penamaan apa pun (PSR-0111) SEBAIKNYA diterapkan secara konsisten dalam lingkup yang masuk akal, baik itu tingkat \textit{vendor}, tingkat \textit{package}, tingkat \textit{class}, atau tingkat \textit{method}.
+	\item Nama \textit{method} (PSR-0112) HARUS dideklarasikan dalam \verb|camelCase|.
 \end{itemize}
 
 \subsubsection{PSR-03: Logger Interface}
 \label{subsubsec:psr03}
 \begin{itemize}
-	\item \verb|Logger Interface| memiliki delapan \textit{method} untuk menulis log ke delapan level RFC 5424 (debug, info, notice, warning, error, critical, alert, emergency). Terdapat satu \textit{method} lainnya, \verb|log|, menerima level log sebagai argumen pertama. Memanggil \textit{method} ini dengan salah satu konstanta level log HARUS(1) memiliki hasil yang sama dengan memanggil \textit{method} pada level yang spesifik. Memanggil \textit{method} ini dengan level yang tidak ada pada spesifikasi ini HARUS(2) melempar \verb|Psr\Log\InvalidArgumentException| jika implementasinya tidak tahu tentang level tersebut. Pengguna SEBAIKNYA JANGAN(3) menggunakan level versi berbeda tanpa tahu dengan pasti jika implementasi yang sekarang mendukung. 
-	\item Setiap \textit{method} menerima string sebagai pesan, atau objek dengan \textit{method} \verb|__toString()|. \textit{Implementor} BISA(4) memiliki \textit{handling} khusus untuk objek yang diteruskan. Jika bukan demikian, maka \textit{implementor} harus mengubahnya ke sebuah string.
-	\item Pesan BISA(5) memiliki \textit{placeholder} yang BISA(6) diganti oleh \textit{implementor} dari \textit{context array}.
+	\item \verb|Logger Interface| memiliki delapan \textit{method} untuk menulis log ke delapan level RFC 5424 (debug, info, notice, warning, error, critical, alert, emergency). Terdapat satu \textit{method} lainnya, \verb|log|, menerima level log sebagai argumen pertama. Memanggil \textit{method} ini dengan salah satu konstanta level log (PSR-0301) HARUS memiliki hasil yang sama dengan memanggil \textit{method} pada level yang spesifik. Memanggil \textit{method} ini dengan level yang tidak ada pada spesifikasi ini (PSR-0302) HARUS melempar \verb|Psr\Log\InvalidArgumentException| jika implementasinya tidak tahu tentang level tersebut. Pengguna (PSR-0303) SEBAIKNYA JANGAN menggunakan level versi berbeda tanpa tahu dengan pasti jika implementasi yang sekarang mendukung. 
+	\item Setiap \textit{method} menerima string sebagai pesan, atau objek dengan \textit{method} \verb|__toString()|. \textit{Implementor} (PSR-0304) BISA memiliki \textit{handling} khusus untuk objek yang diteruskan. Jika bukan demikian, maka \textit{implementor} harus mengubahnya ke sebuah string.
+	\item Pesan (PSR-0305) BISA memiliki \textit{placeholder} yang (PSR-0306) BISA diganti oleh \textit{implementor} dari \textit{context array}.
 	\item Nama \textit{placeholder} harus sesuai dengan kunci dalam \textit{context array}.
-	\item Nama placeholder HARUS(7) dipisahkan dengan kurung kurawal buka tunggal \verb|{| dan kurung kurawal tutup tunggal \verb|}|. TIDAK BOLEH(8) ada spasi kosong antara pembatas dan nama \textit{placeholder}.
-	\item Nama \textit{placeholder} SEBAIKNYA(9) hanya terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, garis bawah \verb|_|, dan titik \verb|.|.
-	\item \textit{Implementor} BISA(10) menggunakan \textit{placeholder} untuk menerapkan berbagai strategi \textit{escaping} dan menerjemahkan log untuk ditampilkan. Pengguna SEBAIKNYA TIDAK(11) melakukan \textit{pre-escape} nilai dalam \textit{placeholder} karena mereka tidak tahu dalam konteks mana data akan ditampilkan. 
-	\item Setiap \textit{method} menerima array sebagai data konteks. Ini dimaksudkan untuk menyimpan informasi asing yang tidak sesuai dengan string. Array dapat berisi apa saja. \textit{Implementor} HARUS(12) memastikan mereka memperlakukan data konteks dengan kelonggaran sebanyak mungkin. Nilai yang diberikan dalam konteks TIDAK BOLEH(13) melempar \textit{exception} atau menimbulkan \textit{error}, peringatan, atau pemberitahuan PHP apa pun.
-	\item Jika objek \verb|Exception| diteruskan dalam data konteks, maka HARUS(14) berada dalam \textit{key} \verb|`exception'|. \textit{Implementor} HARUS(15) tetap memastikan bahwa\textit{key} \verb|`exception'| adalah sebuah objek \verb|Exception|, karena isinya BISA(16) mengandung apa saja.
+	\item Nama placeholder (PSR-0307) HARUS dipisahkan dengan kurung kurawal buka tunggal \verb|{| dan kurung kurawal tutup tunggal \verb|}|. (PSR-0308) TIDAK BOLEH ada spasi kosong antara pembatas dan nama \textit{placeholder}.
+	\item Nama \textit{placeholder} (PSR-0309) SEBAIKNYA hanya terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, garis bawah \verb|_|, dan titik \verb|.|.
+	\item \textit{Implementor} (PSR-0310) BISA menggunakan \textit{placeholder} untuk menerapkan berbagai strategi \textit{escaping} dan menerjemahkan log untuk ditampilkan. Pengguna (PSR-0311) SEBAIKNYA TIDAK melakukan \textit{pre-escape} nilai dalam \textit{placeholder} karena mereka tidak tahu dalam konteks mana data akan ditampilkan. 
+	\item Setiap \textit{method} menerima array sebagai data konteks. Ini dimaksudkan untuk menyimpan informasi asing yang tidak sesuai dengan string. Array dapat berisi apa saja. \textit{Implementor} (PSR-0312) HARUS memastikan mereka memperlakukan data konteks dengan kelonggaran sebanyak mungkin. Nilai yang diberikan dalam konteks (PSR-0313) TIDAK BOLEH melempar \textit{exception} atau menimbulkan \textit{error}, peringatan, atau pemberitahuan PHP apa pun.
+	\item Jika objek \verb|Exception| diteruskan dalam data konteks, maka (PSR-0314) HARUS berada dalam \textit{key} \verb|`exception'|. \textit{Implementor} (PSR-0315) HARUS tetap memastikan bahwa\textit{key} \verb|`exception'| adalah sebuah objek \verb|Exception|, karena isinya (PSR-0316) BISA mengandung apa saja.
 \end{itemize}
 
 \subsubsection{PSR-04: Autoloading Standard}
@@ -141,27 +141,28 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 	\item Istilah ``kelas'' mengacu pada kelas, \textit{interface}, \textit{traits}, dan struktur lain yang serupa.
 	\item Nama kelas yang memenuhi syarat memiliki bentuk \verb|\<NamespaceName>(\<SubNamespaceNames>)*\<ClassName>| dengan spesifikasi berikut:
 	\begin{enumerate}
-		\item HARUS(1) memiliki nama \textit{namespace} tingkat tertinggi, atau dikenal sebagai ``vendor namespace''.
-		\item BISA(2) memiliki satu atau lebih nama \textit{sub-space}.
-		\item HARUS(3) memiliki nama kelas di akhir.
+		\item (PSR-0401) HARUS memiliki nama \textit{namespace} tingkat tertinggi, atau dikenal sebagai ``vendor namespace''.
+		\item (PSR-0402) BISA memiliki satu atau lebih nama \textit{sub-space}.
+		\item (PSR-0403) HARUS memiliki nama kelas di akhir.
 		\item Garis bawah tidak memiliki makna khusus.
-		\item Karakter abjad BISA(4) berisi kombinasi dari huruf kapital dan huruf kecil.
+		\item Karakter abjad (PSR-0404) BISA berisi kombinasi dari huruf kapital dan huruf kecil.
 		\item Semua nama kelas harus direferensikan dengan cara yang \textit{case-sensitive}.
 	\end{enumerate}
-	\item Implementasi \textit{autoloader} TIDAK BOLEH(5) melempar \textit{exception}, TIDAK BOLEH(6) memunculkan \textit{error} dalam tingkat apa pun, dan SEBAIKNYA TIDAK(7) mengembalikan nilai. 
+	\item Implementasi \textit{autoloader} (PSR-0405) TIDAK BOLEH melempar \textit{exception}, (PSR-0406) TIDAK BOLEH memunculkan \textit{error} dalam tingkat apa pun, dan (PSR-0407) SEBAIKNYA TIDAK mengembalikan nilai. 
 \end{itemize}
 
 \subsubsection{PSR-06: Caching Interface}
 \label{subsubsec:psr06}
 \begin{itemize}
-	\item \textit{Library} pelaksana HARUS(1) menyediakan kelas yang mengimplementasikan \textit{interface} \verb|Cache\CacheItemPoolInterface| dan \verb|Cache\CacheItemInterface|. Impementasinya HARUS(2) mendukung fungsionalitas TTL minimum dengan perincian detik yang penuh. Time To Live (TTL) suatu item adalah jumlah waktu antara waktu saat item tersebut disimpan dan ketika item dianggap kedaluwarsa. TTL biasanya didefinisikan dalam bentuk bilangan bulat (integer) yang mewakili waktu dalam detik, atau sebuah objek DateInterval.
-	\item \textit{Libarary} pelaksana BISA(3) mengakhiri masa berlaku item sebelum \textit{Expiration Time} yang diminta, tetapi HARUS(4) mengakhiri masa berlaku item tersebut jika \textit{Expiration Time} sudah tercapai. Jika suatu \textit{libary} meminta item untuk disimpan tanpa menentukan waktu kedaluwarsa, atau ditentukan isinya null atau TTL,  \textit{library} pelaksana BISA(5) menggunakan durasi default yang sudah dikonfigurasi. Jika belum ada durasi defaut yang dikonfigurasi, maka \textit{library} pelaksana HARUS(6) menafsirkannya sebagai permintaan untuk menyimpan item dalam cache selamanya, atau selama implementasi yang mendasarinya mendukung.
-	\item \textit{Key} adalah suatu string yang terdiri dari minimal satu karakter yang secara unik mengidentifikasi item yang di-\textit{cache}. \textit{Library} pelaksana HARUS(7) mendukung \textit{key} yang terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, \verb|_|, dan \verb|.| dengan urutan apa pun dalam pengkodean UTF-8 dan maksimum 64 karakter. \textit{Library} pelaksana BISA(8) mendukung karakter tambahan dan pengkodean atau karakter yang lebih banyak, namun harus memenuhi syarat minimum di atas.
-	\item Dalam mengimplementasikan \textit{library} semuanya HARUS(9) mendukung semua tipe data PHP bersambung, termasuk: String, Integer, Float, Boolean, Null, Array, dan Object.
+	\item \textit{Library} pelaksana (PSR-0601) HARUS menyediakan kelas yang mengimplementasikan \textit{interface} \verb|Cache\CacheItemPoolInterface| dan \verb|Cache\CacheItemInterface|. Impementasinya (PSR-0602) HARUS mendukung fungsionalitas TTL minimum dengan perincian detik yang penuh. Time To Live (TTL) suatu item adalah jumlah waktu antara waktu saat item tersebut disimpan dan ketika item dianggap kedaluwarsa. TTL biasanya didefinisikan dalam bentuk bilangan bulat (integer) yang mewakili waktu dalam detik, atau sebuah objek DateInterval.
+	\item \textit{Libarary} pelaksana (PSR-0603) BISA mengakhiri masa berlaku item sebelum \textit{Expiration Time} yang diminta, tetapi (PSR-0604) HARUS mengakhiri masa berlaku item tersebut jika \textit{Expiration Time} sudah tercapai. Jika suatu \textit{libary} meminta item untuk disimpan tanpa menentukan waktu kedaluwarsa, atau ditentukan isinya null atau TTL,  \textit{library} pelaksana (PSR-0605) BISA menggunakan durasi default yang sudah dikonfigurasi. Jika belum ada durasi defaut yang dikonfigurasi, maka \textit{library} pelaksana (PSR-0606) HARUS menafsirkannya sebagai permintaan untuk menyimpan item dalam cache selamanya, atau selama implementasi yang mendasarinya mendukung.
+	\item \textit{Key} adalah suatu string yang terdiri dari minimal satu karakter yang secara unik mengidentifikasi item yang di-\textit{cache}. \textit{Library} pelaksana (PSR-0607) HARUS mendukung \textit{key} yang terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, \verb|_|, dan \verb|.| dengan urutan apa pun dalam pengkodean UTF-8 dan maksimum 64 karakter. \textit{Library} pelaksana (PSR-0608) BISA mendukung karakter tambahan dan pengkodean atau karakter yang lebih banyak, namun harus memenuhi syarat minimum di atas.
+	\item Dalam mengimplementasikan \textit{library} semuanya (PSR-0609) HARUS mendukung semua tipe data PHP bersambung, termasuk: String, Integer, Float, Boolean, Null, Array, dan Object.
 \end{itemize}
 
 \subsubsection{PSR-07: HTTP Message Interface}
 \label{subsubsec:psr07}
+Standar PSR-07 tidak ditulis pada dokumen ini.
 \begin{comment}
 \begin{itemize}
 	\item Pesan HTTP dapat berupa permintaan dari klien ke server atau respons dari server ke klien.
@@ -178,8 +179,6 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \begin{itemize}
 	\item \textit{Entry identifier} adalah string legal PHP apa pun yang setidaknya terdiri dari satu karakter unik yang mengidentifikasi sebuah item dalam suatu \textit{container}. \textit{Entry identifier} adalah sebuah string buram, maka pemanggil SEBAIKNYA TIDAK berasumsi bahwa struktur string memiliki makna semantik apa pun.
 	\item Dalam \verb|Psr\Container\ContainerInterface| terdapat 2 metode: \verb|get| dan \verb|has|.
-	\item 
-	\item 
 	\item Pengecualian yang diberikan secara langsung oleh \textit{container} SEBAIKNYA mengimplementasi \verb|Psr\Container\ContainerExceptionInterface|.
 	\item Panggilan ke metode \verb|get| dengan id yang tidak ada HARUS memunculkan \verb|Psr\Container\NotFoundExceptionInterface|.
 	\item Pengguna SEBAIKNYA TIDAK meneruskan suatu \textit{container} ke objek sehingga objek dapat mengambil sendiri dependensinya. Hal ini berarti \textit{container} digunakan sebagai \textit{Service Locator} yang merupakan pola yang umumnya tidak dianjurkan.
@@ -187,9 +186,8 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 
 \subsubsection{PSR-12: Extended Coding Style Guide}
 \label{subsubsec:psr12}
-\begin{itemize}
-	
-\end{itemize}
+Standar PSR-07 tidak ditulis pada dokumen ini.
+
 
 \subsubsection{PSR-13: Hypermedia Links}
 \label{subsubsec:psr13}
@@ -197,34 +195,35 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 	\item 
 \end{itemize}
 
+
 \subsubsection{PSR-14: Event Dispatcher}
 \label{subsubsec:psr14}
 \begin{itemize}
-	\item Sebuah \textit{Listener} BISA(1) melakukan beberapa \textit{behavior} asinkron jika diinginkan.
-	\item Sebuah \textit{Dispatcher} bertanggung jawab untuk memastikan bahwa \textit{Event} diteruskan ke semua \textit{Listener} yang relevan, tetapi HARUS(2) menunggu sesuai \textit{listener} yang bertanggung jawab ke \textit{Listener Provider}.
-	\item Sebuah \textit{Listener Provider} bertanggung jawab untuk menentukan \textit{Listener} apa yang relevan sesuai \textit{Event} tertentu, tetapi TIDAK BOLEH(3) memanggil \textit{Listener} itu sendiri.
+	\item Sebuah \textit{Listener} (PSR-1401) BISA melakukan beberapa \textit{behavior} asinkron jika diinginkan.
+	\item Sebuah \textit{Dispatcher} bertanggung jawab untuk memastikan bahwa \textit{Event} diteruskan ke semua \textit{Listener} yang relevan, tetapi (PSR-1402) HARUS menunggu sesuai \textit{listener} yang bertanggung jawab ke \textit{Listener Provider}.
+	\item Sebuah \textit{Listener Provider} bertanggung jawab untuk menentukan \textit{Listener} apa yang relevan sesuai \textit{Event} tertentu, tetapi (PSR-1403) TIDAK BOLEH memanggil \textit{Listener} itu sendiri.
 	\item Objek \textit{Event} BISA berubah jika kasus penggunaannya memanggil \textit{Listener} yang memberikan informasi ke \textit{Emitter}.
-	\item Jika tidak ada komunikasi dua arah yang diperlukan, maka DIREKOMENDASIKAN(4) agar \textit{Event} ditetapkan sebagai \textit{mutable}; yaitu didefinisikan sedemikian rupa sehingga tidak memiliki \textit{method} mutator.
-	\item Pengimplementasi HARUS(5) berasumsi bahwa objek yang sama akan diteruskan ke semua \textit{Listener}.
-	\item DIREKOMENDASIKAN(6) tetapi TIDAK DIHARUSKAN bahwa objek \textit{Event} mendukung serialisasi dan deserialisasi \textit{lossless}; \verb|$event == unserialize(serialize($event))| SEBAIKNYA(7) bernilai  \textit{true}.
-	\item Objek BISA(8) memanfaatkan \textit{interface} PHP \verb|Serializable|, \verb|__sleep()| atau \verb|__wakeup()| \textit{magic method}, atau fungsionalitas bahasa yang serupa jika dibutuhkan.
-	\item Sebuah \textit{Event} yang mengimplementasikan \verb|StoppableEventInterface| HARUS(9) mengembalikan \verb|true| dari \verb|isPropagationStopped()| ketika \textit{Event} apa pun yang direpresentasikannya telah selesai.
-	\item Sebuah \textit{Listener} HARUS(10) memiliki satu dan hanya satu parameter, yaitu \textit{Event} yang diresponsnya.
-	\item \textit{Listener} SEBAIKNYA(11) menuliskan petunjuk bahwa parameter secara spesifik relevan untuk kasus penggunaannya; yaitu \textit{Listener} BISA(12) menuliskan petunjuk terhadap sebuah \textit{interface} untuk menunjukkan bahwa \textit{interface} tersebut kompatibel dengan semua jenis \textit{Event} yang mengimplementasikannya, atau dengan implementasi khusus dari antarmuka tersebut.
+	\item Jika tidak ada komunikasi dua arah yang diperlukan, maka (PSR-1404) DIREKOMENDASIKAN agar \textit{Event} ditetapkan sebagai \textit{mutable}; yaitu didefinisikan sedemikian rupa sehingga tidak memiliki \textit{method} mutator.
+	\item Pengimplementasi (PSR-1405) HARUS berasumsi bahwa objek yang sama akan diteruskan ke semua \textit{Listener}.
+	\item (PSR-1406) DIREKOMENDASIKAN tetapi (PSR-1407) TIDAK DIHARUSKAN bahwa objek \textit{Event} mendukung serialisasi dan deserialisasi \textit{lossless}; \verb|$event == unserialize(serialize($event))| (PSR-1408) SEBAIKNYA bernilai  \textit{true}.
+	\item Objek (PSR-1409) BISA memanfaatkan \textit{interface} PHP \verb|Serializable|, \verb|__sleep()| atau \verb|__wakeup()| \textit{magic method}, atau fungsionalitas bahasa yang serupa jika dibutuhkan.
+	\item Sebuah \textit{Event} yang mengimplementasikan \verb|StoppableEventInterface| (PSR-1410) HARUS mengembalikan \verb|true| dari \verb|isPropagationStopped()| ketika \textit{Event} apa pun yang direpresentasikannya telah selesai.
+	\item Sebuah \textit{Listener} (PSR-1411) HARUS memiliki satu dan hanya satu parameter, yaitu \textit{Event} yang diresponsnya.
+	\item \textit{Listener} (PSR-1412) SEBAIKNYA menuliskan petunjuk bahwa parameter secara spesifik relevan untuk kasus penggunaannya; yaitu \textit{Listener} (PSR-1413) BISA menuliskan petunjuk terhadap sebuah \textit{interface} untuk menunjukkan bahwa \textit{interface} tersebut kompatibel dengan semua jenis \textit{Event} yang mengimplementasikannya, atau dengan implementasi khusus dari antarmuka tersebut.
 \end{itemize}
 
 \subsubsection{PSR-15: HTTP Handlers}
 \label{subsubsec:psr15}
 \begin{itemize}
-	\item \textit{Request handler} BOLEH(1) memberi pengecualian jika kondisi permintaan mencegahnya untuk membuat respons. Jenis pengecualiannya tidak ditentukan.
-	\item Setiap \textit{request handler} yang menggunakan standar ini HARUS(2) mengimplementasikan \textit{interface} \verb|Psr\Http\Server\RequestHandlerInterface|.
-	\item Komponen \textit{middleware} BOLEH(3) membuat dan mengembalikan respons tanpa mendelegasikan ke \textit{request handler}, jika kondisi yang dibutuhkan sudah terpenuhi.
-	\item \textit{Middleware} yang menggunakan standar ini HARUS(4) mengimplementasikan \textit{interface} \verb|Psr\Http\Server\MiddlewareInterface|.
-	\item Setiap \textit{middleware} atau \textit{request handler} yang menghasilkan respons DIREKOMENDASIKAN(5) untuk membuat prototipe PSR-07 \verb|ResponseInterface| atau pabrik yang mampu menghasilkan \textit{instance} \verb|ResponseInterface| untuk mencegah ketergantungan pada implementasi pesan HTTP tertentu.
-	\item Setiap aplikasi yang menggunakan \textit{middleware} DIREKOMENDASIKAN(6) untuk menyertakan komponen yang menangkap pengecualian dan mengubahnya menjadi respons. \textit{Middleware} ini HARUS(7) menjadi komponen pertama yang dieksekusi dan mencakup semua pemrosesan lebih lanjut untuk memasukan bahwa respons selalu dibuat. 
-	\item Sebuah \textit{Listener} SEBAIKNYA(8) memiliki kembalian \verb|void|, dan SEBAIKNYA(9) menuliskan petunjuk yang mengembalikan secara eksplisit. Sebuah \textit{Dispatcher} HARUS(10) mengabaikan nilai kembalian dari \textit{Listener}.
-	\item Sebuah \textit{Listener} BISA(11) mendelegasikan tindakan ke kode lain. Hal ini termasuk \textit{Listener} yang menjadi pembungkus sebuah objek yang menjalankan \textit{business logic} yang sebenarnya.
-	\item Sebuah Listener BISA(12) menyusun informasi dari \textit{Event} untuk diproses nanti oleh proses sekunder, menggunakan cron, sebuah server antrean, atau dengan teknik serupa. Hal ini BISA(13) membuat serial objek \textit{Event} itu sendiri untuk melakukannya; namun harus berhati-hati agar tidak semua objek \textit{Event} dapat diserialkan dengan aman. Sebuah proses sekunder HARUS(14) berasumsi bahwa setiap perubahan yang dibuatnya ke suatu objek \textit{Event} tidak akan menyebar ke \textit{Listener} lain. 
+	\item \textit{Request handler} (PSR-1501) BOLEH memberi pengecualian jika kondisi permintaan mencegahnya untuk membuat respons. Jenis pengecualiannya tidak ditentukan.
+	\item Setiap \textit{request handler} yang menggunakan standar ini (PSR-1502) HARUS mengimplementasikan \textit{interface} \verb|Psr\Http\Server\RequestHandlerInterface|.
+	\item Komponen \textit{middleware} (PSR-1503) BOLEH membuat dan mengembalikan respons tanpa mendelegasikan ke \textit{request handler}, jika kondisi yang dibutuhkan sudah terpenuhi.
+	\item \textit{Middleware} yang menggunakan standar ini (PSR-1504) HARUS mengimplementasikan \textit{interface} \verb|Psr\Http\Server\MiddlewareInterface|.
+	\item Setiap \textit{middleware} atau \textit{request handler} yang menghasilkan respons (PSR-1505) DIREKOMENDASIKAN untuk membuat prototipe PSR-07 \verb|ResponseInterface| atau pabrik yang mampu menghasilkan \textit{instance} \verb|ResponseInterface| untuk mencegah ketergantungan pada implementasi pesan HTTP tertentu.
+	\item Setiap aplikasi yang menggunakan \textit{middleware} (PSR-1506) DIREKOMENDASIKAN untuk menyertakan komponen yang menangkap pengecualian dan mengubahnya menjadi respons. \textit{Middleware} ini (PSR-1507) HARUS menjadi komponen pertama yang dieksekusi dan mencakup semua pemrosesan lebih lanjut untuk memasukan bahwa respons selalu dibuat. 
+	\item Sebuah \textit{Listener} (PSR-1508) SEBAIKNYA memiliki kembalian \verb|void|, dan (PSR-1509) SEBAIKNYA menuliskan petunjuk yang mengembalikan secara eksplisit. Sebuah \textit{Dispatcher} (PSR-1510) HARUS mengabaikan nilai kembalian dari \textit{Listener}.
+	\item Sebuah \textit{Listener} (PSR-1511) BISA mendelegasikan tindakan ke kode lain. Hal ini termasuk \textit{Listener} yang menjadi pembungkus sebuah objek yang menjalankan \textit{business logic} yang sebenarnya.
+	\item Sebuah Listener (PSR-1512) BISA menyusun informasi dari \textit{Event} untuk diproses nanti oleh proses sekunder, menggunakan cron, sebuah server antrean, atau dengan teknik serupa. Hal ini (PSR-1513) BISA membuat serial objek \textit{Event} itu sendiri untuk melakukannya; namun harus berhati-hati agar tidak semua objek \textit{Event} dapat diserialkan dengan aman. Sebuah proses sekunder (PSR-1514) HARUS berasumsi bahwa setiap perubahan yang dibuatnya ke suatu objek \textit{Event} tidak akan menyebar ke \textit{Listener} lain. 
 \end{itemize}
 
 \subsubsection{PSR-16: Simple Cache}
@@ -236,7 +235,7 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-17: HTTP Factories}
 \label{subsubsec:psr17}
 \begin{itemize}
-	\item HTTP \textit{factory} adalah metode yang digunakan untuk membuat objek HTTP baru sesuai yang didefinisikan oleh PSR-07. Setiap HTTP \textit{factory} HARUS(1) mengimplementasi semua \textit{interface} berikut untuk setiap tipe objek yang disediakan oleh \textit{package}. \textit{Interface} berikut ini BOLEH(2) diimplementasikan bersama dalam satu kelas atau kelas terpisah.
+	\item HTTP \textit{factory} adalah metode yang digunakan untuk membuat objek HTTP baru sesuai yang didefinisikan oleh PSR-07. Setiap HTTP \textit{factory} (PSR-1701) HARUS mengimplementasi semua \textit{interface} berikut untuk setiap tipe objek yang disediakan oleh \textit{package}. \textit{Interface} berikut ini (PSR-1701) BOLEH diimplementasikan bersama dalam satu kelas atau kelas terpisah.
 	\begin{enumerate}
 		\item RequestFactoryInterface
 		\item ResponseFactoryInterface
@@ -250,23 +249,23 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 \subsubsection{PSR-18: HTTP Client}
 \label{subsubsec:psr18}
 \begin{itemize}
-	\item Klien BOLEH(1) mengirim permintaan HTTP yang diubah dari yang disediakan, misalnya melakukan \textit{compress} pada badan pesan yang dikirim.
-	\item Klien BOLEH(2) memilih untuk mengubah respons HTTP yang diterima sebelum mengembalikannya ke \textit{library} pemanggil, misalnya melakukan \textit{decompress} isi pesan yang masuk. 
-	\item Jika klien memilih untuk mengubah permintaan HTTP atau respons HTTP, klien HARUS(3) memastikan bahwa objek tetap konsisten secara internal. Misalnya, jika klien memilih untuk dekompresi isi pesan, maka klien juga HARUS(4) menghapus header \verb|Content-Encoding| dan menyesuaikan header \verb|Content-Length|.
+	\item Klien (PSR-1801) BOLEH mengirim permintaan HTTP yang diubah dari yang disediakan, misalnya melakukan \textit{compress} pada badan pesan yang dikirim.
+	\item Klien (PSR-1802) BOLEH memilih untuk mengubah respons HTTP yang diterima sebelum mengembalikannya ke \textit{library} pemanggil, misalnya melakukan \textit{decompress} isi pesan yang masuk. 
+	\item Jika klien memilih untuk mengubah permintaan HTTP atau respons HTTP, klien (PSR-1803) HARUS memastikan bahwa objek tetap konsisten secara internal. Misalnya, jika klien memilih untuk dekompresi isi pesan, maka klien juga (PSR-1804) HARUS menghapus header \verb|Content-Encoding| dan menyesuaikan header \verb|Content-Length|.
 	\item 
-	\item Klien HARUS(5) menyusun kembali respons HTTP 1xx multi-langkah secara mandiri sehingga apa yang dikembalikan ke \textit{library} pemanggil adalah respons HTTP yang valid dengan kode status 200 atau di atasnya.
+	\item Klien (PSR-1805) HARUS menyusun kembali respons HTTP 1xx multi-langkah secara mandiri sehingga apa yang dikembalikan ke \textit{library} pemanggil adalah respons HTTP yang valid dengan kode status 200 atau di atasnya.
 	
-	\item Klien TIDAK BOLEH(6) memperlakukan permintaan atau respons HTTP yang dibuat dengan baik sebagai kondisi \textit{error}. Sebagai contoh, kode status respons dalam rentang 400 dan 500 TIDAK BOLEH(7) menimbulkan pengecualian dan HARUS(8) dikembalikan ke \textit{library} pemanggil seperti biasa.
-	\item Klien HARUS(9) memberikan \textit{instance} \verb|Psr\Http\Client\ClientExceptionInterface| jika dan hanya jika tidak dapat mengirim permintaan HTTP sama sekali atau jika respons HTTP tidak dapat diuraikan menjadi objek respons PSR-07.
-	\item Jika permintaan tidak dapat dikirim karena pesan permintaan bukan permintaan HTTP yang dibuat dengan baik atau kehilangan beberapa informasi penting (seperti Host atau Method), klien HARUS(10)  memberikan \textit{instance} \verb|Psr\Http\Client\RequestExceptionInterface|.
-	\item Jika permintaan tidak dapat dikirim karena kegagalan jaringan dalam bentuk apa pun, termasuk \textit{timeout}, klien HARUS(11) memberi instance \verb|Psr\Http\Client\NetworkExceptionInterface|.
-	\item Klien MUNGKIN(12) memberikan pengecualian yang lebih spesifik daripada yang ditentukan di sini (misalnya \verb|TimeOutException| atau \verb|HostNotFoundException|), asalkan mereka mengimplementasikan antarmuka yang sesuai yang ditentukan di atas.
+	\item Klien (PSR-1806) TIDAK BOLEH memperlakukan permintaan atau respons HTTP yang dibuat dengan baik sebagai kondisi \textit{error}. Sebagai contoh, kode status respons dalam rentang 400 dan 500 (PSR-1807) TIDAK BOLEH menimbulkan pengecualian dan (PSR-1808) HARUS dikembalikan ke \textit{library} pemanggil seperti biasa.
+	\item Klien (PSR-1809) HARUS memberikan \textit{instance} \verb|Psr\Http\Client\ClientExceptionInterface| jika dan hanya jika tidak dapat mengirim permintaan HTTP sama sekali atau jika respons HTTP tidak dapat diuraikan menjadi objek respons PSR-07.
+	\item Jika permintaan tidak dapat dikirim karena pesan permintaan bukan permintaan HTTP yang dibuat dengan baik atau kehilangan beberapa informasi penting (seperti Host atau Method), klien (PSR-1810) HARUS memberikan \textit{instance} \verb|Psr\Http\Client\RequestExceptionInterface|.
+	\item Jika permintaan tidak dapat dikirim karena kegagalan jaringan dalam bentuk apa pun, termasuk \textit{timeout}, klien (PSR-1811) HARUS memberi instance \verb|Psr\Http\Client\NetworkExceptionInterface|.
+	\item Klien (PSR-1812) MUNGKIN memberikan pengecualian yang lebih spesifik daripada yang ditentukan di sini (misalnya \verb|TimeOutException| atau \verb|HostNotFoundException|), asalkan mereka mengimplementasikan antarmuka yang sesuai yang ditentukan di atas.
 \end{itemize}
 
 \subsubsection{PSR-20: Clock}
 \label{subsubsec:psr20}
 \begin{itemize}
-	\item Kembalian waktu HARUS(1) ditulis sebagai \verb|\DateTimeImmutable|    
+	\item Kembalian waktu (PSR-2001) HARUS ditulis sebagai \verb|\DateTimeImmutable|    
 \end{itemize}
 
 \subsection{Draft}
