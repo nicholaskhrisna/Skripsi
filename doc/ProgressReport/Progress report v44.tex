@@ -65,13 +65,30 @@ Tipe Laporan : {\bf \tipePR} -
 		}
 		
 \section{Latar Belakang}
-Pengembangan aplikasi berbasis web dengan bahasa PHP cukup populer di kalangan pengembang web. Bahkan tersedia banyak \textit{framework} yang dapat digunakan untuk memudahkan pengembangannya. Salah satu \textit{framework} yang cukup populer adalah CodeIgniter. Walaupun demikian, masih cukup sering dijumpai masalah dalam pengembangan. Salah satunya adalah penulisan kode program yang tidak konsisten karena belum ditentukan aturan atau standar penulisan tertentu. Hal ini membuat suatu proyek aplikasi web menjadi rumit dan sulit dipelihara, terutama jika melibatkan banyak pengembang. 
+Pengembangan aplikasi berbasis web dengan bahasa PHP cukup populer di kalangan pengembang web. Bahkan tersedia banyak \textit{framework} yang dapat digunakan untuk memudahkan pengembangannya. Walaupun demikian, masih cukup sering dijumpai masalah dalam pengembangan. Salah satunya adalah penulisan kode program yang tidak konsisten karena belum ditentukan aturan atau standar penulisan tertentu. Hal ini membuat suatu proyek aplikasi web menjadi rumit dan sulit dipelihara, terutama jika melibatkan banyak pengembang. 
 
-Salah satu proyek aplikasi berbasis web adalah SharIF Judge. SharIF Judge merupakan aplikasi berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas pada skripsi ini adalah \textit{fork} dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi fork ini sudah dikembangkan sesuai kebutuhan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah.
+Salah satu proyek aplikasi berbasis web adalah SharIF Judge. SharIF Judge merupakan aplikasi berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. Aplikasi ini ditulis dengan  \textit{framework} PHP CodeIgniter dan bagian \textit{backend} dibuat dengan BASH. SharIF Judge yang dibahas pada skripsi ini adalah \textit{fork} dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi \textit{fork} ini sudah dikembangkan sesuai kebutuhan Teknik Informatika UNPAR untuk digunakan dalam proses penilaian pada beberapa mata kuliah. 
 
-PHP Standards Recommendation (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Standar-standar ini berisi aturan dan rekomendasi penulisan kode program PHP yang dapat memudahkan pengembangan aplikasi. Pada saat dokumen ini dibuat, terdapat 14 bab PSR yang berlaku untuk digunakan (Accepted). Di dalamnya terdapat kata kunci seperti ``MUST'', ``SHOULD'', ``MAY'', dan beberapa kata kunci lain sesuai dengan yang sudah diperinci dalam dokumen skripsi.
+PHP Standards Recommendation (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Standar-standar ini berisi aturan dan rekomendasi penulisan kode program PHP yang dapat memudahkan pengembangan aplikasi agar lebih konsisten. Dokumentasinya dapat diakses di internet. Pada saat dokumen ini dibuat, terdapat 14 bab PSR yang berlaku untuk digunakan (Accepted) antara lain:
+\begin{itemize}
+	\item PSR-01: Basic Coding Standard
+	\item PSR-03: Logger Interface
+	\item PSR-04: Autoloading Standard
+	\item PSR-06: Caching Interface
+	\item PSR-07: HTTP Message Interface
+	\item PSR-11: Container Interface
+	\item PSR-12: Extended Coding Style Guide
+	\item PSR-13: Hypermedia Links
+	\item PSR-14: Event Dispatcher
+	\item PSR-15: HTTP Handlers
+	\item PSR-16: Simple Cache
+	\item PSR-17: HTTP Factories
+	\item PSR-18: HTTP Client
+	\item PSR-20: Clock
+\end{itemize}
+Standar yang digunakan hanya dari bab-bab yang berstatus ``Accepted''. Bab dengan status lain yaitu ``Draft'', ``Abandoned'', dan ``Deprecated'' tidak akan digunakan sehingga tidak dicantumkan dalam dokumen skripsi.
 
-Pada skripsi ini, kode-kode program PHP pada SharIF Judge akan diperiksa secara umum dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Selanjutnya akan dibuat rekomendasi berdasarkan hasil evaluasi tersebut. Masih akan ditentukan lagi strategi untuk melakukan semuanya itu, misalnya menggunakan bantuan \textit{tools} tertentu untuk automasi, bab-bab PSR apa saja yang relevan untuk digunakan sebagai standar evaluasi, dan seberapa banyak kode yang harus diperiksa secara manual. 
+Pada skripsi ini, kode-kode program PHP pada SharIF Judge akan diperiksa secara umum dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Selanjutnya akan dibuat rekomendasi untuk meningkatkan jumlah standar PSR yang dapat dipenuhi berdasarkan hasil evaluasi tersebut. Masih akan ditentukan lagi strategi untuk melakukannya, misalnya menggunakan bantuan \textit{tools} tertentu untuk automasi, bab-bab PSR apa saja yang relevan untuk digunakan sebagai standar evaluasi, dan seberapa banyak kode yang harus diperiksa secara manual. 
 \section{Rumusan Masalah}
 \begin{itemize}
 	\item Seberapa jauh PSR yang sudah terpenuhi ada SharIF Judge?
@@ -93,19 +110,32 @@ Detail bagian pekerjaan skripsi sesuai dengan rencana kerja/laporan perkembangan
 	\begin{enumerate}
 		\item \textbf{Mempelajari SharIF Judge versi \textit{fork}.}\\
 		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :} Masih dipelajari lebih lanjut. SharIF Judge menggunakan \textit{framework} CodeIgniter dengan struktur yang baru bagi saya. Target kode program PHP yang akan dievaluasi adalah bagian yang bukan dari \textit{template} CodeIgniter.
+		{\bf Hasil :} Studi tentang SharIF Judge belum selesai dan masih dipelajari lebih lanjut. Isinya dalam Landasan Teori masih sebagian yang selesai. SharIF Judge menggunakan \textit{framework} CodeIgniter dengan struktur yang baru bagi saya. Target kode program PHP yang akan dievaluasi adalah bagian yang bukan dari \textit{template} CodeIgniter. 
 		
-		\item \textbf{Melakukan studi literatur mengenai PSR dan PHP Linter.}\\
+		\item \textbf{Melakukan studi literatur mengenai PSR dan PHP \textit{linter}.}\\
 		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :} Untuk saat ini PSR dicantumkan semuanya dalam Landasan Teori, kecuali dua bab yaitu PSR-07 dan PSR-12. Hal ini dikarenakan jumlah aturan yang harus diterjemahkan dan ditulis kembali sangat banyak sehingga dikhawatirkan akan memakan waktu yang lama. Setelah dipelajari lebih lanjut, PHP Linter tidak dijadikan sebagai Landasan Teori karena pada dasarnya \textit{linter} ini menggunakan PHP CS Fixer yang dimodifikasi. Maka dari itu, PHP Linter akan digantikan dengan PHP CS Fixer sebagai Landasan Teori. 
+		{\bf Hasil :} Berikut adalah perincian dari hasilnya.
+		\begin{itemize}
+			\item Penulisan standar-standar PSR ini diterjemahkan dari bahasa Inggris ke bahasa Indonesia. Salah satu tantangan dalam menerjemahkan PSR ini adalah tidak setiap aturan ditulis dalam bentuk \textit{list} yang mudah untuk dibaca. Banyak di antaranya merupakan bagian dari suatu paragraf yang berkelanjutan dengan konteksnya masing-masing sehingga penjelasan atau deskripsinya perlu dicantumkan pula dalam Landasan Teori agar tidak ada standar yang bermakna ambigu atau tidak jelas. Untuk saat ini, PSR dicantumkan semuanya dalam Landasan Teori kecuali dua bab yaitu PSR-07 dan PSR-12. Hal ini dikarenakan jumlah aturan yang harus diterjemahkan dan ditulis kembali cukup banyak sehingga dikhawatirkan akan memakan waktu yang lama. Untuk sementara, hal ini dicantumkan dalam Batasan Masalah. Jika memungkinkan, kedua bab ini akan disertakan semuanya dalam Landasan Teori nantinya.
+			\item Ada beberapa kata kunci yang harus ditaati dalam standar PSR berdasarkan dokumen Request For Comments (RFC) 2119, yaitu ``MUST'', ``MUST NOT'', ``SHOULD'', ``SHOULD NOT'', dan ``MAY''. Setiap kata kunci ditulis dengan huruf kapital dan memiliki tingkat prioritas yang berbeda dalam hal keharusannya. Selain itu ada beberapa sinonim dari kata kunci yang dipakai juga dalam PSR dengan huruf kapital, misalnya ``REQUIRED'' berada di tingkat yang sama dengan ``MUST'' yang berarti aturan dalam standar tersebut harus dipenuhi. Maka dari itu, setiap kata kunci dikelompokkan berdasarkan tingkatan tersebut dan diterjemahkan ke bahasa Indonesia agar penulisan dokumen skripsi menjadi konsisten dan tidak mengubah makna dari standar yang asli.  
+			\item Setiap standar diberikan kode tertentu agar mudah untuk dirujuk nantinya dari bab-bab lain dalam dokumen skripsi. Kode tersebut ditulis dengan format PSR-XXYY, di mana XX adalah nomor bab dan YY adalah nomor standar dalam bab tersebut. Sebagai contoh PSR-0402 berarti mengacu pada standar PSR nomor 2 dari bab PSR-04. 
+			\item PHP \textit{linter} pada dasarnya digunakan untuk membantu melakukan pengecekan penulisan kode PHP secara keseluruhan dengan standar tertentu. Saya sudah mencoba PHP \textit{linter} yang dibuat oleh pengguna GitHub dengan nama Brueggern. \textit{Linter} ini hanya mengecek berdasarkan PSR-02 (Deprecated) dan PSR-12. Fiturnya dapat menunjukkan kesalahan penulisan dan memberikan rekomendasi perbaikannya. Satu fitur lainnya yaitu perintah untuk memperbaiki kesalahan-kesalahan tersebut. Namun setelah dipelajari lebih lanjut, PHP \textit{linter} tersebut pada dasarnya menggunakan PHP Coding Standards Fixer (PHP CS Fixer) yang dimodifikasi. Pada dokumentasinya, PHP CS Fixer mengacu pada PSR-01, PSR-02 (Deprecated), dan PSR-12. Maka dari itu, masih akan dipelajari lebih lanjut tentang PHP CS Fixer dan ditentukan apakah hanya PHP CS Fixer yang dibutuhkan atau perlu dicantumkan juga PHP \textit{linter} Brueggern dalam  Landasan Teori. 
+		\end{itemize}
+		  
 
 		\item \textbf{Mengevaluasi PHP dari SharIF Judge sesuai dengan PSR.}\\
 		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :} Proses evaluasi belum dilakukan karena saat ini sedang berada di tahap awal Bab 3.
+		{\bf Hasil :} Proses evaluasi belum dilakukan karena belum ditentukan analisis dan rencana untuk melakukannya. Sebelum itu, harus dilakukan studi literatur SharIF Judge yang lengkap untuk menentukan proses evaluasinya seperti: 
+		\begin{itemize}
+			\item banyaknya kode PHP bukan \textit{template} yang akan diperiksa, baik secara otomatis dengan bantuan \textit{linter} maupun manual satu per satu sesuai standar PSR yang relevan 
+			\item perkiraan waktu yang dibutuhkan untuk evaluasi
+			\item menentukan pengerjaan evaluasi untuk sebagian atau seluruh kode PHP yang sesuai jika memungkinkan 
+		\end{itemize}
+		
 
 		\item \textbf{Menguji SharIF Judge yang sudah dievaluasi.}\\
 		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :} Belum terlaksana karena proses evaluasi belum dilakukan.
+		{\bf Hasil :} Belum terlaksana karena proses evaluasi belum dilakukan. 
 
 		\item \textbf{Memberikan rekomendasi sesuai hasil evaluasi.}\\
 		{\bf Status :} Ada sejak rencana kerja skripsi.\\
@@ -113,14 +143,14 @@ Detail bagian pekerjaan skripsi sesuai dengan rencana kerja/laporan perkembangan
 
 		\item \textbf{Menulis dokumen skripsi.}\\
 		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :} Dokumen skripsi yang sudah dibuat adalah Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori. Pada saat ini sedang berada di tahap awal pengerjaan Bab 3.
+		{\bf Hasil :} Dokumen skripsi yang sudah dibuat adalah Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori, terutama PSR. 
 
 	\end{enumerate}
 
 \section{Pencapaian Rencana Kerja}
 Langkah-langkah kerja yang berhasil diselesaikan dalam Skripsi 1 ini adalah sebagai berikut:
 \begin{enumerate}
-\item Membuat dokumen skripsi Bab 1 Pendahuluan 
+\item Membuat dokumen skripsi Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori
 \item Melakukan studi literasi PSR
 \item Mencoba salah satu \textit{linter} untuk melakukan automasi pemeriksaan \textit{file} PHP pada SharIF Judge yang berdasar pada PSR-01 dan PSR-12
 \end{enumerate}
@@ -131,9 +161,9 @@ Langkah-langkah kerja yang berhasil diselesaikan dalam Skripsi 1 ini adalah seba
 %TULISKAN BAGIAN INI JIKA DOKUMEN ANDA TIPE A ATAU C
 Kendala - kendala yang dihadapi selama mengerjakan skripsi :
 \begin{itemize}
-	\item Terlambat mengumpulkan dokumen Rencana Kerja Skripsi
-	\item Melakukan penundaan kerja atau prokrastinasi
-	\item Ada beberapa masalah pribadi yang cukup menyita waktu dan konsentrasi
+	\item Terlambat mengumpulkan dokumen Rencana Kerja Skripsi sehingga tidak dapat melakukan Review Skripsi 1
+	\item Adanya penundaan kerja atau prokrastinasi dalam pembuatan skripsi
+	\item Ada beberapa masalah pribadi yang cukup menyita waktu dan konsentrasi, meliputi masalah keluarga, masalah diri sendiri, dan sakit yang berdurasi cukup lama. 
 	
 \end{itemize}
 
