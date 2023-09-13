@@ -5,7 +5,7 @@
 \section{SharIF Judge}
 \label{sec:sharifjudge} 
  
-SharIF Judge \cite{SharIF_Judge} (dengan huruf kapital ''IF'') merupakan perangkat lunak berbasis web yang digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas dalam dokumen ini adalah versi fork dari Sharif Judge \cite{Sharif_Judge_Original} (dengan huruf kecil ''if'') yang dibuat oleh Mohammad Javad Naderi. Versi fork ini dikembangkan sesuai dengan kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah. SharIF judge dibuat dengan PHP pada framework CodeIgniter dan BASH untuk backend.
+SharIF Judge \cite{SharIF_Judge} (dengan huruf kapital ``IF'') merupakan perangkat lunak berbasis web yang digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas dalam dokumen ini adalah versi fork dari Sharif Judge \cite{Sharif_Judge_Original} (dengan huruf kecil ``if'') yang dibuat oleh Mohammad Javad Naderi. Versi fork ini dikembangkan sesuai dengan kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah. SharIF judge dibuat dengan PHP pada framework CodeIgniter dan BASH untuk backend.
 
 \subsection{Fitur}
 Berikut adalah fitur-fitur dari SharIF Judge.
@@ -17,7 +17,7 @@ Berikut adalah fitur-fitur dari SharIF Judge.
 	\item Antrian pengiriman
 	\item Mengunduh hasil dalam bentuk file excel
 	\item Mengunduh kode yang dikirim dalam bentuk file zip
-	\item Metode "Output Comporison" dan "Tester Code" untuk memeriksa kebenaran dari hasil output
+	\item Metode``Output Comporison" dan``Tester Code'' untuk memeriksa kebenaran dari hasil output
 	\item Menambahkan beberapa pengguna sekaligus
 	\item Deskripsi masalah (PDF/Markdown/HTML)
 	\item Penilaian ulang (rejudge)
@@ -157,7 +157,24 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 	\item \textit{Library} pelaksana (PSR-0601) HARUS menyediakan kelas yang mengimplementasikan \textit{interface} \verb|Cache\CacheItemPoolInterface| dan \verb|Cache\CacheItemInterface|. Impementasinya (PSR-0602) HARUS mendukung fungsionalitas TTL minimum dengan perincian detik yang penuh. Time To Live (TTL) suatu item adalah jumlah waktu antara waktu saat item tersebut disimpan dan ketika item dianggap kedaluwarsa. TTL biasanya didefinisikan dalam bentuk bilangan bulat (integer) yang mewakili waktu dalam detik, atau sebuah objek DateInterval.
 	\item \textit{Libarary} pelaksana (PSR-0603) BISA mengakhiri masa berlaku item sebelum \textit{Expiration Time} yang diminta, tetapi (PSR-0604) HARUS mengakhiri masa berlaku item tersebut jika \textit{Expiration Time} sudah tercapai. Jika suatu \textit{libary} meminta item untuk disimpan tanpa menentukan waktu kedaluwarsa, atau ditentukan isinya null atau TTL,  \textit{library} pelaksana (PSR-0605) BISA menggunakan durasi default yang sudah dikonfigurasi. Jika belum ada durasi defaut yang dikonfigurasi, maka \textit{library} pelaksana (PSR-0606) HARUS menafsirkannya sebagai permintaan untuk menyimpan item dalam cache selamanya, atau selama implementasi yang mendasarinya mendukung.
 	\item \textit{Key} adalah suatu string yang terdiri dari minimal satu karakter yang secara unik mengidentifikasi item yang di-\textit{cache}. \textit{Library} pelaksana (PSR-0607) HARUS mendukung \textit{key} yang terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, \verb|_|, dan \verb|.| dengan urutan apa pun dalam pengkodean UTF-8 dan maksimum 64 karakter. \textit{Library} pelaksana (PSR-0608) BISA mendukung karakter tambahan dan pengkodean atau karakter yang lebih banyak, namun harus memenuhi syarat minimum di atas.
-	\item Dalam mengimplementasikan \textit{library} semuanya (PSR-0609) HARUS mendukung semua tipe data PHP bersambung, termasuk: String, Integer, Float, Boolean, Null, Array, dan Object.
+	\item Dalam mengimplementasikan \textit{library} semuanya (PSR-0609) HARUS mendukung semua tipe data PHP bersambung, termasuk: 
+	\begin{itemize}
+		\item String
+		\item Integer
+		\item Float
+		\item Boolean
+		\item Null
+		\item Array
+		\item Object - Setiap Object (PSR-0610) BISA memanfaatkan antarmuka Serializable PHP, metode \verb|__sleep()| atau \verb|__wakeup()|, atau fungsi serupa lain jika diperlukan.
+	\end{itemize}
+	\item Semua data yang diteruskan ke \textit{library} Pelaksana (PSR-0611) HARUS dikembalikan sama persis seperti data yang diteruskan tersebut.
+	\item \textit{Library} Pelaksana (PSR-0612) BISA menggunakan fungsi PHP \verb|serialize()|/\verb|unserialize()| secara internal tetapi tidak diwajibkan.
+	\item Jika tidak dimungkinkan untuk mengembalikan \textit{value} yang tersimpan sama persis untuk alasan apa pun, \textit{library} pelaksana harus memberikan respons dengan kehilangan \textit{cache}, bukan data yang rusak (\textit{corrupted}).
+	\item Pool merepresentasikan kumpulan \textit{item} dalam sistem \textit{caching}. Pool adalah repositori logis dari \textit{item}-\textit{item} di dalamnya. Semua \textit{item} yang dapat di-\textit{cache} diambil dari Pool sebagai objek Item, dan semua interaksi yang terjadi antar objek yang di-\textit{cache} terjadi melalui Pool.
+	Item merepresentasikan satu pasangan \textit{key}/\textit{value} dalam suatu Pool. \textit{Key} adalah penanda unik untuk suatu \textit{item} dan (PSR-0613) HARUS \textit{immutable} (tidak dapat diubah). \textit{Value} BISA diubah setiap waktu.
+	\item Meskipun \textit{caching} sering kali merupakan bagian penting dari kinerja aplikasi, \textit{caching} tidak boleh memengaruhi fungsionalitas aplikasi. Oleh karena itu, kesalahan dalam sistem \textit{cache} (PSR-0614) TIDAK BOLEH mengakibatkan kegagalan aplikasi. Untuk alasan tersebut, \textit{Library}  Pelaksana (PSR-0615) TIDAK BOLEH melempar \textit{exception} selain yang ditentukan oleh antarmuka, dan (PSR-0616) HARUS menangkap \textit{error} atau \textit{exception} apa pun yang dipicu oleh penyimpanan data yang mendasarinya (dan tidak membiarkannya menggelembung).
+	\item \textit{Library} Pelaksana (PSR-0617) HARUS mencatat \textit{error} tersebut atau melaporkannya ke administrator sebagaimana mestinya.
+	\item Jika \textit{Library} Pemanggil meminta agar satu atau lebih Item dihapus, atau pool dibersihkan, maka (PSR-0618) TIDAK BOLEH dianggap sebagai kondisi \textit{error} jika \textit{key} yang ditentukan tidak ada. Kondisi pasca pun sama (\textit{key} tidak ada, atau pool kosong), sehingga tidak ada kondisi error.
 \end{itemize}
 
 \subsubsection{PSR-07: HTTP Message Interface}
@@ -177,11 +194,11 @@ Standar PSR-07 tidak ditulis pada dokumen ini.
 \subsubsection{PSR-11: Container Interface}
 \label{subsubsec:psr11}
 \begin{itemize}
-	\item \textit{Entry identifier} adalah string legal PHP apa pun yang setidaknya terdiri dari satu karakter unik yang mengidentifikasi sebuah item dalam suatu \textit{container}. \textit{Entry identifier} adalah sebuah string buram, maka pemanggil SEBAIKNYA TIDAK berasumsi bahwa struktur string memiliki makna semantik apa pun.
+	\item \textit{Entry identifier} adalah string legal PHP apa pun yang setidaknya terdiri dari satu karakter unik yang mengidentifikasi sebuah item dalam suatu \textit{container}. \textit{Entry identifier} adalah sebuah string buram, maka pemanggil (PSR-1101) SEBAIKNYA TIDAK berasumsi bahwa struktur string memiliki makna semantik apa pun.
 	\item Dalam \verb|Psr\Container\ContainerInterface| terdapat 2 metode: \verb|get| dan \verb|has|.
-	\item Pengecualian yang diberikan secara langsung oleh \textit{container} SEBAIKNYA mengimplementasi \verb|Psr\Container\ContainerExceptionInterface|.
-	\item Panggilan ke metode \verb|get| dengan id yang tidak ada HARUS memunculkan \verb|Psr\Container\NotFoundExceptionInterface|.
-	\item Pengguna SEBAIKNYA TIDAK meneruskan suatu \textit{container} ke objek sehingga objek dapat mengambil sendiri dependensinya. Hal ini berarti \textit{container} digunakan sebagai \textit{Service Locator} yang merupakan pola yang umumnya tidak dianjurkan.
+	\item Pengecualian yang diberikan secara langsung oleh \textit{container} (PSR-1102) SEBAIKNYA mengimplementasi \verb|Psr\Container\ContainerExceptionInterface|.
+	\item Panggilan ke metode \verb|get| dengan id yang tidak ada (PSR-1103) HARUS memunculkan \verb|Psr\Container\NotFoundExceptionInterface|.
+	\item Pengguna (PSR-1104) SEBAIKNYA TIDAK meneruskan suatu \textit{container} ke objek sehingga objek dapat mengambil sendiri dependensinya. Hal ini berarti \textit{container} digunakan sebagai \textit{Service Locator} yang merupakan pola yang umumnya tidak dianjurkan.
 \end{itemize}
 
 \subsubsection{PSR-12: Extended Coding Style Guide}
@@ -191,8 +208,23 @@ Standar PSR-07 tidak ditulis pada dokumen ini.
 
 \subsubsection{PSR-13: Hypermedia Links}
 \label{subsubsec:psr13}
+\textit{Link} Hypermedia paling sedikit terdiri dari:
+\begin{enumerate}
+	\item URI yang merepresentasikan \textit{resource} target yang direferensikan.
+	\item Suatu hubungan yang mendefinisikan bagaimana \textit{resource} target berhubungan dengan asal sumbernya.
+\end{enumerate}
+
+Berbagai atribut \textit{Link} lainnya mungkin ada, tergantung pada format yang digunakan. Dikarenakan atribut tambahan tidak terstandarisasi dengan baik atau bersifat universal, spesifikasi ini tidak berupaya untuk membuatnya standar.
+
+Untuk keperluan spesifikasi ini, definisi berikut berlaku.
+\begin{enumerate}
+	\item Implementing Object - Objek yang mengimplementasikan salah satu antarmuka yang ditentukan oleh spesifikasi ini.
+	\item Serializer - Sebuah \textit{library} atau sistem lain yang mengambil satu atau lebih objek Link dan membuat representasi serial dalam beberapa format yang ditentukan.
+\end{enumerate}
+
 \begin{itemize}
-	\item 
+	\item Semua tautan (PSR-1301) BOLEH menyertakan nol atau lebih atribut tambahan di luar URI dan hubungannya.
+	\item Serializer (PSR-1302) BOLEH menghilangkan atribut pada objek \textit{link} jika diperlukan oleh format serialisasi. Namun, serializer (PSR-1303) HARUS menyandikan (\textit{encode}) semua atribut yang disediakan untuk memungkinkan ekstensi pengguna kecuali dicegah oleh definisi format serialisasi.
 \end{itemize}
 
 
@@ -229,7 +261,8 @@ Standar PSR-07 tidak ditulis pada dokumen ini.
 \subsubsection{PSR-16: Simple Cache}
 \label{subsubsec:psr16}
 \begin{itemize}
-	\item \textit{Library} pelaksana 
+	\item \textit{Library} pelaksana HARUS menyediakan kelas yang mengimplementasikan antarmuka \verb|Psr\SimpleCache\CacheInterface interface|. \textit{Library} pelaksana HARUS mendukung fungsionalitas TTL minimum seperti yang disebutkan pada PSR-06.
+	
 \end{itemize}
 
 \subsubsection{PSR-17: HTTP Factories}
@@ -252,7 +285,7 @@ Standar PSR-07 tidak ditulis pada dokumen ini.
 	\item Klien (PSR-1801) BOLEH mengirim permintaan HTTP yang diubah dari yang disediakan, misalnya melakukan \textit{compress} pada badan pesan yang dikirim.
 	\item Klien (PSR-1802) BOLEH memilih untuk mengubah respons HTTP yang diterima sebelum mengembalikannya ke \textit{library} pemanggil, misalnya melakukan \textit{decompress} isi pesan yang masuk. 
 	\item Jika klien memilih untuk mengubah permintaan HTTP atau respons HTTP, klien (PSR-1803) HARUS memastikan bahwa objek tetap konsisten secara internal. Misalnya, jika klien memilih untuk dekompresi isi pesan, maka klien juga (PSR-1804) HARUS menghapus header \verb|Content-Encoding| dan menyesuaikan header \verb|Content-Length|.
-	\item 
+	
 	\item Klien (PSR-1805) HARUS menyusun kembali respons HTTP 1xx multi-langkah secara mandiri sehingga apa yang dikembalikan ke \textit{library} pemanggil adalah respons HTTP yang valid dengan kode status 200 atau di atasnya.
 	
 	\item Klien (PSR-1806) TIDAK BOLEH memperlakukan permintaan atau respons HTTP yang dibuat dengan baik sebagai kondisi \textit{error}. Sebagai contoh, kode status respons dalam rentang 400 dan 500 (PSR-1807) TIDAK BOLEH menimbulkan pengecualian dan (PSR-1808) HARUS dikembalikan ke \textit{library} pemanggil seperti biasa.
@@ -274,27 +307,15 @@ Status ''Draft'' adalah bab-bab yang masih dalam tahap diskusi dan pengembangan 
 
 \subsubsection{PSR-05: PHPDoc Standard}
 \label{subsubsec:psr05}
-\begin{itemize}
-	\item
-\end{itemize}
 
 \subsubsection{PSR-19: PHPDoc tags}
 \label{subsubsec:psr19}
-\begin{itemize}
-	\item
-\end{itemize}
 
 \subsubsection{PSR-21: Internationalization}
 \label{subsubsec:psr21}
-\begin{itemize}
-	\item
-\end{itemize}
 
 \subsubsection{PSR-22: Application Tracing}
 \label{subsubsec:psr22}
-\begin{itemize}
-	\item
-\end{itemize}
 
 
 \subsection{Abandoned}
@@ -303,21 +324,12 @@ Status ''Abandoned'' adalah bab-bab yang tidak lagi dikerjakan ataupun dikembang
 
 \subsubsection{PSR-08: Huggable Interface}
 \label{subsubsec:psr08}
-\begin{itemize}
-	\item
-\end{itemize}
 
 \subsubsection{PSR-09: Security Advisories}
 \label{subsubsec:psr09}
-\begin{itemize}
-	\item
-\end{itemize}
 
 \subsubsection{PSR-10: Security Reporting Process}
 \label{subsubsec:psr10}
-\begin{itemize}
-	\item
-\end{itemize}
 
 
 \subsection{Deprecated}
@@ -326,15 +338,9 @@ Status ''Deprecated'' adalah bab-bab yang sudah pernah disetujui sebelumnya, nam
 
 \subsubsection{PSR-00: Autoloading Standard}
 \label{subsubsec:psr00}
-\begin{itemize}
-	\item
-\end{itemize}
 
 \subsubsection{PSR-02: Coding Style Guide}
 \label{subsubsec:psr02}
-\begin{itemize}
-	\item
-\end{itemize}
 
 %\dtext{13-14}
 
