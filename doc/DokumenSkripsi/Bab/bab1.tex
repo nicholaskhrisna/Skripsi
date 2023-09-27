@@ -7,7 +7,7 @@
 
 Pengembangan aplikasi berbasis web dengan bahasa PHP cukup populer di kalangan pengembang web. Banyak \textit{framework} yang tersedia untuk memudahkan pengembangannya, salah satunya adalah CodeIgniter. Walaupun sudah tersedia \textit{tools} yang membantu, masih ditemukan beberapa masalah seperti penulisan kode yang tidak konsisten karena tidak ada standar yang baku penulisannya. Hal ini membuat pengembangan aplikasi web menjadi rumit dan sulit dipelihara, terutama jika proyek tersebut melibatkan banyak pengembang.
 
-PHP Standards Recommendations \cite{PSR} (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Pada saat skripsi ini dibuat, terdapat 14 bab yang sudah diterima (Accepted) untuk digunakan, 4 bab masih didiskusikan (Draft), 3 bab ditinggalkan (Abandoned), dan 2 bab sudah usang (Deprecated). Bab-bab standar yang sudah diterima dan digunakan antara lain: 
+PHP Standards Recommendations \cite{PSR} (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interoperability Group. Pada saat skripsi ini dibuat, terdapat 14 bab yang sudah diterima (Accepted) untuk digunakan, 4 bab masih didiskusikan (Draft), 3 bab ditinggalkan (Abandoned), dan 2 bab sudah usang (Deprecated). Bab-bab standar yang sudah diterima dan digunakan antara lain: 
 \begin{itemize}
 	\item PSR-01: Basic Coding Standard
 	\item PSR-03: Logger Interface
@@ -27,9 +27,9 @@ PHP Standards Recommendations \cite{PSR} (PSR) adalah kumpulan standar penulisan
 
 SharIF Judge merupakan perangkat lunak berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge \cite{SharIF_Judge} yang dibahas pada dokumen ini adalah \textit{fork} dari Sharif Judge \cite{Sharif_Judge_Original} yang dibuat oleh Mohammad Javad Naderi. Versi \textit{fork} ini sudah dikembangkan sesuai kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah.
 
-Pada skripsi ini, keseluruhan PHP pada SharIF Judge akan dilihat dan dievaluasi seberapa jauh standar PSR yang sudah dipenuhi. Selanjutnya akan dibuat rekomendasi berdasarkan hasil evaluasi. Walaupun demikian, masih akan ditentukan strategi untuk melakukannya, misalnya menggunakan tools atau alat tertentu untuk membantu, bab-bab apa saja yang relevan untuk dievaluasi sesuai yang digunakan pada SharIF Judge, dan seberapa banyak bab yang harus diperiksa secara manual. Salah satu alat yang digunakan adalah PHP linter. PHP linter membantu proses pemeriksaan sesuai salah satu standar, yaitu Extended Coding Style Guide atau aturan penulisan PHP yang sudah diperbarui. 
+Pada skripsi ini, \textit{file}-\textit{file} PHP pada SharIF Judge dievaluasi dan diukur tingkat kepatuhannya terhadap aturan PSR serta dibuat rekomendasi perbaikannya. Walaupun demikian, pada akhirnya ditentukan strategi untuk melakukannya, yaitu menggunakan \textit{tools} atau alat tertentu untuk membantu dan membatasi jumlah \textit{file} PHP yang diperiksa karena sebagian besar harus dilakukan secara manual. Salah satu alat yang digunakan adalah PHP Coding Standards Fixer (PHP CS Fixer). PHP CS Fixer membantu proses pemeriksaan sesuai salah satu standar, yaitu Extended Coding Style Guide atau aturan penulisan PHP yang sudah diperbarui. 
 
-Perangkat lunak akhir yang akan dibuat memiliki fitur yang sama persis dengan SharIf Judge yang sudah ada. Perbedaannya terdapat pada struktur PHP yang sudah dievaluasi sehingga memenuhi PSR. Berikut adalah fitur-fitur dari dokumentasi SharIF Judge:
+Perangkat lunak akhir yang dibuat memiliki fitur yang sama persis dengan SharIf Judge yang sudah ada. Perbedaannya terdapat pada struktur penulisan PHP yang sudah dievaluasi dan diperbaiki sehingga memenuhi aturan PSR. Berikut adalah fitur-fitur dari dokumentasi SharIF Judge:
 \begin{itemize}
 	\item Dapat diakses untuk empat role : \textit{admin}, \textit{head instructor}, \textit{instructor}, dan \textit{student}
 	\item Dapat mendeteksi plagiarisme pada kode
@@ -41,68 +41,65 @@ Perangkat lunak akhir yang akan dibuat memiliki fitur yang sama persis dengan Sh
 	\item Tersedia log untuk 24 jam 
 \end{itemize}
 
-%\dtext{5-10}
-
 \section{Rumusan Masalah}
 \label{sec:rumusan}
 Rumusan masalah yang akan dibahas pada skripsi ini sebagai berikut:
 \begin{itemize}
-	\item Seberapa jauh PSR yang sudah terpenuhi ada SharIF Judge?
-	\item Bagaimana mengevaluasi kode PHP pada SharIF Judge sesuai PSR?  
-	\item Bagaimana memberikan rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi?
+	%\item Seberapa jauh PSR yang sudah terpenuhi ada SharIF Judge?
+	\item Bagaimana tingkat kepatuhan kode PHP pada SharIF Judge terhadap PSR?  
+	\item Rekomendasi perbaikan apa yang dapat diberikan pada kode PHP SharIF Judge untuk meningkatkan jumlah aturan PSR yang terpenuhi?
 \end{itemize}
-
-%\dtext{6}
 
 \section{Tujuan}
 \label{sec:tujuan}
 Tujuan yang ingin dicapai dalam penulisan skripsi ini sebagai berikut:
 \begin{itemize}
-	\item Mengetahui seberapa jauh PSR yang sudah terpenuhi pada SharIF Judge.
-	\item Mengevaluasi kode PHP pada SharIF Judge sesuai PSR.
-	\item Memberikan rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi.
+	%\item Mengetahui seberapa jauh PSR yang sudah terpenuhi pada SharIF Judge.
+	\item Mengukur tingkat kepatuhan kode PHP pada SharIF Judge terhadap PSR.
+	\item Membuat rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi. 
 \end{itemize}
-
-%\dtext{7}
 
 \section{Batasan Masalah}
 \label{sec:batasan}
 \begin{itemize}
-	\item PSR-07 dan PSR-12 tidak dituliskan aturannya pada Landasan Teori dikarenakan isinya cukup banyak dan akan sangat memakan waktu. PSR-12 sendiri akan dilakukan pemeriksaannya secara otomatis dengan bantuan PHP CS Fixer.
+	\item PSR-07 dan PSR-12 tidak dituliskan aturannya pada Landasan Teori dikarenakan jumlah aturan yang sangat banyak dan akan sangat memakan waktu. Evaluasi PSR-12 dilakukan pemeriksaannya secara otomatis dengan bantuan PHP CS Fixer.
 	
 \end{itemize}
-
-
-%\dtext{8}
 
 \section{Metodologi}
 \label{sec:metlit}
 Metode penelitian yang akan digunakan dalam skripsi ini adalah:
 \begin{enumerate}
-	\item Memperlajari SharIF Judge saat ini
-	\item Melakukan studi literatur mengenai PSR dan PHP linter
-	\item Mengevaluasi PHP dari SharIF Judge sesuai dengan PSR
-	\item Menguji SharIF Judge yang sudah dievaluasi
+	\item Mempelajari SharIF Judge saat ini
+	\item Melakukan studi literatur mengenai PSR dan PHP CS Fixer
+	\item Mengevaluasi tingkat kepatuhan PHP dari SharIF Judge terhadap PSR
 	\item Memberikan rekomendasi sesuai hasil evaluasi
+	\item Menguji SharIF Judge yang sudah dievaluasi dan diperbaiki
 	\item Menulis dokumen skripsi
 \end{enumerate}
-
-%\dtext{9}
 
 \section{Sistematika Pembahasan}
 \label{sec:sispem}
 Untuk penulisan skripsi ini akan dibagi dalam lima bagian sebagai berikut:
-
-Bab 1 Pendahuluan
-
-Bab 2 Landasan Teori 
-
-Bab 3 Analisis
-
-Bab 4 Perancangan
-
-Bab 5 Implementasi
-
-Bab 6 Kesimpulan
-
-%\dtext{10}
+\begin{enumerate}
+	\item Bab 1 Pendahuluan 
+	
+	 Bab ini berisi latar belakang, rumusan masalah, tujuan, batasan masalah, metodologi, dan sistematika pembahasan.
+	 
+	 \item Bab 2 Landasan Teori
+	 
+	 Bab ini berisi dasar-dasar teori yang digunakan sebagai acuan dalam pembuatan skripsi, antara lain SharIF Judge, PSR, dan PHP CS Fixer.
+	 
+	 \item Bab 3 Analisis
+	 
+	 Bab ini berisi analisis tingkat kepatuhan SharIF Judge dan rekomendasi perbaikannya berdasarkan aturan PSR. 
+	 
+	 \item Bab 4 Implementasi dan Pengujian
+	 
+	 Bab ini berisi implementasi dari rekomendasi perbaikan dan menguji jalannya aplikasi yang sama dengan kode PHP yang sudah diperbaiki. 
+	 
+	 \item Bab 5 Kesimpulan dan Saran
+	 
+	 Bab ini berisi kesimpulan dari hasil evaluasi dan saran yang dapat digunakan untuk penelitian lebih lanjut.
+	 
+\end{enumerate}

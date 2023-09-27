@@ -45,7 +45,7 @@ Untuk menjalankan SharIF Judge, dibutuhkan sebuah server Linux dengan syarat seb
 \label{sec:psr}
 
 PHP Standards Recommendations (PSR) adalah kumpulan rekomendasi yang dibuat oleh PHP Framework Interop Group (PHP-FIG) untuk membantu para pengembang PHP dalam menciptakan kode yang lebih mudah dibaca, dipahami, dan dipelihara. 
-Dalam PSR, terdapat kata kunci prioritas yang diatur dalam dokumen RFC 2119 dari PSR sendiri. Dikarenakan sumber referensi berbahasa Inggris, maka ada beberapa penyesuaian yang diperlukan untuk dokumen ini \footnote{Beberapa kata kunci memiliki tingkatan yang sama berdasarkan RFC 2119 sehingga dikategorikan dan ditulis dalam satu baris. Misalnya, ``MUST'', ``REQUIRED'', dan ``SHALL'' berada dalam satu tingkatan prioritas yang sama sehingga hanya perlu diartikan ke satu kata untuk menunjukkan kategori tingkatannya. }.
+Dalam PSR, terdapat kata kunci prioritas yang diatur dalam dokumen RFC 2119 \cite{RFC2119} dari PSR sendiri. Dikarenakan sumber referensi berbahasa Inggris, maka ada beberapa penyesuaian yang diperlukan untuk dokumen ini \footnote{Beberapa kata kunci memiliki tingkatan yang setara sehingga dikategorikan dan ditulis dalam satu poin. Misalnya, ``MUST'', ``REQUIRED'', dan ``SHALL'' berada dalam satu tingkatan yang setara sesuai deskripsi pada RFC 2119. Pemilihan kata ``HARUS'', ``DILARANG'', dan sebagainya digunakan untuk penyesuaian dalam bahasa Indonesia agar struktur kalimat tidak rancu.}.
 
 \begin{itemize}
 	\item ``MUST'', ``REQUIRED'', ``SHALL'' akan ditulis sebagai ``HARUS'' dengan arti harus sesuai.
@@ -56,7 +56,7 @@ Dalam PSR, terdapat kata kunci prioritas yang diatur dalam dokumen RFC 2119 dari
 \end{itemize}
 
 
-Setiap PSR memiliki status, antara lain Accepted, Draft, Abandoned, dan Deprecated. Saat dokumen ini dibuat, terdapat 23 bab PSR dengan rincian sebagai berikut.
+Setiap PSR memiliki status, antara lain ``Accepted'', ``Draft'', ``Abandoned'', dan ``Deprecated''. Aturan-aturan PSR yang digunakan hanyalah yang berstatus ``Accepted''. Saat dokumen ini dibuat, terdapat 23 bab PSR dengan rincian sebagai berikut.
 \begin{comment}
 \begin{enumerate}
 	\item{Accepted}
@@ -104,13 +104,13 @@ Setiap PSR memiliki status, antara lain Accepted, Draft, Abandoned, dan Deprecat
 
 \subsection{Accepted}
 \label{subsec:accepted}
-Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi oleh tim kerja bersangkutan untuk digunakan oleh para pengembang.
+Status ``Accepted'' adalah bab-bab aturan yang sudah diterima, disepakati, dan diawasi oleh tim kerja bersangkutan untuk digunakan oleh para pengembang. Untuk mempermudah sitasi dalam proses evaluasi, setiap aturan PSR ditandai dengan kode PSR-XXYY, di mana XX menunjukkan bab PSR dan YY menunjukkan urutan aturan dalam bab tersebut.
 
 \subsubsection{PSR-01: Basic Coding Standard}
 \label{subsubsec:psr01}
 \begin{itemize}
 	\item \textit{File} (PSR-0101) HARUS menggunakan \textit{tag} \verb|<?php|  dan \verb|<?=| dan (PSR-0102)TIDAK menggunakan variasi \textit{tag} lainnya.
-	\item \textit{File} (PSR-0103) HARUS menggunakan UTF-8 tanpa BOM untuk kode PHP.
+	\item \textit{File} (PSR-0103) HARUS menggunakan UTF-8 tanpa Byte Order Mark (BOM) untuk kode PHP.
 	\item \textit{File} (PSR-0104) SEBAIKNYA mendeklarasikan simbol (kelas, fungsi, konstanta, dan lain-lain) atau menyebabkan efek samping (misalnya menghasilkan output, mengubah pengaturan .ini, dan lain-lain), tetapi (PSR-0105) SEBAIKNYA TIDAK keduanya.
 	\item \textit{Namespace} dan kelas (PSR-0106) HARUS mengikuti PSR ``autoloading'': [PSR-4].
 	\item Nama kelas (PSR-0107) HARUS dideklarasikan di \verb|StudlyCaps|.
@@ -179,7 +179,7 @@ Status ''Accepted'' adalah bab-bab yang sudah diterima, disepakati, dan diawasi 
 
 \subsubsection{PSR-07: HTTP Message Interface}
 \label{subsubsec:psr07}
-Standar PSR-07 tidak ditulis pada dokumen ini.
+Standar PSR-07 tidak ditulis pada dokumen ini sebagaimana telah dicantumkan pada Batasan Masalah di Bab 1 Pendahuluan.
 \begin{comment}
 \begin{itemize}
 	\item Pesan HTTP dapat berupa permintaan dari klien ke server atau respons dari server ke klien.
@@ -203,7 +203,7 @@ Standar PSR-07 tidak ditulis pada dokumen ini.
 
 \subsubsection{PSR-12: Extended Coding Style Guide}
 \label{subsubsec:psr12}
-Standar PSR-07 tidak ditulis pada dokumen ini.
+Standar PSR-12 tidak ditulis pada dokumen ini sebagaimana telah dicantumkan pada Batasan Masalah di Bab 1 Pendahuluan.
 
 
 \subsubsection{PSR-13: Hypermedia Links}
@@ -345,48 +345,50 @@ Status ''Deprecated'' adalah bab-bab yang sudah pernah disetujui sebelumnya, nam
 %\dtext{13-14}
 
 
-\section{PHP Linter}
+\section{PHP Coding Standards Fixer}
 \label{sec:phplinter}
  
-Lint awalnya merujuk pada tool yang digunakan untuk menganalisis suatu kode program dengan tujuan menemukan kesalahan pada bahasa C. Kemudian istilah ini menjadi sebutan untuk mendeskripsikan hal-hal yang berkaitan dengan pengecekan kode program. PHP linter adalah tool yang digunakan untuk menganalisis kode PHP sesuai dengan standar tertentu. 
-PHP linter yang digunakan adalah yang dibuat oleh Brueggern. Linter ini berdasar pada standar PSR ke-2 dan ke-12, yaitu Coding Style Guide yang sudah usang (deprecated) dan Extended Coding Style Guide sebagai penggantinya (accepted). 
+ \begin{comment}
+ 	content...Lint awalnya merujuk pada tool yang digunakan untuk menganalisis suatu kode program dengan tujuan menemukan kesalahan pada bahasa C. Kemudian istilah ini menjadi sebutan untuk mendeskripsikan hal-hal yang berkaitan dengan pengecekan kode program. PHP linter adalah tool yang digunakan untuk menganalisis kode PHP sesuai dengan standar tertentu. 
+ 	PHP linter yang digunakan adalah yang dibuat oleh Brueggern. Linter ini berdasar pada standar PSR ke-2 dan ke-12, yaitu Coding Style Guide yang sudah usang (deprecated) dan Extended Coding Style Guide sebagai penggantinya (accepted). 
+ 	
+ 	\subsection{Syarat Instalasi}
+ 	Sebelum menginstal linter, perlu dilakukan penginstalan Composer terlebih dahulu. Composer adalah alat untuk mengelola dependency pada PHP. 
+ 	
+ 	\subsection{Instalasi}
+ 	Berikut adalah langkah instalasi PHP linter.
+ 	\begin{enumerate}
+ 		\item Pada bagian root project, buka file composer.json.
+ 		\item Pada bagian "Repositories", tambahkan kode berikut.
+ 		\begin{lstlisting}[language=php, caption=kode kode, label=kode:aneh]
+ 			{
+ 				"repositories": [
+ 				{
+ 					"type": "vcs",
+ 					"url": "git@github.com:brueggern/php-linter.git"
+ 				}
+ 				]
+ 			}
+ 			
+ 		\end{lstlisting}
+ 		
+ 		\item Install composer package.
+ 		\verb|composer require brueggern/php-linter|  
+ 		
+ 		\item Tambahkan script berikut untuk menjalankan linting/fixing. "app" dapat diganti dengan nama file atau folder yang akan di-lint. 
+ 		\begin{lstlisting}[language=php, caption=kode kode, label=kode:aneh]
+ 			{
+ 				"scripts": {
+ 					"lint": "php-linter app",
+ 					"lint:fix": "php-linter --fix app"
+ 				}
+ 			}
+ 			
+ 		\end{lstlisting}
+ 	\end{enumerate}
+ \end{comment}
 
-%\dtext{15-16}
-
-\subsection{Syarat Instalasi}
-Sebelum menginstal linter, perlu dilakukan penginstalan Composer terlebih dahulu. Composer adalah alat untuk mengelola dependency pada PHP. 
-
-\subsection{Instalasi}
-Berikut adalah langkah instalasi PHP linter.
-\begin{enumerate}
-	\item Pada bagian root project, buka file composer.json.
-	\item Pada bagian "Repositories", tambahkan kode berikut.
-	\begin{lstlisting}[language=php, caption=kode kode, label=kode:aneh]
-		{
-			"repositories": [
-			{
-				"type": "vcs",
-				"url": "git@github.com:brueggern/php-linter.git"
-			}
-			]
-		}
-		
-	\end{lstlisting}
-	
-	\item Install composer package.
-	\verb|composer require brueggern/php-linter|  
-	
-	\item Tambahkan script berikut untuk menjalankan linting/fixing. "app" dapat diganti dengan nama file atau folder yang akan di-lint. 
-	\begin{lstlisting}[language=php, caption=kode kode, label=kode:aneh]
-		{
-			"scripts": {
-				"lint": "php-linter app",
-				"lint:fix": "php-linter --fix app"
-			}
-		}
-		
-	\end{lstlisting}
-\end{enumerate}
+PHP Coding Standards Fixer (PHP CS Fixer) \cite{PHP_CS_Fixer} adalah sebuah \textit{tool} yang dapat memperbaiki kode program agar mengikuti standar tertentu, misalnya standar dari PSR-1, PSR-2, dan lainnya, atau standar berbasis komunitas lain seperti Symfony.
 
 
 \subsection{Penggunaan}
