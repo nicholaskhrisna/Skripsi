@@ -388,16 +388,20 @@ Status ''Deprecated'' adalah bab-bab yang sudah pernah disetujui sebelumnya, nam
  	\end{enumerate}
  \end{comment}
 
-PHP Coding Standards Fixer (PHP CS Fixer) \cite{PHP_CS_Fixer} adalah sebuah \textit{tool} yang dapat memperbaiki kode program agar mengikuti standar tertentu, misalnya standar dari PSR-1, PSR-2, dan lainnya, atau standar berbasis komunitas lain seperti Symfony.
+PHP Coding Standards Fixer (PHP CS Fixer) \cite{PHP_CS_Fixer} adalah sebuah \textit{tool} yang dapat memperbaiki kode program agar mengikuti standar tertentu, misalnya standar dari PSR-1, PSR-2, dan lainnya, atau standar berbasis komunitas lain seperti Symfony. Dari semua standar yang tersedia hanya satu standar yang akan ditentukan sebagai \textit{ruleset} yaitu PSR-12. 
 
+Pada dasarnya, PHP CS Fixer tidak perlu terintegrasi dengan SharIF Judge untuk menjalankan fungsinya. Salah satu cara untuk menginstalnya adalah dengan mengunduh \verb|php-cs-fixer-v3.phar| dari dokumentasi PHP CS Fixer dan menjalankannya dengan perintah dan \textit{flag} tertentu. Perintah dan \textit{flag} yang digunakan adalah:
+\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+	columns=fullflexible, keepspaces=true, breaklines=true, label=ls:1]
+	php php-cs-fixer-v3.phar fix path/to/code.php --rules=@PSR12 --dry-run --diff
+\end{lstlisting}
+di mana
+\begin{itemize}
+	\item \verb|--rules=@PSR12| untuk menentukan standar yang akan digunakan yaitu PSR-12
+	\item \verb|--dry-run| untuk menjalankan \textit{fixer} tanpa melakukan perubahan pada \textit{file}
+	\item \verb|--diff| untuk membuat \textit{fixer} mengembalikan semua perubahan dalam format \verb|udiff|
+\end{itemize}
 
-\subsection{Penggunaan}
-Untuk menjalankan linter perintah yang digunakan adalah:
-	\verb|composer run lint|    
-
-Untuk memperbaiki error secara otomatis, perintah yang digunakan adalah:
-
-	\verb|composer run lint:fix|    
 
 \begin{comment}
 \subsection{Tabel}  

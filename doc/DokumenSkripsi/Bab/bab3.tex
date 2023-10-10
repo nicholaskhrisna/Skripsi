@@ -15,8 +15,152 @@ Sebelum menentukan metodologi yang akan digunakan, ada beberapa hal yang perlu d
 
 Dengan pertimbangan-pertimbangan tersebut, maka metodologi pemeriksaan yang dilakukan adalah sebagai berikut.
 \begin{enumerate}
-	\item 
+	\item Melakukan pemeriksaan secara otomatis sesuai rekomendasi PSR-12 dengan bantuan PHP CS Fixer.
+	\item Melakukan pemeriksaan secara manual. 
 \end{enumerate}
 
+
 \section{Tingkat Kepatuhan SharIF Judge terhadap PSR}
-\label{sec:tingkatpatuh}
+\label{sec:tingkat_patuh}
+Jumlah \textit{file} PHP yang diperiksa adalah 34, di luar \textit{file}-\textit{file} bawaan CodeIgniter. Setiap \textit{file} tersebut diperiksa sesuai kebutuhannya karena tidak semua rekomendasi PSR relevan terhadap kode program. Dalam prosesnya, pemeriksaan dibantu dengan PHP CS Fixer. 
+
+\subsection{Pemeriksaan dengan PHP CS Fixer}
+\label{subsec:periksa_otomatis}
+PHP CS Fixer menyediakan fitur untuk menampilkan kode program yang diperiksa beserta dengan rekomendasi perubahannya sesuai dengan \textit{ruleset} yang sudah ditentukan sebelumnya yaitu PSR-12. Maka dari itu, PHP CS Fixer sudah memeriksa dan memberikan rekomendasi perbaikannya sekaligus. Setelah menjalankan perintah dan \textit{flag} yang ditentukan, keluaran yang dihasilkan dapat dilihat seperti contoh Kode~\ref{ck:31}.
+
+\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+	columns=fullflexible, keepspaces=true, breaklines=true, label=ck:31, caption=Contoh penggunaan PHP CS Fixer pada \textit{Dashboard.php}]
+	
+	Loaded config default.
+	Using cache file ".php-cs-fixer.cache".
+	1) application/controllers/Dashboard.php
+	---------- begin diff ----------
+	--- /Users/user/Documents/KULIAH/Skripsi/SharIF-Judge-Version-1/application/controllers/Dashboard.php
+	+++ /Users/user/Documents/KULIAH/Skripsi/SharIF-Judge-Version-1/application/controllers/Dashboard.php
+	@@ -4,66 +4,70 @@
+	* @file Dashboard.php
+	* @author Mohammad Javad Naderi <mjnaderi@gmail.com>
+	*/
+	-defined('BASEPATH') OR exit('No direct script access allowed');
+	+defined('BASEPATH') or exit('No direct script access allowed');
+	
+	class Dashboard extends CI_Controller
+	{
+		+    public function __construct()
+		+    {
+			+        parent::__construct();
+			+        if (! $this->db->table_exists('sessions')) {
+				+            redirect('install');
+				+        }
+			+        if (! $this->session->userdata('logged_in')) { // if not logged in
+				+            redirect('login');
+				+        }
+			+        $this->load->model('notifications_model')->helper('text');
+			+    }
+		
+		
+		-       public function __construct()
+		-       {
+			-               parent::__construct();
+			-               if ( ! $this->db->table_exists('sessions'))
+			-                       redirect('install');
+			-               if ( ! $this->session->userdata('logged_in')) // if not logged in
+			-                       redirect('login');
+			-               $this->load->model('notifications_model')->helper('text');
+			-       }
+		+    // ------------------------------------------------------------------------
+		
+		
+		-       // ------------------------------------------------------------------------
+		+    public function index()
+		+    {
+			+        $data = array(
+			+            'all_assignments' => $this->assignment_model->all_assignments(),
+			+            'week_start' => $this->settings_model->get_setting('week_start'),
+			+            'wp' => $this->user->get_widget_positions(),
+			+            'notifications' => $this->notifications_model->get_latest_notifications()
+			+        );
+			
+			+        // detecting errors:
+			+        $data['errors'] = array();
+			+        if($this->user->level === 3) {
+				+            $path = $this->settings_model->get_setting('assignments_root');
+				+            if (! file_exists($path)) {
+					+                array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
+					+            } elseif (! is_writable($path)) {
+					+                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
+					+            }
+				
+				-       public function index()
+				-       {
+					-               $data = array(
+					-                       'all_assignments'=>$this->assignment_model->all_assignments(),
+					-                       'week_start'=>$this->settings_model->get_setting('week_start'),
+					-                       'wp'=>$this->user->get_widget_positions(),
+					-                       'notifications' => $this->notifications_model->get_latest_notifications()
+					-               );
+					+            $path = $this->settings_model->get_setting('tester_path');
+					+            if (! file_exists($path)) {
+						+                array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
+						+            } elseif (! is_writable($path)) {
+						+                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
+						+            }
+					+        }
+				
+				-               // detecting errors:
+				-               $data['errors'] = array();
+				-               if($this->user->level === 3){
+					-                       $path = $this->settings_model->get_setting('assignments_root');
+					-                       if ( ! file_exists($path))
+					-                               array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
+					-                       elseif ( ! is_writable($path))
+					-                               array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
+					+        $this->twig->display('pages/dashboard.twig', $data);
+					+    }
+				
+				-                       $path = $this->settings_model->get_setting('tester_path');
+				-                       if ( ! file_exists($path))
+				-                               array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
+				-                       elseif ( ! is_writable($path))
+				-                               array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
+				-               }
+			
+			-               $this->twig->display('pages/dashboard.twig', $data);
+			-       }
+		+    // ------------------------------------------------------------------------
+		
+		+    /**
+		+     * Used by ajax request, for saving the user's Dashboard widget positions
+		+     */
+		+    public function widget_positions()
+		+    {
+			+        if (! $this->input->is_ajax_request()) {
+				+            show_404();
+				+        }
+			+        if ($this->input->post('positions') !== null) {
+				+            $this->user->save_widget_positions($this->input->post('positions'));
+				+        }
+			+    }
+		
+		-       // ------------------------------------------------------------------------
+		-
+		-       /**
+		-        * Used by ajax request, for saving the user's Dashboard widget positions
+		-        */
+		-       public function widget_positions()
+		-       {
+			-               if ( ! $this->input->is_ajax_request() )
+			-                       show_404();
+			-               if ($this->input->post('positions') !== NULL)
+			-                       $this->user->save_widget_positions($this->input->post('positions'));
+			-       }
+		-
+		-}
+	\ No newline at end of file
+	+}
+
+----------- end diff -----------
+\end{lstlisting}
+
+\subsection{Pemeriksaan Manual}
+\label{periksa_manual}
