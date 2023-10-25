@@ -468,6 +468,21 @@
  
 \pagestyle{fancy}%header 
 
+\definecolor{diffstart}{RGB}{169,169,169} %mendefinisikan warna abu-abu
+\definecolor{diffincl}{RGB}{0,128,0} %mendefinisikan warna hijau
+\definecolor{diffrem}{RGB}{255,0,0} %mendefinisikan warna merah
+
+\lstdefinelanguage{diff}{ %mendefinisikan bahasa baru
+	basicstyle=\ttfamily\small,
+	morecomment=[f][\color{diffstart}]{@@},
+	morecomment=[f][\color{diffstart}]{* },	
+	morecomment=[f][\color{diffincl}]{+\ },
+	%morecomment=[f][\color{diffincl}]{+++\ },
+	morecomment=[f][\color{diffrem}]{-\ },
+	%morecomment=[f][\color{diffrem}]{---\ },
+	%rulecolor=\color{black},
+}
+
 %include bab 
 \foreach \i in \vbab { \edef\vfile{Bab/bab\i} \IfFileExists{\vfile}{\include{\vfile}}} 
 

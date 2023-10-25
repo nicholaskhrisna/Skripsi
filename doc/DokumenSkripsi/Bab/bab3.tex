@@ -8,15 +8,14 @@ Bab ini membahas tentang analisis terkait evaluasi yang akan dilakukan pada Shar
 
 Sebelum menentukan metodologi yang akan digunakan, ada beberapa hal yang perlu dipertimbangkan terlebih dahulu. Hal ini akan memengaruhi cara serta hasil akhir pemeriksaan dan evaluasi. Hal-hal tersebut antara lain sebegai berikut.
 \begin{itemize}
-	\item Jumlah aturan dalam PSR berjumlah ... sehingga akan membutuhkan banyak waktu untuk memeriksa seluruh \textit{file} PHP dalam SharIF Judge. Jumlah kode dalam \textit{file} PHP dari SharIF Judge yang perlu diperiksa berjumlah ... .
+	\item Jumlah aturan dalam PSR berjumlah ... sehingga akan membutuhkan banyak waktu untuk memeriksa seluruh \textit{file} PHP dalam SharIF Judge. Jumlah kode dalam \textit{file} PHP dari SharIF Judge yang perlu diperiksa berjumlah 34.
 	\item Saat dokumen ini dibuat, hanya tersedia \textit{tools} yang dapat membantu memeriksa penulisan kode sesuai PSR-12. Selain dari itu pemeriksaan harus dilakukan secara manual.
-	\item Beberapa aturan PSR mungkin tidak relevan dengan \textit{file} PHP yang diperiksa. Sebagai contoh, tidak semua \textit{file} PHP menggunakan fungsi waktu  dalam kodenya sehingga PSR-20: Clock tidak dibutuhkan dalam pemeriksan \textit{file}-\textit{file} tersebut.
+	\item Beberapa aturan PSR mungkin tidak relevan dengan \textit{file} PHP yang diperiksa. Sebagai contoh, tidak semua \textit{file} PHP menggunakan fungsi yang berkaitan dengan waktu dan tanggal dalam kodenya sehingga PSR-20: Clock tidak relevan dalam pemeriksan \textit{file}-\textit{file} tersebut.
 \end{itemize} 
-
 Dengan pertimbangan-pertimbangan tersebut, maka metodologi pemeriksaan yang dilakukan adalah sebagai berikut.
 \begin{enumerate}
 	\item Melakukan pemeriksaan secara otomatis sesuai rekomendasi PSR-12 dengan bantuan PHP CS Fixer.
-	\item Melakukan pemeriksaan secara manual. 
+	\item Melakukan pemeriksaan pemenuhan rekomendasi PSR lainnya secara manual tanpa PHP CS Fixer. 
 \end{enumerate}
 
 
@@ -26,141 +25,712 @@ Jumlah \textit{file} PHP yang diperiksa adalah 34, di luar \textit{file}-\textit
 
 \subsection{Pemeriksaan dengan PHP CS Fixer}
 \label{subsec:periksa_otomatis}
-PHP CS Fixer menyediakan fitur untuk menampilkan kode program yang diperiksa beserta dengan rekomendasi perubahannya sesuai dengan \textit{ruleset} yang sudah ditentukan sebelumnya yaitu PSR-12. Maka dari itu, PHP CS Fixer sudah memeriksa dan memberikan rekomendasi perbaikannya sekaligus. Setelah menjalankan perintah dan \textit{flag} yang ditentukan, keluaran yang dihasilkan dapat dilihat seperti contoh Kode~\ref{ck:31}.
+PHP CS Fixer menyediakan fitur untuk menampilkan kode program yang diperiksa beserta dengan rekomendasi perubahannya sesuai dengan \textit{ruleset} yang sudah ditentukan sebelumnya yaitu PSR-12. Maka dari itu, PHP CS Fixer sudah memeriksa dan memberikan rekomendasi perbaikannya sekaligus. Berikut adalah salah satu contoh ketika melakukan pemeriksaan pada \textit{Dashboard.php}.  Setelah menjalankan perintah dan \textit{flag} yang ditentukan, keluaran yang dihasilkan dapat dilihat pada Kode~\ref{ck:31}. 
 
-\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+\begin{lstlisting}[language=diff, basicstyle=\ttfamily, frame=single,
 	columns=fullflexible, keepspaces=true, breaklines=true, label=ck:31, caption=Contoh penggunaan PHP CS Fixer pada \textit{Dashboard.php}]
-	
-	Loaded config default.
-	Using cache file ".php-cs-fixer.cache".
-	1) application/controllers/Dashboard.php
-	---------- begin diff ----------
-	--- /Users/user/Documents/KULIAH/Skripsi/SharIF-Judge-Version-1/application/controllers/Dashboard.php
-	+++ /Users/user/Documents/KULIAH/Skripsi/SharIF-Judge-Version-1/application/controllers/Dashboard.php
-	@@ -4,66 +4,70 @@
-	* @file Dashboard.php
-	* @author Mohammad Javad Naderi <mjnaderi@gmail.com>
-	*/
-	-defined('BASEPATH') OR exit('No direct script access allowed');
-	+defined('BASEPATH') or exit('No direct script access allowed');
-	
-	class Dashboard extends CI_Controller
-	{
-		+    public function __construct()
-		+    {
-			+        parent::__construct();
-			+        if (! $this->db->table_exists('sessions')) {
-				+            redirect('install');
-				+        }
-			+        if (! $this->session->userdata('logged_in')) { // if not logged in
-				+            redirect('login');
-				+        }
-			+        $this->load->model('notifications_model')->helper('text');
-			+    }
-		
-		
-		-       public function __construct()
-		-       {
-			-               parent::__construct();
-			-               if ( ! $this->db->table_exists('sessions'))
-			-                       redirect('install');
-			-               if ( ! $this->session->userdata('logged_in')) // if not logged in
-			-                       redirect('login');
-			-               $this->load->model('notifications_model')->helper('text');
-			-       }
-		+    // ------------------------------------------------------------------------
-		
-		
-		-       // ------------------------------------------------------------------------
-		+    public function index()
-		+    {
-			+        $data = array(
-			+            'all_assignments' => $this->assignment_model->all_assignments(),
-			+            'week_start' => $this->settings_model->get_setting('week_start'),
-			+            'wp' => $this->user->get_widget_positions(),
-			+            'notifications' => $this->notifications_model->get_latest_notifications()
-			+        );
-			
-			+        // detecting errors:
-			+        $data['errors'] = array();
-			+        if($this->user->level === 3) {
-				+            $path = $this->settings_model->get_setting('assignments_root');
-				+            if (! file_exists($path)) {
-					+                array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
-					+            } elseif (! is_writable($path)) {
-					+                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
-					+            }
-				
-				-       public function index()
-				-       {
-					-               $data = array(
-					-                       'all_assignments'=>$this->assignment_model->all_assignments(),
-					-                       'week_start'=>$this->settings_model->get_setting('week_start'),
-					-                       'wp'=>$this->user->get_widget_positions(),
-					-                       'notifications' => $this->notifications_model->get_latest_notifications()
-					-               );
-					+            $path = $this->settings_model->get_setting('tester_path');
-					+            if (! file_exists($path)) {
-						+                array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
-						+            } elseif (! is_writable($path)) {
-						+                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
-						+            }
-					+        }
-				
-				-               // detecting errors:
-				-               $data['errors'] = array();
-				-               if($this->user->level === 3){
-					-                       $path = $this->settings_model->get_setting('assignments_root');
-					-                       if ( ! file_exists($path))
-					-                               array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
-					-                       elseif ( ! is_writable($path))
-					-                               array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
-					+        $this->twig->display('pages/dashboard.twig', $data);
-					+    }
-				
-				-                       $path = $this->settings_model->get_setting('tester_path');
-				-                       if ( ! file_exists($path))
-				-                               array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
-				-                       elseif ( ! is_writable($path))
-				-                               array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
-				-               }
-			
-			-               $this->twig->display('pages/dashboard.twig', $data);
-			-       }
-		+    // ------------------------------------------------------------------------
-		
-		+    /**
-		+     * Used by ajax request, for saving the user's Dashboard widget positions
-		+     */
-		+    public function widget_positions()
-		+    {
-			+        if (! $this->input->is_ajax_request()) {
-				+            show_404();
-				+        }
-			+        if ($this->input->post('positions') !== null) {
-				+            $this->user->save_widget_positions($this->input->post('positions'));
-				+        }
-			+    }
-		
-		-       // ------------------------------------------------------------------------
-		-
-		-       /**
-		-        * Used by ajax request, for saving the user's Dashboard widget positions
-		-        */
-		-       public function widget_positions()
-		-       {
-			-               if ( ! $this->input->is_ajax_request() )
-			-                       show_404();
-			-               if ($this->input->post('positions') !== NULL)
-			-                       $this->user->save_widget_positions($this->input->post('positions'));
-			-       }
-		-
-		-}
-	\ No newline at end of file
-	+}
+@@ -4,66 +4,70 @@
+* @file Dashboard.php
+* @author Mohammad Javad Naderi <mjnaderi@gmail.com>
+*/
+- defined('BASEPATH') OR exit('No direct script access allowed');
++ defined('BASEPATH') or exit('No direct script access allowed');
 
------------ end diff -----------
+class Dashboard extends CI_Controller
+{
++    public function __construct()
++    {
++        parent::__construct();
++        if (! $this->db->table_exists('sessions')) {
++            redirect('install');
++        }
++        if (! $this->session->userdata('logged_in')) { // if not logged in
++            redirect('login');
++        }
++        $this->load->model('notifications_model')->helper('text');
++    }
+	
+	
+- public function __construct()
+-	{
+-		parent::__construct();
+-		if ( ! $this->db->table_exists('sessions'))
+-			redirect('install');
+-		if ( ! $this->session->userdata('logged_in')) // if not logged in
+-			redirect('login');
+-		$this->load->model('notifications_model')->helper('text');
+-	}
++    // ------------------------------------------------------------------------
+	
+	
+-	// ------------------------------------------------------------------------
++    public function index()
++    {
++        $data = array(
++            'all_assignments' => $this->assignment_model->all_assignments(),
++            'week_start' => $this->settings_model->get_setting('week_start'),
++            'wp' => $this->user->get_widget_positions(),
++            'notifications' => $this->notifications_model->get_latest_notifications()
++        );
+		
++        // detecting errors:
++        $data['errors'] = array();
++        if($this->user->level === 3) {
++            $path = $this->settings_model->get_setting('assignments_root');
++            if (! file_exists($path)) {
++                array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
++            } elseif (! is_writable($path)) {
++                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
++            }
+			
+-	public function index()
+-	{
+-		$data = array(
+-			'all_assignments'=>$this->assignment_model->all_assignments(),
+-			'week_start'=>$this->settings_model->get_setting('week_start'),
+-			'wp'=>$this->user->get_widget_positions(),
+-			'notifications' => $this->notifications_model->get_latest_notifications()
+-		);
++            $path = $this->settings_model->get_setting('tester_path');
++            if (! file_exists($path)) {
++                array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
++            } elseif (! is_writable($path)) {
++                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
++            }
++        }
+			
+-		// detecting errors:
+-		$data['errors'] = array();
+-		if($this->user->level === 3){
+-			$path = $this->settings_model->get_setting('assignments_root');
+-			if ( ! file_exists($path))
+-				array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
+-			elseif ( ! is_writable($path))
+-				array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
++        $this->twig->display('pages/dashboard.twig', $data);
++    }
+			
+-			$path = $this->settings_model->get_setting('tester_path');
+-			if ( ! file_exists($path))
+-				array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
+-			elseif ( ! is_writable($path))
+-				array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
+-		}
+		
+-		$this->twig->display('pages/dashboard.twig', $data);
+-	}
++    // ------------------------------------------------------------------------
+	
++    /**
++     * Used by ajax request, for saving the user's Dashboard widget positions
++     */
++    public function widget_positions()
++    {
++        if (! $this->input->is_ajax_request()) {
++            show_404();
++        }
++        if ($this->input->post('positions') !== null) {
++            $this->user->save_widget_positions($this->input->post('positions'));
++        }
++    }
+	
+-	// ------------------------------------------------------------------------
+-
+-	/**
+-	 * Used by ajax request, for saving the user's Dashboard widget positions
+-	 */
+-	public function widget_positions()
+-	{
+-		if ( ! $this->input->is_ajax_request() )
+-			show_404();
+-		if ($this->input->post('positions') !== NULL)
+-			$this->user->save_widget_positions($this->input->post('positions'));
+-	}
+-
+-}
+\ No newline at end of file
++}
+
 \end{lstlisting}
 
-\subsection{Pemeriksaan Manual}
+\subsection{Pemeriksaan Tanpa PHP CS Fixer}
 \label{periksa_manual}
+Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksaan sesuai rekomendasi PSR selain PSR-12 pada setiap \textit{file} PHP secara manual. Setiap hasil pemeriksaan akan ditandai sebagai ``terpenuhi'' jika rekomendasi PSR sudah terpenuhi, ``belum terpenuhi'' jika rekomendasi PSR belum terpenuhi, dan ``tidak relevan'' jika rekomendasi dari PSR tersebut tidak relevan dengan kode program yang diperiksa.
+
+\subsubsection{Assignments.php} 
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} tidak relevan.
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Dashboard.php} 
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Halloffame.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Install.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Login.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Logs.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Moss.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Notifications.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Problems.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Profile.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Queue.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Queueprocess.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Rejudge.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Scoreboard.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Server\_time.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Settings.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Submissions.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Submit.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Users.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{shj\_helper.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{form\_validation\_lang.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{MY\_Form\_validation.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{MY\_Profiler.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Shj\_pagination.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Assignment\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Hof\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Logs\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Notifications\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Queue\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Scoreboard\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Settings\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{Submit\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{User\_model.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
+
+\subsubsection{User.php}
+\begin{itemize}
+	\item \textbf{PSR-01} 
+	\item \textbf{PSR-03}
+	\item \textbf{PSR-04}
+	\item \textbf{PSR-06}
+	\item \textbf{PSR-07}
+	\item \textbf{PSR-11}
+	\item \textbf{PSR-13}
+	\item \textbf{PSR-14}
+	\item \textbf{PSR-15}
+	\item \textbf{PSR-16}
+	\item \textbf{PSR-17} 
+	\item \textbf{PSR-18} 
+	\item \textbf{PSR-20} tidak relevan.
+\end{itemize}
