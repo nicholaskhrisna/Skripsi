@@ -13,151 +13,206 @@
 \usepackage[inner=2cm,outer=2.5cm,top=2.5cm,bottom=2cm]{geometry} %margin
 % \pagestyle{empty}
 
+\usepackage{listings}
+\lstdefinelanguage{diff}{
+	basicstyle=\ttfamily\small,
+	morecomment=[f][\color{diffstart}]{@@},
+	morecomment=[f][\color{diffincl}]{+\ },
+	morecomment=[f][\color{diffrem}]{-\ },
+}
+\lstset{tabsize=1}
+
 \makeatletter
 \renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
 \renewcommand{\thispagestyle}[1]{}
-\markright{\textbf{\textsc{Laporan Perkembangan Pengerjaan Skripsi\textemdash Sem. Genap 2015/2016}}}
+\markright{\textbf{\textsc{Laporan Perkembangan Pengerjaan Tugas Akhir\textemdash Sem. Ganjil 2023/2024}}}
 
 \onehalfspacing
- 
+
 \begin{document}
-
-\title{\@judultopik}
-\author{\nama \textendash \@npm} 
-
-%ISILAH DATA BERIKUT INI:
-\newcommand{\nama}{Lionov}
-\newcommand{\@npm}{1997730020}
-\newcommand{\tanggal}{01/01/1900} %Tanggal pembuatan dokumen
-\newcommand{\@judultopik}{Simulasi Kerumunan di Museum} % Judul/topik anda
-\newcommand{\kodetopik}{TAB0901}
-\newcommand{\jumpemb}{2} % Jumlah pembimbing, 1 atau 2
-\newcommand{\pembA}{Thomas Anung Basuki}
-\newcommand{\pembB}{-}
-\newcommand{\semesterPertama}{40 - Genap 15/16} % semester pertama kali topik diambil, angka 1 dimulai dari sem Ganjil 96/97
-\newcommand{\lamaSkripsi}{1} % Jumlah semester untuk mengerjakan skripsi s.d. dokumen ini dibuat
-\newcommand{\kulPertama}{Skripsi 1} % Kuliah dimana topik ini diambil pertama kali
-\newcommand{\tipePR}{B} % tipe progress report :
-% A : dokumen pendukung untuk pengambilan ke-2 di Skripsi 1
-% B : dokumen untuk reviewer pada presentasi dan review Skripsi 1
-% C : dokumen pendukung untuk pengambilan ke-2 di Skripsi 2
-
-% Dokumen hasil template ini harus dicetak bolak-balik !!!!
-
-\maketitle
-
-\pagenumbering{arabic}
-
-\section{Data Skripsi} %TIDAK PERLU MENGUBAH BAGIAN INI !!!
-Pembimbing utama/tunggal: {\bf \pembA}\\
-Pembimbing pendamping: {\bf \pembB}\\
-Kode Topik : {\bf \kodetopik}\\
-Topik ini sudah dikerjakan selama : {\bf \lamaSkripsi} semester\\
-Pengambilan pertama kali topik ini pada : Semester {\bf \semesterPertama} \\
-Pengambilan pertama kali topik ini di kuliah : {\bf \kulPertama} \\
-Tipe Laporan : {\bf \tipePR} -
-\ifdefstring{\tipePR}{A}{
-			Dokumen pendukung untuk {\BF pengambilan ke-2 di Skripsi 1} }
-		{
+	
+	\title{\@judultopik}
+	\author{\nama \textendash \@npm} 
+	
+	%ISILAH DATA BERIKUT INI:
+	\newcommand{\nama}{Nicholas Khrisna Sandyawan}
+	\newcommand{\@npm}{6181801060}
+	\newcommand{\tanggal}{06/12/2023} %Tanggal pembuatan dokumen
+	\newcommand{\@judultopik}{Evaluasi PHP Standards Recommendations pada Proyek SharIF Judge} % Judul/topik anda
+	\newcommand{\kodetopik}{PAN5401}
+	\newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
+	\newcommand{\pembA}{Pascal Alfadian Nugroho}
+	\newcommand{\pembB}{-}
+	\newcommand{\semesterPertama}{54 - Genap 22/23} % semester pertama kali topik diambil, angka 1 dimulai dari sem Ganjil 96/97
+	\newcommand{\lamaSkripsi}{2} % Jumlah semester untuk mengerjakan skripsi s.d. dokumen ini dibuat
+	\newcommand{\kulPertama}{Skripsi 1} % Kuliah dimana topik ini diambil pertama kali
+	\newcommand{\tipePR}{B} % tipe progress report :
+	% A : dokumen pendukung untuk pengambilan ke-2 di Skripsi 1
+	% B : dokumen untuk reviewer pada presentasi dan review Skripsi 1
+	% C : dokumen pendukung untuk pengambilan ke-2 di Skripsi 2
+	
+	% Dokumen hasil template ini harus dicetak bolak-balik !!!!
+	
+	\maketitle
+	
+	\pagenumbering{arabic}
+	
+	\section{Data Tugas Akhir} %TIDAK PERLU MENGUBAH BAGIAN INI !!!
+	Pembimbing utama/tunggal: {\bf \pembA}\\
+	Pembimbing pendamping: {\bf \pembB}\\
+	Kode Topik : {\bf \kodetopik}\\
+	Topik ini sudah dikerjakan selama : {\bf \lamaSkripsi} semester\\
+	Pengambilan pertama kali topik ini pada : Semester {\bf \semesterPertama} \\
+	Pengambilan pertama kali topik ini di kuliah : {\bf \kulPertama} \\
+	Tipe Laporan : {\bf \tipePR} -
+	\ifdefstring{\tipePR}{A}{
+		Dokumen pendukung untuk {\bf pengambilan ke-2 di Tugas Akhir 1} }
+	{
 		\ifdefstring{\tipePR}{B} {
-				Dokumen untuk reviewer pada presentasi dan {\bf review Skripsi 1}}
-			{	Dokumen pendukung untuk {\bf pengambilan ke-2 di Skripsi 2}}
-		}
-		
-\section{Latar Belakang}
-
-\section{Rumusan Masalah}
-
-\section{Tujuan}
-
-
-\section{Detail Perkembangan Pengerjaan Skripsi}
-Detail bagian pekerjaan skripsi sesuai dengan rencan kerja/laporan perkembangan terkahir :
+			Dokumen untuk reviewer pada presentasi dan {\bf review Tugas Akhir 1}}
+		{	Dokumen pendukung untuk {\bf pengambilan ke-2 di Tugas Akhir 2}}
+	}
+	
+	\section{Latar Belakang}
+	Pengembangan aplikasi berbasis web dengan bahasa PHP cukup populer di kalangan pengembang web. Bahkan tersedia banyak \textit{framework} yang dapat digunakan untuk memudahkan pengembangannya. Walaupun demikian, masih cukup sering dijumpai masalah dalam pengembangan. Salah satunya adalah penulisan kode program yang tidak konsisten karena belum ditentukan aturan atau standar penulisan tertentu. Hal ini membuat suatu proyek aplikasi web menjadi rumit dan sulit dipelihara, terutama jika melibatkan banyak pengembang. 
+	
+	Salah satu proyek aplikasi berbasis web yang digunakan di jurusan Informatika UNPAR adalah SharIF Judge. SharIF Judge merupakan aplikasi berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. Aplikasi ini ditulis dengan  \textit{framework} PHP CodeIgniter dan bagian \textit{backend} dibuat dengan BASH. SharIF Judge yang dibahas pada tugas akhir ini adalah \textit{fork} dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi \textit{fork} ini sudah dikembangkan sesuai kebutuhan Informatika UNPAR untuk digunakan dalam proses penilaian pada beberapa mata kuliah. Tidak menutup kemungkinan akan ada perbaikan atau penambahan fitur seiring berjalannya waktu. Hal ini dapat melibatkan lebih dari satu orang. Akan lebih baik jika ditentukan suatu aturan atau standar dalam pengembangannya.
+	
+	PHP Standards Recommendation (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Standar-standar ini berisi aturan dan rekomendasi penulisan kode program PHP yang dapat membantu pengembangan aplikasi agar lebih konsisten. Pada saat dokumen ini dibuat, terdapat 14 bab PSR yang berlaku untuk digunakan (\textit{Accepted}) antara lain:
+	\begin{itemize}
+		\item PSR-01: Basic Coding Standard
+		\item PSR-03: Logger Interface
+		\item PSR-04: Autoloading Standard
+		\item PSR-06: Caching Interface
+		\item PSR-07: HTTP Message Interface
+		\item PSR-11: Container Interface
+		\item PSR-12: Extended Coding Style Guide
+		\item PSR-13: Hypermedia Links
+		\item PSR-14: Event Dispatcher
+		\item PSR-15: HTTP Handlers
+		\item PSR-16: Simple Cache
+		\item PSR-17: HTTP Factories
+		\item PSR-18: HTTP Client
+		\item PSR-20: Clock
+	\end{itemize}
+	Standar yang digunakan hanya standar dari bab-bab yang berstatus ``\textit{Accepted}''. Bab dengan status lain yaitu ``\textit{Draft}'', ``\textit{Abandoned}'', dan ``\textit{Deprecated}'' tidak akan digunakan sehingga tidak dicantumkan dalam dokumen tugas akhir.
+	
+	Pada tugas akhir ini, kode-kode program PHP pada SharIF Judge akan diperiksa dan dievaluasi seberapa patuh SharIF Judge terhadap PSR berdasarkan jumlah standar yang sudah dipenuhi. Pemeriksaan PSR-12 dilakukan dengan bantuan \textit{tools} PHP CS Fixer sementara pemeriksaan PSR lainnya dilakukan secara manual. Setelah itu, kode-kode yang belum memenuhi akan diberikan rekomendasi sesuai PSR berdasarkan hasil evaluasi tersebut. 
+	
+	\section{Rumusan Masalah}
+	\begin{itemize}
+		\item Bagaimana tingkat kepatuhan kode PHP pada SharIF Judge terhadap PSR?  
+		\item Rekomendasi perbaikan apa yang dapat diberikan pada kode PHP SharIF Judge untuk meningkatkan jumlah aturan PSR yang terpenuhi?
+	\end{itemize}
+	
+	\section{Tujuan}
+	\begin{itemize}
+		\item Mengukur tingkat kepatuhan kode PHP pada SharIF Judge terhadap PSR.
+		\item Membuat rekomendasi perbaikan pada kode PHP SharIF Judge agar meningkatkan jumlah PSR yang terpenuhi.
+	\end{itemize}
+	
+	
+	\section{Detail Perkembangan Pengerjaan Tugas Akhir}
+	Detail bagian pekerjaan tugas akhir sesuai dengan rencana kerja/laporan perkembangan terkahir :
 	\begin{enumerate}
-		\item \textbf{Melakukan survei ke Museum Geologi Bandung untuk mendapatkan denah serta mengetahui perilaku pengunjung museum secara umum (arah perjalanan, kecepatan, lama melihat objek, dll).}\\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :} Survei sudah dilakukan sebanyak 3x pada tanggal X, Y dan Z. Pada kunjungan pertama, diperhaitkan denah museum dan dibuat sketsa berdasarkan pengamatan. Pada kunjunga kedua, bertemu dengan bagian humas museum dan berhasil mendapatkan denah serta melakukan wawancara. Hasil wawancara sudah dibuat dan ada softcopy-nya. Pada kunjungan ketiga, secara khusus dilihat perilaku pengunjung. Masih direncakanan 2x kunjungan lagi. Bukti-bukti kunjungan dapat dilihat di lampiran
+		\item \textbf{Mempelajari SharIF Judge.}\\
+		{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+		{\bf Hasil :} Studi tentang SharIF Judge sejauh ini adalah membedah \textit{file}-\textit{file} PHP yang menjadi lingkup evaluasi. Semua \textit{file} yang berasal dari \textit{framework} atau \textit{library} tidak termasuk ke dalamnya. Hanya \textit{file}-\textit{file} dalam \textit{folder} \verb|application/| dan memiliki tanda ``SharIF Judge'' di dalamnya yang menjadi lingkup evaluasi. Eksperimen menjalankan SharIF Judge secara lokal sedang dalam tahap percobaan karena masih belum berhasil. Percobaan ini dilakukan berdampingan dengan pengecekan dan evaluasi PSR.
 		
-		\item \textbf{Melakukan analisis pada hasil survei terhadap pergerakan pengunjung di museum dan membuat rancangan denah di komputer yang dilengkapi dengan penghalang dan objek di museum.}\\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :}
-
-		\item \textbf{Melakukan studi literatur mengenai sifat kolektif suatu kerumunan, teknik {\it social force model} dan teknik {\it flow tiles}}\\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :}
-
-		\item \textbf{Mempelajari bahasa pemrograman C++ dan cara menggunakan framework OpenSteer}\\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :}
-
-		\item \textbf{Merancang pergerakan kerumunan di dalam museum menggunakan teknik {\it social force model} dan {\it flow tiles} serta menggunakan teknik lainnya seperti konsep pathway dan waypoints. Selain itu, dirancang pula adanya waktu tunggu (pada saat pengunjung melihat objek di museum) dan cara pembuatan jalur bagi setiap individu pengunjung}\\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :}
-
-		\item \textbf{Melakukan analisa dan merancang struktur data yang cocok untuk menyimpan penghalang (obstacle)}\\
-		{\bf Status :} dihapuskan/tidak dikerjakan \\
-		{\bf Hasil :} berdasarkan analisis singkat, tidak dilakukan analisis lebih jauh karena tidak diperlukan struktur data baru, karena sudah disediakan oleh OpenSteer versi terbaru
-
-		\item \textbf{Mengimplementasikan keseluruhan algoritma dan struktur data yang dirancang, dengan menggunakan framework OpenSteer} \\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :}
-
-		\item \textbf{Melakukan pengujian (dan eksperimen) yang melibatkan responde untuk menilai hasil simulasi secara kualitatif}\\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :}
-
-		\item \textbf{Menulis dokumen skripsi}\\
-		{\bf Status :} Ada sejak rencana kerja skripsi.\\
-		{\bf Hasil :} \lipsum[1]
+		\item \textbf{Melakukan studi literatur mengenai PSR dan PHP CS Fixer.}\\
+		{\bf Status :} Ada sejak rencana kerja rencana tugas akhir namun ada perubahan dari PHP Linter menjadi PHP CS Fixer.\\
+		{\bf Hasil :} Berikut adalah rincian hasilnya.
+		\begin{enumerate}
+			\item Penulisan standar-standar PSR ini diterjemahkan dari bahasa Inggris ke bahasa Indonesia. Salah satu tantangan dalam menerjemahkan PSR ini adalah tidak setiap aturan ditulis dalam bentuk \textit{list} yang mudah untuk dibaca. Banyak di antaranya merupakan bagian dari suatu paragraf yang berkelanjutan dengan konteksnya masing-masing sehingga penjelasan atau deskripsinya perlu dicantumkan pula dalam Landasan Teori agar tidak ada standar yang bermakna ambigu atau tidak jelas. Untuk saat ini, semua PSR dicantumkan dalam Landasan Teori kecuali dua bab yaitu PSR-07 dan PSR-12. Hal ini dikarenakan jumlah aturan yang harus diterjemahkan dan ditulis kembali cukup banyak sehingga dikhawatirkan akan memakan waktu yang lama. Untuk sementara, hal ini dicantumkan dalam Batasan Masalah. Rencananya kedua bab ini akan ditambahkan setelah selesai dilakukan pemeriksaan dan evaluasi kepatuhan.
+			\item Ada beberapa kata kunci yang harus ditaati dalam standar PSR berdasarkan dokumen Request For Comments (RFC) 2119, yaitu ``MUST'', ``MUST NOT'', ``SHOULD'', ``SHOULD NOT'', dan ``MAY''. Ada juga beberapa kata kunci lain yang disertakan namun sangat jarang digunakan, yaitu ``REQUIRED'', ``SHALL'', ``SHALL NOT'', ``RECOMMENDED'', dan ``OPTIONAL''. Setiap kata kunci ditulis dengan huruf kapital dan memiliki tingkat prioritas yang berbeda dalam hal keharusan pemenuhannya. Beberapa kata kunci memiliki tingkat yang sama, sebagai contoh ``MUST'', ``SHALL'', dan ``REQUIRED'' memiliki tingkat yang sama yaitu harus dipenuhi sesuai rekomendasi PSR. Maka dari itu, setiap kata kunci dikelompokkan berdasarkan tingkatan tersebut dan diterjemahkan ke bahasa Indonesia agar penulisan dokumen tugas akhir menjadi konsisten dan tidak mengubah makna dari standar yang asli. Misalnya, kata kunci ``MUST'' dan setingkatnya diterjemahkan menjadi ``HARUS''. Begitu pula dengan lawan katanya ``MUST NOT'' diterjemahkan menjadi ``TIDAK BOLEH''.
+			\item Setiap standar diberikan kode tertentu agar dapat digunakan sebagai acuan dari bab-bab lain dalam dokumen tugas akhir. Kode tersebut ditulis dengan format PSR-XXYY, di mana XX adalah nomor bab dan YY adalah nomor urut standar dalam bab tersebut. Sebagai contoh PSR-0402 berarti mengacu pada standar PSR nomor 2 dari bab PSR-04. Urutan tersebut didasarkan pada standar mana yang ditulis terlebih dahulu. Kode-kode ini tidak ada pada dokumentasi asli PSR dan hanya dibuat untuk kepentingan tugas akhir ini.
+			\item PHP Linter pada dasarnya digunakan untuk membantu melakukan pengecekan penulisan kode PHP secara keseluruhan dengan standar tertentu. Pada rencana kerja sebelumnya, PHP Linter yang digunakan adalah yang dibuat oleh pengguna GitHub dengan nama Brueggern. \textit{Linter} ini dapat memeriksa berdasarkan PSR-02 (\textit{Deprecated}) dan PSR-12. Fiturnya dapat menunjukkan kesalahan penulisan dan memberikan rekomendasi perbaikannya. Satu fitur lainnya yaitu perintah untuk memperbaiki kesalahan-kesalahan tersebut secara otomatis. Namun setelah dipelajari lebih lanjut, \textit{linter} tersebut menggunakan PHP Coding Standards Fixer (PHP CS Fixer) yang dimodifikasi menjadi lebih sederhana untuk digunakan. Pada dokumentasinya, PHP CS Fixer memiliki \textit{rule set} untuk PSR-01, PSR-02 (\textit{Deprecated}), dan PSR-12. PHP CS Fixer dapat diatur untuk memberikan tanda bagian mana saja dari kode yang perlu diperbaiki dan juga memberikan perbaikan secara otomatis tergantung perintah yang diberikan. Dengan PHP CS Fixer, proses pemeriksaan menjadi lebih fleksibel karena perintah yang diberikan lebih beragam dibandingkan PHP Linter sebelumnya yang hanya memiliki dua perintah utama. Maka dari itu, \textit{tool} yang digunakan adalah PHP CS Fixer. 
+		\end{enumerate}
 		
-		\item \textbf{Mempelajari cara menggunakan fitur manipulasi obstacle yang disediakan oleh framework Opensteer versi terbaru}\\
-		{\bf Status :} baru ditambahkan pada semester ini\\
-		{\bf Hasil :} baru direncanakan karena framework Opensteer versi paling akhir baru selesai diinstall dan dilihat-lihat bagian contoh-contoh simulasinya
 		
-
-	\end{enumerate}
-
-\section{Pencapaian Rencana Kerja}
-Langkah-langkah kerja yang berhasil diselesaikan dalam Skripsi 1 ini adalah sebagai berikut:
-\begin{enumerate}
-\item
-\item
-\item
-\end{enumerate}
-
-
-
-\section{Kendala yang Dihadapi}
-%TULISKAN BAGIAN INI JIKA DOKUMEN ANDA TIPE A ATAU C
-Kendala - kendala yang dihadapi selama mengerjakan skripsi :
-\begin{itemize}
-	\item Terlalu banyak melakukan prokratinasi
-	\item Terlalu banyak godaan berupa hiburan (game, film, dll)
-	\item Skripsi diambil bersamaan dengan kuliah ASD karena selama 5 semester pertama kuliah tersebut sangat dihindari dan tidak diambil, dan selama 4 semester terakhir kuliah tersebut selalu mendapat nilai E
-	\item Mengalami kesulitan pada saat sudah mulai membuat program komputer karena selama ini selalu dibantu teman
-\end{itemize}
-
-\vspace{1cm}
-\centering Bandung, \tanggal\\
-\vspace{2cm} \nama \\ 
-\vspace{1cm}
-
-Menyetujui, \\
-\ifdefstring{\jumpemb}{2}{
-\vspace{1.5cm}
-\begin{centering} Menyetujui,\\ \end{centering} \vspace{0.75cm}
-\begin{minipage}[b]{0.45\linewidth}
-% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013 \\
-\vspace{2cm} Nama: \pembA \\ Pembimbing Utama
-\end{minipage} \hspace{0.5cm}
-\begin{minipage}[b]{0.45\linewidth}
-% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
-\vspace{2cm} Nama: \pembB \\ Pembimbing Pendamping
-\end{minipage}
-\vspace{0.5cm}
-}{
-% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
-\vspace{2cm} Nama: \pembA \\ Pembimbing Tunggal
-}
-\end{document}
-
+		\item \textbf{Mengevaluasi tingkat kepatuhan SharIF Judge terhadap PSR.}\\
+		{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+		{\bf Hasil :} Proses pemeriksaan dilakukan dengan cara mengecek terlebih dahulu menggunakan PHP CS Fixer lalu setelah itu diperiksa secara manual sesuai rekomendasi-rekomendasi PSR yang relevan. Dalam suatu \textit{file}, tidak semua rekomendasi akan relevan untuk digunakan karena belum tentu semua jenis perintah, aturan penulisan, dan fitur PHP yang diatur dalam PSR diimplementasikan dalam \textit{file} tersebut. Berikut adalah contoh keluaran dari PHP CS Fixer pada potongan kode \verb|application/controllers/Dashboard.php| dalam bentuk \textit{diff} yang isinya menampilkan kode asli (bertanda ``-'') dan rekomendasi perbaikannya (bertanda ``+''). 
+\begin{lstlisting}[frame=single,language=diff]  
+	@@ -4,66 +4,70 @@
+	* @file Dashboard.php
+	* @author Mohammad Javad Naderi <mjnaderi@gmail.com>
+	*/
+	-defined('BASEPATH') OR exit('No direct script access allowed');
+	+defined('BASEPATH') or exit('No direct script access allowed');
+	
+	class Dashboard extends CI_Controller
+	{
+	+    public function __construct()
+	+    {
+	+        parent::__construct();
+	+        if (! $this->db->table_exists('sessions')) {
+	+            redirect('install');
+	+        }
+	+        if (! $this->session->userdata('logged_in')) { // if not logged in
+	+            redirect('login');
+	+        }
+	+        $this->load->model('notifications_model')->helper('text');
+	+    }
+		
+		
+	-		public function __construct()
+	-		{
+	-			parent::__construct();
+	-			if ( ! $this->db->table_exists('sessions'))
+	-				redirect('install');
+	-			if ( ! $this->session->userdata('logged_in')) // if not logged in
+	-				redirect('login');
+	-			$this->load->model('notifications_model')->helper('text');
+	-		}
+\end{lstlisting}
+			Jika diperiksa dengan seksama, kode asli (bertanda ``-'') memiliki jarak indentasi satu kali \textit{tab} dari sisi kiri awal penulisan yang mana seharusnya dimulai dengan empat spasi untuk setiap level indentasi seperti yang ada dalam PSR-12: ``Kode HARUS menggunakan indentasi sebanyak 4 spasi untuk setiap level indentasi, dan TIDAK BOLEH menggunakan \textit{tab}-\textit{tab} untuk indentasi''. Hal ini mungkin tidak terlihat secara sekilas oleh mata sehingga harus diperiksa kembali setiap indentasinya. Hasil rekomendasi perbaikan yang diberikan keluaran (bertanda ``+'') di atas menampilkan indentasi sepanjang empat spasi dan kode aslinya (bertanda ``-'') sepanjang satu \textit{tab}. Hal ini akan lebih jelas jika diperiksa secara langsung melalui terminal.   
+			
+			\item \textbf{Mengimplementasikan rekomendasi PSR sesuai hasil evaluasi.}\\
+			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+			{\bf Hasil :} Proses implementasi berjalan beriringan dengan pemeriksaan. Dengan bantuan PHP CS Fixer, hasil keluaran dalam contoh potongan kode sebelumnya dapat diimplementasikan secara langsung untuk memenuhi PSR-12. Perintah yang diberikan dapat diubah untuk melakukan \textit{fix} secara langsung. Dikarenakan sejauh ini baru dilakukan pemeriksaan menyeluruh secara otomatis, belum ada contoh rekomendasi perbaikan berdasarkan PSR yang lain selain yang diberikan PHP CS Fixer. Pemeriksaan secara manual sedang dalam tahap pengerjaan sambil mengecek standar-standar PSR yang relevan untuk setiap \textit{file} PHP.
+			
+			\item \textbf{Menguji SharIF Judge yang sudah dievaluasi dan diperbaiki.}\\
+			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+			{\bf Hasil :} Belum terlaksana karena SharIF Judge belum berhasil dijalankan dan evaluasi belum selesai dilakukan. 
+			
+			\item \textbf{Menulis dokumen tugas akhir.}\\
+			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+			{\bf Hasil :} Dokumen tugas akhir yang sudah dibuat adalah Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori, terutama PSR dan PHP CS Fixer. Tahap analisis, evaluasi, implementasi, dan pengujian (Bab 3 dan 4) sedang dalam proses sesuai yang dipaparkan pada poin-poin sebelumnya.  
+			
+		\end{enumerate}
+		
+		\section{Pencapaian Rencana Kerja}
+		Langkah-langkah kerja yang berhasil diselesaikan dalam Tugas Akhir 1 ini adalah sebagai berikut:
+		\begin{enumerate}
+			\item Membuat dokumen tugas akhir Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori. 
+			\item Melakukan studi literasi PSR dan PHP CS Fixer.
+			\item Menentukan strategi untuk mengevaluasi keseluruhan PHP SharIF Judge.
+			\item Mengevaluasi sebagian PHP pada SharIF Judge, khususnya yang dapat dilakukan dengan bantuan PHP CS Fixer.
+		\end{enumerate}
+		
+		
+		\vspace{1cm}
+		\centering Bandung, \tanggal\\
+		\vspace{2cm} \nama \\ 
+		\vspace{1cm}
+		
+		Menyetujui, \\
+		\ifdefstring{\jumpemb}{2}{
+			\vspace{1.5cm}
+			\begin{centering} Menyetujui,\\ \end{centering} \vspace{0.75cm}
+			\begin{minipage}[b]{0.45\linewidth}
+				% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013 \\
+				\vspace{2cm} Nama: \pembA \\ Pembimbing Utama
+			\end{minipage} \hspace{0.5cm}
+			\begin{minipage}[b]{0.45\linewidth}
+				% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+				\vspace{2cm} Nama: \pembB \\ Pembimbing Pendamping
+			\end{minipage}
+			\vspace{0.5cm}
+		}{
+			% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+			\vspace{2cm} Nama: \pembA \\ Pembimbing Tunggal
+		}
+	\end{document}
+	
