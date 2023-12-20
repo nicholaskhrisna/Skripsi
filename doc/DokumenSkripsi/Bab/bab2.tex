@@ -5,9 +5,10 @@
 \section{SharIF Judge}
 \label{sec:sharifjudge} 
  
-SharIF Judge \cite{SharIF_Judge} (dengan huruf kapital ``IF'') merupakan perangkat lunak berbasis web yang digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas dalam dokumen ini adalah versi fork dari Sharif Judge \cite{Sharif_Judge_Original} (dengan huruf kecil ``if'') yang dibuat oleh Mohammad Javad Naderi. Versi fork ini dikembangkan sesuai dengan kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah. SharIF judge dibuat dengan PHP pada framework CodeIgniter dan BASH untuk backend.
+SharIF Judge \cite{SharIF_Judge} (dengan huruf kapital ``IF'') merupakan perangkat lunak berbasis web yang digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. SharIF Judge yang dibahas dalam dokumen ini adalah versi fork dari Sharif Judge \cite{Sharif_Judge_Original} (dengan huruf kecil ``if'') yang dibuat oleh Mohammad Javad Naderi. Versi fork ini dikembangkan sesuai dengan kebutuhan jurusan Teknik Informatika UNPAR dalam proses penilaian di beberapa mata kuliah. SharIF judge dibuat dengan PHP pada \textit{framework} CodeIgniter dan BASH untuk \textit{backend}.
 
 \subsection{Fitur}
+\label{subsec:fitur}
 Berikut adalah fitur-fitur dari SharIF Judge.
 \begin{enumerate}
 	\item  Terdapat beberapa role pengguna, antara lain admin, head instructor, instructor, dan student.
@@ -26,21 +27,58 @@ Berikut adalah fitur-fitur dari SharIF Judge.
 \end{enumerate}
 
 \subsection{Instalasi}
+\label{subsec:instalasi}
+Berikut adalah persyaratan dan langkah-langkah instalasi yang perlu dilakukan untuk menjalankan SharIF Judge.
+
+\subsubsection{Persyaratan}
+\label{subsubsec:persyaratan}
 Untuk menjalankan SharIF Judge, dibutuhkan sebuah server Linux dengan syarat sebagai berikut:
 \begin{itemize}
-	\item Webserver menjalankan PHP versi 5.3 atau lebih baru
-	\item Pengguna dapat menjalankan PHP melalui command line.
-	\item Menggunakan database MySql atau PostgreSql.
-	\item PHP harus diberikan akses untuk untuk menjalankan perintah menggunakan fungsi shell exec (pakai underscore).
-	\item Tools yang digunakan untuk melakukan kompilasi dan menjalankan kode yang dikumpulkan.
+	\item \textit{Webserver} menjalankan PHP versi 5.3 atau lebih baru
+	\item Pengguna dapat menjalankan PHP melalui \textit{command line}. Pada Ubuntu, pengguna perlu menginstal paket \verb|php5-cli|.
+	\item Menggunakan \textit{database} MySql atau PostgreSql.
+	\item PHP harus diberikan akses untuk menjalankan perintah menggunakan fungsi \verb|shell_exec|. Contoh perintahnya adalah sebagai berikut:
+	\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+		columns=fullflexible, keepspaces=true, breaklines=true, label=ls:1]
+		echo shell_exec("php -v");
+	\end{lstlisting}
+	\item \textit{Tools} yang digunakan untuk melakukan kompilasi dan menjalankan kode yang dikumpulkan (perintah \verb|gcc|, \verb|g++|, \verb|javac|, \verb|java|, \verb|python2|, \verb|python3|).
 	\item Perl lebih baik diinstal untuk alasan ketepatan waktu, batas memori dan memaksimalkan batas ukuran pada output kode yang dikirim.
 \end{itemize}
 
+\subsubsection{Instalasi}
+\label{subsubsec:instalasi}
+Berikut adalah langkah-langkah instalasi SharIF Judge.
+\begin{enumerate}
+	\item Mengunduh versi terbaru dari SharIF Judge dan \textit{unpack} hasil unduhan di direktori \textit{public html}.
+	\item Memindahkan folder \verb|system| dan \verb|application| ke luar direktori \textit{public}, dan masukkan \textit{path} lengkap di \textit{file} \verb|index.php|.
+	\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+		columns=fullflexible, keepspaces=true, breaklines=true, label=ls:2]
+		$system_path = '/home/mohammad/secret/system';
+		$application_folder = '/home/mohammad/secret/application';
+	\end{lstlisting}
+	\item Membuat sebuah \textit{database} Mysql atau PostgreSql untuk SharIF Judge. Jangan menginstall paket koneksi \textit{database} untuk C/C++, Java, atau Python.
+	\item Mengatur koneksi \textit{database} di \textit{file} \verb|application/config/database.php| dan simpan dengan nama \verb|database.php|. Pengguna dapat
+	menggunakan awalan untuk nama tabel.
+	\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+		columns=fullflexible, keepspaces=true, breaklines=true, label=ls:3]
+		/*  Enter database connection settings here:  */
+		'dbdriver' => 'postgre',    // database driver (mysqli, postgre)
+		'hostname' => 'localhost',  // database host
+		'username' => `,           // database username
+		'password' => `,           // database password
+		'database' => `,           // database name
+		'dbprefix' => 'shj_',       // table prefix
+		/**********************************************/
+	\end{lstlisting}
+	\item Mengatur server \verb|RADIUS| dan server \textit{mail} pada \textit{file application/config/secrets.example.php} dan simpan dengan nama \verb|secrets.php|.
+	\item Membuat direktori \verb|application/cache/Twig| agar dapat ditulis oleh PHP.
+	\item Membuka halaman utama SharIF Judge pada \textit{web browser} dan mengikuti proses instalasi berikutnya.
+	\item \textit{Log in} menggunakan akun admin.
+	\item Memindahkan folder \verb|tester| dan \verb|assigments| ke luar direktori \textit{public} lalu simpan \textit{path} lengkap di halaman Settings. Dua folder tersebut harus dapat ditulis oleh PHP. File-file yang diunggah
+	akan disimpan di folder \verb|assigments| sehingga tidak dapat diakses publik.
+\end{enumerate}
 
-
-%\dtext{11-12} 
-
-%\section{\LaTeX}
 \section{PHP Standards Recommendations}
 \label{sec:psr}
 
@@ -204,6 +242,33 @@ Standar PSR-07 tidak ditulis pada dokumen ini sebagaimana telah dicantumkan pada
 \subsubsection{PSR-12: Extended Coding Style Guide}
 \label{subsubsec:psr12}
 Standar PSR-12 tidak ditulis pada dokumen ini sebagaimana telah dicantumkan pada Batasan Masalah di Bab 1 Pendahuluan.
+\begin{comment}
+	
+\begin{itemize}
+	\item (PSR-1201) Kode HARUS mengikuti semua aturan yang diuraikan dalam PSR-01.
+	\item (PSR-1202) Istilah `StudlyCaps' di PSR-01 HARUS diartikan sebagai PascalCase di mana huruf pertama setiap kata menggunakan huruf kapital termasuk huruf paling pertama.
+	\item (PSR-1203) Semua \textit{file} PHP HARUS menggunakan akhiran baris UnixLF (\textit{linefeed}) saja.
+	\item (PSR-1204) Semua \textit{file} PHP HARUS diakhiri dengan baris yang tidak kosong, diakhiri dengan sebuah LF.
+	\item (PSR-1205) \textit{Tag} penutup \verb|?>| HARUS dihilangkan dari \textit{file} yang hanya berisi PHP.
+	\item (PSR-1206) TIDAK BOLEH ada \textit{hard limit} pada panjang baris.
+	\item (PSR-1207) \textit{Soft limit} pada panjang baris HARUS 120 karakter.
+	\item (PSR-1208) Tiap baris SEBAIKNYA TIDAK lebih dari 80 karakter; (PSR-12) baris-baris yang lebih panjang dari itu HARUS dipecah menjadi beberapa baris berikutnya yang masing-masing tidak lebih dari 80 karakter.
+	\item (PSR-12) TIDAK BOLEH ada spasi tambahan di akhir baris.
+	\item (PSR-12) Baris kosong BOLEH ditambahkan untuk mempermudah membaca kode dan menunjukkan blok-blok kode yang berhubungan kecuali jika dilarang secara eksplisit.
+	\item (PSR-12) TIDAK BOLEH ada lebih dari satu \textit{statement} dalam satu baris.
+	\item (PSR-12) Kode HARUS menggunakan indentasi sebanyak 4 spasi untuk setiap level indentasi, dan (PSR-12) TIDAK BOLEH menggunakan \textit{tab} untuk indentasi. 
+	\item (PSR-12) Semua \textit{keywords} dan \textit{types} yang dicadangkan PHP HARUS ditulis dalam huruf kecil. \footnote{text}
+	\item (PSR-12) Setiap jenis \textit{types} dan \textit{keywords} yang ditambahkan ke versi PHP mendatang HARUS menggunakan huruf kecil.
+	\item (PSR-12) Bentuk pendek dari tipe \textit{keywords} HARUS digunakan, yaitu \verb|boolean| ditulis \verb|bool|, \verb|integer| ditulis \verb|int|, dan lain-lain. 
+	\item (PSR-12)
+	\item (PSR-12)
+	\item (PSR-12)
+	\item (PSR-12)
+	\item (PSR-12)
+	
+\end{itemize}
+
+\end{comment}
 
 
 \subsubsection{PSR-13: Hypermedia Links}
