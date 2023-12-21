@@ -180,17 +180,18 @@
 					\item Setiap \textit{method} menerima string sebagai pesan, atau objek dengan \textit{method} \verb|__toString()|. \textit{Implementor} (PSR-0304) BISA memiliki \textit{handling} khusus untuk objek yang diteruskan. Jika bukan demikian, maka \textit{implementor} harus mengubahnya ke sebuah string.
 					\item Pesan (PSR-0305) BISA memiliki \textit{placeholder} yang (PSR-0306) BISA diganti oleh \textit{implementor} dari \textit{context array}.
 					\item Nama \textit{placeholder} harus sesuai dengan kunci dalam \textit{context array}.
-					\item Nama placeholder (PSR-0307) HARUS dipisahkan dengan kurung kurawal buka tunggal \verb|{| dan kurung kurawal tutup tunggal \verb|}|. (PSR-0308) TIDAK BOLEH ada spasi kosong antara pembatas dan nama \textit{placeholder}.
-					\item Nama \textit{placeholder} (PSR-0309) SEBAIKNYA hanya terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, garis bawah \verb|_|, dan titik \verb|.|.
+					\item Nama placeholder (PSR-0307) HARUS dipisahkan dengan kurung kurawal buka tunggal (\verb|{|)dan kurung kurawal tutup tunggal (\verb|}|). (PSR-0308) TIDAK BOLEH ada spasi kosong antara pembatas dan nama \textit{placeholder}.
+					\item Nama \textit{placeholder} (PSR-0309) SEBAIKNYA hanya terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, garis bawah (\verb|_|), dan titik (\verb|.|).
 					\item \textit{Implementor} (PSR-0310) BISA menggunakan \textit{placeholder} untuk menerapkan berbagai strategi \textit{escaping} dan menerjemahkan log untuk ditampilkan. Pengguna (PSR-0311) SEBAIKNYA TIDAK melakukan \textit{pre-escape} nilai dalam \textit{placeholder} karena mereka tidak tahu dalam konteks mana data akan ditampilkan. 
 					\item Setiap \textit{method} menerima array sebagai data konteks. Ini dimaksudkan untuk menyimpan informasi asing yang tidak sesuai dengan string. Array dapat berisi apa saja. \textit{Implementor} (PSR-0312) HARUS memastikan mereka memperlakukan data konteks dengan kelonggaran sebanyak mungkin. Nilai yang diberikan dalam konteks (PSR-0313) TIDAK BOLEH melempar \textit{exception} atau menimbulkan \textit{error}, peringatan, atau pemberitahuan PHP apa pun.
-					\item Jika objek \verb|Exception| diteruskan dalam data konteks, maka (PSR-0314) HARUS berada dalam \textit{key} \verb|`exception'|. \textit{Implementor} (PSR-0315) HARUS tetap memastikan bahwa\textit{key} \verb|`exception'| adalah sebuah objek \verb|Exception|, karena isinya (PSR-0316) BISA mengandung apa saja.
+					\item Jika objek \verb|Exception| diteruskan dalam data konteks, maka (PSR-0314) HARUS berada dalam \textit{key} \verb|`exception'|. \textit{Implementor} (PSR-0315) HARUS tetap memastikan bahwa \textit{key} \verb|`exception'| adalah sebuah objek \verb|Exception|, karena isinya (PSR-0316) BISA mengandung apa saja.
 				\end{itemize}
 				
 				\item PSR-04: Autoloading Standard
 				\begin{itemize}
 					\item Istilah ``kelas'' mengacu pada kelas, \textit{interface}, \textit{traits}, dan struktur lain yang serupa.
-					\item Nama kelas yang memenuhi syarat memiliki bentuk \verb|\<NamespaceName>(\<SubNamespaceNames>)*\<ClassName>| dengan spesifikasi berikut:
+					\item Nama kelas yang memenuhi syarat memiliki bentuk \texttt{\textbackslash<NamespaceName>(\textbackslash<SubNamespace
+						Names>)*\textbackslash<ClassName>} dengan spesifikasi berikut:
 					\begin{enumerate}
 						\item (PSR-0401) HARUS memiliki nama \textit{namespace} tingkat tertinggi, atau dikenal sebagai ``vendor namespace''.
 						\item (PSR-0402) BISA memiliki satu atau lebih nama \textit{sub-space}.
@@ -273,7 +274,9 @@
 					\item Objek \textit{Event} BISA berubah jika kasus penggunaannya memanggil \textit{Listener} yang memberikan informasi ke \textit{Emitter}.
 					\item Jika tidak ada komunikasi dua arah yang diperlukan, maka (PSR-1404) DIREKOMENDASIKAN agar \textit{Event} ditetapkan sebagai \textit{mutable}; yaitu didefinisikan sedemikian rupa sehingga tidak memiliki \textit{method} mutator.
 					\item Pengimplementasi (PSR-1405) HARUS berasumsi bahwa objek yang sama akan diteruskan ke semua \textit{Listener}.
-					\item (PSR-1406) DIREKOMENDASIKAN tetapi (PSR-1407) TIDAK DIHARUSKAN bahwa objek \textit{Event} mendukung serialisasi dan deserialisasi \textit{lossless}; \verb|$event == unserialize(serialize($event))| (PSR-1408) SEBAIKNYA bernilai  \textit{true}.
+					\item (PSR-1406) DIREKOMENDASIKAN tetapi (PSR-1407) TIDAK DIHARUSKAN bahwa objek \textit{Event} mendukung serialisasi dan deserialisasi \textit{lossless}; 
+					
+					\verb|$event == unserialize(serialize($event))| (PSR-1408) SEBAIKNYA bernilai  \textit{true}.
 					\item Objek (PSR-1409) BISA memanfaatkan \textit{interface} PHP \verb|Serializable|, \verb|__sleep()| atau \verb|__wakeup()| \textit{magic method}, atau fungsionalitas bahasa yang serupa jika dibutuhkan.
 					\item Sebuah \textit{Event} yang mengimplementasikan \verb|StoppableEventInterface| (PSR-1410) HARUS mengembalikan \verb|true| dari \verb|isPropagationStopped()| ketika \textit{Event} apa pun yang direpresentasikannya telah selesai.
 					\item Sebuah \textit{Listener} (PSR-1411) HARUS memiliki satu dan hanya satu parameter, yaitu \textit{Event} yang diresponsnya.
@@ -321,9 +324,9 @@
 					\item Klien (PSR-1805) HARUS menyusun kembali respons HTTP 1xx multi-langkah secara mandiri sehingga apa yang dikembalikan ke \textit{library} pemanggil adalah respons HTTP yang valid dengan kode status 200 atau di atasnya.
 					
 					\item Klien (PSR-1806) TIDAK BOLEH memperlakukan permintaan atau respons HTTP yang dibuat dengan baik sebagai kondisi \textit{error}. Sebagai contoh, kode status respons dalam rentang 400 dan 500 (PSR-1807) TIDAK BOLEH menimbulkan pengecualian dan (PSR-1808) HARUS dikembalikan ke \textit{library} pemanggil seperti biasa.
-					\item Klien (PSR-1809) HARUS memberikan \textit{instance} \verb|Psr\Http\Client\ClientExceptionInterface| jika dan hanya jika tidak dapat mengirim permintaan HTTP sama sekali atau jika respons HTTP tidak dapat diuraikan menjadi objek respons PSR-07.
-					\item Jika permintaan tidak dapat dikirim karena pesan permintaan bukan permintaan HTTP yang dibuat dengan baik atau kehilangan beberapa informasi penting (seperti Host atau Method), klien (PSR-1810) HARUS memberikan \textit{instance} \verb|Psr\Http\Client\RequestExceptionInterface|.
-					\item Jika permintaan tidak dapat dikirim karena kegagalan jaringan dalam bentuk apa pun, termasuk \textit{timeout}, klien (PSR-1811) HARUS memberi instance \verb|Psr\Http\Client\NetworkExceptionInterface|.
+					\item Klien (PSR-1809) HARUS memberikan \textit{instance} \texttt{Psr\textbackslash Http\textbackslash Client\textbackslash ClientException-} \texttt{Interface} jika dan hanya jika tidak dapat mengirim permintaan HTTP sama sekali atau jika respons HTTP tidak dapat diuraikan menjadi objek respons PSR-07.
+					\item Jika permintaan tidak dapat dikirim karena pesan permintaan bukan permintaan HTTP yang dibuat dengan baik atau kehilangan beberapa informasi penting (seperti Host atau Method), klien (PSR-1810) HARUS memberikan \textit{instance} \texttt{Psr\textbackslash Http\textbackslash Client\textbackslash Request-} \texttt{ExceptionInterface}.
+					\item Jika permintaan tidak dapat dikirim karena kegagalan jaringan dalam bentuk apa pun, termasuk \textit{timeout}, klien (PSR-1811) HARUS memberi instance \texttt{Psr\textbackslash Http\textbackslash Client\textbackslash Net-} \texttt{workExceptionInterface}.
 					\item Klien (PSR-1812) MUNGKIN memberikan pengecualian yang lebih spesifik daripada yang ditentukan di sini (misalnya \verb|TimeOutException| atau \verb|HostNotFoundException|), asalkan mereka mengimplementasikan antarmuka yang sesuai yang ditentukan di atas.
 				\end{itemize}
 				
@@ -385,11 +388,11 @@
 	-			$this->load->model('notifications_model')->helper('text');
 	-		}
 \end{lstlisting}
-			Jika diperiksa dengan seksama, kode asli (bertanda ``-'') memiliki jarak indentasi satu kali \textit{tab} dari sisi kiri awal penulisan yang mana seharusnya dimulai dengan empat spasi untuk setiap level indentasi seperti yang ada dalam PSR-12: ``Kode HARUS menggunakan indentasi sebanyak 4 spasi untuk setiap level indentasi, dan TIDAK BOLEH menggunakan \textit{tab}-\textit{tab} untuk indentasi''. Hal ini mungkin tidak terlihat secara sekilas oleh mata sehingga harus diperiksa kembali setiap indentasinya. Hasil rekomendasi perbaikan yang diberikan keluaran (bertanda ``+'') di atas menampilkan indentasi sepanjang empat spasi dan kode aslinya (bertanda ``-'') sepanjang satu \textit{tab}. Hal ini akan lebih jelas jika diperiksa secara langsung melalui terminal.   
-			
+			Jika diperiksa dengan seksama, kode asli (bertanda ``-'') memiliki jarak indentasi satu kali \textit{tab} dari sisi kiri awal penulisan yang mana seharusnya dimulai dengan empat spasi untuk setiap level indentasi seperti yang ada dalam PSR-12: ``Kode HARUS menggunakan indentasi sebanyak 4 spasi untuk setiap level indentasi, dan TIDAK BOLEH menggunakan \textit{tab}-\textit{tab} untuk indentasi''. Hal ini mungkin tidak terlihat secara sekilas oleh mata sehingga harus diperiksa kembali setiap indentasinya. Hasil rekomendasi perbaikan yang diberikan keluaran (bertanda ``+'') di atas menampilkan indentasi sepanjang empat spasi dan kode aslinya (bertanda ``-'') sepanjang satu \textit{tab}. Hal ini akan lebih jelas jika diperiksa secara langsung melalui terminal. 
+			Sejauh ini, semua \textit{file} sudah diperiksa dengan PHP CS Fixer dan hasil keluarannya lebih lengkap ada di Lampiran dokumen Tugas Akhir karena terlalu panjang jika dicantumkan semuanya di Progress Report. Secara umum, standar yang belum terpenuhi sama dengan contoh di atas yaitu penggunaan \textit{tab} yang seharusnya menggunakan empat spasi. 			
 			\item \textbf{Mengimplementasikan rekomendasi PSR sesuai hasil evaluasi.}\\
 			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
-			{\bf Hasil :} Proses implementasi berjalan beriringan dengan pemeriksaan. Dengan bantuan PHP CS Fixer, hasil keluaran dalam contoh potongan kode sebelumnya dapat diimplementasikan secara langsung untuk memenuhi PSR-12. Perintah yang diberikan dapat diubah untuk melakukan \textit{fix} secara langsung. Dikarenakan sejauh ini baru dilakukan pemeriksaan menyeluruh secara otomatis, belum ada contoh rekomendasi perbaikan berdasarkan PSR yang lain selain yang diberikan PHP CS Fixer. Pemeriksaan secara manual sedang dalam tahap pengerjaan sambil mengecek standar-standar PSR yang relevan untuk setiap \textit{file} PHP.
+			{\bf Hasil :} Proses implementasi berjalan beriringan dengan pemeriksaan. Dengan bantuan PHP CS Fixer, hasil keluaran dalam contoh potongan kode sebelumnya dapat diimplementasikan secara langsung untuk memenuhi PSR-12. Perintah yang diberikan dapat diubah untuk melakukan \textit{fix} secara langsung. Dikarenakan sejauh ini baru dilakukan pemeriksaan menyeluruh dengan \textit{fixer}, belum ada contoh rekomendasi perbaikan berdasarkan PSR yang lain selain yang ditentukan dalam PHP CS Fixer. Pemeriksaan secara manual sedang dalam tahap pengerjaan sambil mengecek standar-standar PSR yang relevan untuk setiap \textit{file} PHP. 
 			
 			\item \textbf{Menguji SharIF Judge yang sudah dievaluasi dan diperbaiki.}\\
 			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
