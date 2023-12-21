@@ -1,1 +1,455 @@
+\documentclass[a4paper,twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[bahasa]{babel}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage[cm]{fullpage}
+\pagestyle{myheadings}
+\usepackage{etoolbox}
+\usepackage{setspace} 
+\usepackage{lipsum} 
+\setlength{\headsep}{30pt}
+\usepackage[inner=2cm,outer=2.5cm,top=2.5cm,bottom=2cm]{geometry} %margin
+% \pagestyle{empty}
 
+\usepackage{listings}
+\lstdefinelanguage{diff}{
+	basicstyle=\ttfamily\small,
+	morecomment=[f][\color{diffstart}]{@@},
+	morecomment=[f][\color{diffincl}]{+\ },
+	morecomment=[f][\color{diffrem}]{-\ },
+}
+\lstset{tabsize=1}
+
+\makeatletter
+\renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
+\renewcommand{\thispagestyle}[1]{}
+\markright{\textbf{\textsc{Laporan Perkembangan Pengerjaan Tugas Akhir\textemdash Sem. Ganjil 2023/2024}}}
+
+\onehalfspacing
+
+\begin{document}
+	
+	\title{\@judultopik}
+	\author{\nama \textendash \@npm} 
+	
+	%ISILAH DATA BERIKUT INI:
+	\newcommand{\nama}{Nicholas Khrisna Sandyawan}
+	\newcommand{\@npm}{6181801060}
+	\newcommand{\tanggal}{20/12/2023} %Tanggal pembuatan dokumen
+	\newcommand{\@judultopik}{Evaluasi PHP Standards Recommendations pada Proyek SharIF Judge} % Judul/topik anda
+	\newcommand{\kodetopik}{PAN5401}
+	\newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
+	\newcommand{\pembA}{Pascal Alfadian Nugroho}
+	\newcommand{\pembB}{-}
+	\newcommand{\semesterPertama}{54 - Genap 22/23} % semester pertama kali topik diambil, angka 1 dimulai dari sem Ganjil 96/97
+	\newcommand{\lamaSkripsi}{2} % Jumlah semester untuk mengerjakan skripsi s.d. dokumen ini dibuat
+	\newcommand{\kulPertama}{Skripsi 1} % Kuliah dimana topik ini diambil pertama kali
+	\newcommand{\tipePR}{C} % tipe progress report :
+	% A : dokumen pendukung untuk pengambilan ke-2 di Skripsi 1
+	% B : dokumen untuk reviewer pada presentasi dan review Skripsi 1
+	% C : dokumen pendukung untuk pengambilan ke-2 di Skripsi 2
+	
+	% Dokumen hasil template ini harus dicetak bolak-balik !!!!
+	
+	\maketitle
+	
+	\pagenumbering{arabic}
+	
+	\section{Data Tugas Akhir} %TIDAK PERLU MENGUBAH BAGIAN INI !!!
+	Pembimbing utama/tunggal: {\bf \pembA}\\
+	Pembimbing pendamping: {\bf \pembB}\\
+	Kode Topik : {\bf \kodetopik}\\
+	Topik ini sudah dikerjakan selama : {\bf \lamaSkripsi} semester\\
+	Pengambilan pertama kali topik ini pada : Semester {\bf \semesterPertama} \\
+	Pengambilan pertama kali topik ini di kuliah : {\bf \kulPertama} \\
+	Tipe Laporan : {\bf \tipePR} -
+	\ifdefstring{\tipePR}{A}{
+		Dokumen pendukung untuk {\bf pengambilan ke-2 di Tugas Akhir 1} }
+	{
+		\ifdefstring{\tipePR}{B} {
+			Dokumen untuk reviewer pada presentasi dan {\bf review Tugas Akhir 1}}
+		{	Dokumen pendukung untuk {\bf pengambilan ke-2 di Tugas Akhir 2}}
+	}
+	
+	\section{Latar Belakang}
+	Pengembangan aplikasi berbasis web dengan bahasa PHP cukup populer di kalangan pengembang web. Bahkan tersedia banyak \textit{framework} yang dapat digunakan untuk memudahkan pengembangannya. Walaupun demikian, masih cukup sering dijumpai masalah dalam pengembangan. Salah satunya adalah penulisan kode program yang tidak konsisten karena belum ditentukan aturan atau standar penulisan tertentu. Hal ini membuat suatu proyek aplikasi web menjadi rumit dan sulit dipelihara, terutama jika melibatkan banyak pengembang. 
+	
+	Salah satu proyek aplikasi berbasis web yang digunakan di jurusan Informatika UNPAR adalah SharIF Judge. SharIF Judge merupakan aplikasi berbasis web yang dapat digunakan untuk menilai kode program dalam bahasa C, C++, Java, dan Python. Aplikasi ini ditulis dengan  \textit{framework} PHP CodeIgniter dan bagian \textit{backend} dibuat dengan BASH. SharIF Judge yang dibahas pada tugas akhir ini adalah \textit{fork} dari Sharif Judge yang dibuat oleh Mohammad Javad Naderi. Versi \textit{fork} ini sudah dikembangkan sesuai kebutuhan Informatika UNPAR untuk digunakan dalam proses penilaian pada beberapa mata kuliah. Tidak menutup kemungkinan akan ada perbaikan atau penambahan fitur seiring berjalannya waktu. Hal ini dapat melibatkan lebih dari satu orang. Akan lebih baik jika ditentukan suatu aturan atau standar dalam pengembangannya.
+	
+	PHP Standards Recommendation (PSR) adalah kumpulan standar penulisan PHP yang dibuat oleh PHP Framework Interop Group. Standar-standar ini berisi aturan dan rekomendasi penulisan kode program PHP yang dapat membantu pengembangan aplikasi agar lebih konsisten. Pada saat dokumen ini dibuat, terdapat 14 bab PSR yang berlaku untuk digunakan (\textit{Accepted}) antara lain:
+	\begin{itemize}
+		\item PSR-01: Basic Coding Standard
+		\item PSR-03: Logger Interface
+		\item PSR-04: Autoloading Standard
+		\item PSR-06: Caching Interface
+		\item PSR-07: HTTP Message Interface
+		\item PSR-11: Container Interface
+		\item PSR-12: Extended Coding Style Guide
+		\item PSR-13: Hypermedia Links
+		\item PSR-14: Event Dispatcher
+		\item PSR-15: HTTP Handlers
+		\item PSR-16: Simple Cache
+		\item PSR-17: HTTP Factories
+		\item PSR-18: HTTP Client
+		\item PSR-20: Clock
+	\end{itemize}
+	Standar yang digunakan hanya standar dari bab-bab yang berstatus ``\textit{Accepted}''. Bab dengan status lain yaitu ``\textit{Draft}'', ``\textit{Abandoned}'', dan ``\textit{Deprecated}'' tidak akan digunakan sehingga tidak dicantumkan dalam dokumen tugas akhir.
+	
+	Pada tugas akhir ini, kode-kode program PHP pada SharIF Judge akan diperiksa dan dievaluasi seberapa patuh SharIF Judge terhadap PSR berdasarkan jumlah standar yang sudah dipenuhi. Pemeriksaan PSR-12 dilakukan dengan bantuan \textit{tools} PHP CS Fixer sementara pemeriksaan PSR lainnya dilakukan secara manual. Setelah itu, kode-kode yang belum memenuhi akan diberikan rekomendasi sesuai PSR berdasarkan hasil evaluasi tersebut. 
+	
+	\section{Rumusan Masalah}
+	\begin{itemize}
+		\item Bagaimana tingkat kepatuhan kode PHP pada SharIF Judge terhadap PSR?  
+		\item Rekomendasi perbaikan apa yang dapat diberikan pada kode PHP SharIF Judge untuk meningkatkan jumlah aturan PSR yang terpenuhi?
+	\end{itemize}
+	
+	\section{Tujuan}
+	\begin{itemize}
+		\item Mengukur tingkat kepatuhan kode PHP pada SharIF Judge terhadap PSR.
+		\item Memberikan perbaikan pada kode PHP SharIF Judge sesuai PSR agar meningkatkan jumlah standar yang terpenuhi.
+	\end{itemize}
+	
+	
+	\section{Detail Perkembangan Pengerjaan Tugas Akhir}
+	Detail bagian pekerjaan tugas akhir sesuai dengan rencana kerja/laporan perkembangan terkahir :
+	\begin{enumerate}
+		\item \textbf{Mempelajari SharIF Judge.}\\
+		{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+		{\bf Hasil :} Studi tentang SharIF Judge sejauh ini adalah membedah \textit{file}-\textit{file} PHP yang menjadi lingkup evaluasi. Semua \textit{file} yang berasal dari \textit{framework} atau \textit{library} tidak termasuk ke dalamnya. Hanya \textit{file}-\textit{file} dalam folder \verb|application/| dan memiliki tanda ``SharIF Judge'' di dalamnya yang menjadi lingkup evaluasi. Diambil dari dokumentasinya, berikut adalah langkah-langkah instalasi SharIF Judge:
+		\begin{enumerate}
+			\item Mengunduh versi terbaru dari SharIF Judge dan \textit{unpack} hasil unduhan di direktori \textit{public html}.
+			\item Memindahkan folder \verb|system| dan \verb|application| ke luar direktori \textit{public}, dan masukkan \textit{path} lengkap di \textit{file} \verb|index.php|.
+			\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+				columns=fullflexible, keepspaces=true, breaklines=true, label=ls:2]
+				$system_path = '/home/mohammad/secret/system';
+				$application_folder = '/home/mohammad/secret/application';
+			\end{lstlisting}
+			\item Membuat sebuah \textit{database} Mysql atau PostgreSql untuk SharIF Judge. Jangan menginstall paket koneksi \textit{database} untuk C/C++, Java, atau Python.
+			\item Mengatur koneksi \textit{database} di \textit{file} \verb|application/config/database.php| dan simpan dengan nama \verb|database.php|. Pengguna dapat
+			menggunakan awalan untuk nama tabel.
+			\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+				columns=fullflexible, keepspaces=true, breaklines=true, label=ls:3]
+				/*  Enter database connection settings here:  */
+				'dbdriver' => 'postgre',    // database driver (mysqli, postgre)
+				'hostname' => 'localhost',  // database host
+				'username' => `,           // database username
+				'password' => `,           // database password
+				'database' => `,           // database name
+				'dbprefix' => 'shj_',       // table prefix
+				/**********************************************/
+			\end{lstlisting}
+			\item Mengatur server \verb|RADIUS| dan server \textit{mail} pada \textit{file application/config/secrets.example.php} dan simpan dengan nama \verb|secrets.php|.
+			\item Membuat direktori \verb|application/cache/Twig| agar dapat ditulis oleh PHP.
+			\item Membuka halaman utama SharIF Judge pada \textit{web browser} dan mengikuti proses instalasi berikutnya.
+			\item \textit{Log in} menggunakan akun admin.
+			\item Memindahkan folder \verb|tester| dan \verb|assigments| ke luar direktori \textit{public} lalu simpan \textit{path} lengkap di halaman Settings. Dua folder tersebut harus dapat ditulis oleh PHP. File-file yang diunggah
+			akan disimpan di folder \verb|assigments| sehingga tidak dapat diakses publik.
+		\end{enumerate}
+		
+		Eksperimen menjalankan SharIF Judge secara lokal sedang dalam tahap percobaan karena masih belum berhasil.
+		
+		Selain itu, ditemukan folder \verb|psr|. Di dalamnya terdapat folder \verb|container| yang berisi \textit{method}-\textit{method} rekomendasi dari PSR-11: Container Interface, \verb|log| yang berisi \textit{method}-\textit{method} rekomendasi dari PSR-03: Logger Interface, dan \verb|simple-cache| yang berisi \textit{method}-\textit{method} rekomendasi dari PSR-16: Common Interface for Caching Libraries. Masih dipelajari lebih lanjut apakah \textit{file}-\textit{file} ini memang diimplementasikan pada SharIF Judge sehingga rekomendasi-rekomendasi dari ketiga PSR tersebut sebenarnya sudah terpenuhi atau belum.  
+		
+		\item \textbf{Melakukan studi literatur mengenai PSR dan PHP CS Fixer.}\\
+		{\bf Status :} Ada sejak rencana kerja rencana tugas akhir namun ada perubahan dari PHP Linter menjadi PHP CS Fixer.\\
+		{\bf Hasil :} Berikut adalah rincian hasilnya.
+		\begin{enumerate}
+			\item Penulisan rekomendasi-rekomendasi standar PSR ini diterjemahkan dari bahasa Inggris ke bahasa Indonesia. Salah satu tantangan dalam menerjemahkan PSR ini adalah tidak setiap aturan ditulis dalam bentuk \textit{list} yang mudah untuk dibaca. Banyak di antaranya merupakan bagian dari suatu paragraf yang berkelanjutan dengan konteksnya masing-masing sehingga penjelasan atau deskripsinya perlu dicantumkan pula dalam Landasan Teori agar tidak ada rekomendasi yang bermakna ambigu atau tidak jelas. Untuk saat ini, semua PSR dicantumkan dalam Landasan Teori kecuali dua bab yaitu PSR-07 dan PSR-12. Hal ini dikarenakan jumlah aturan yang harus diterjemahkan dan ditulis kembali cukup banyak. Untuk sementara, hal ini dicantumkan dalam Batasan Masalah. Rencananya kedua bab ini akan ditambahkan setelah selesai dilakukan pemeriksaan dan evaluasi kepatuhan.
+			\item Ada beberapa kata kunci yang harus ditaati dalam standar PSR berdasarkan dokumen Request For Comments (RFC) 2119, yaitu ``MUST'', ``MUST NOT'', ``SHOULD'', ``SHOULD NOT'', dan ``MAY''. Ada juga beberapa kata kunci lain yang disertakan namun sangat jarang digunakan, yaitu ``REQUIRED'', ``SHALL'', ``SHALL NOT'', ``RECOMMENDED'', dan ``OPTIONAL''. Setiap kata kunci ditulis dengan huruf kapital dan memiliki tingkat prioritas yang berbeda dalam hal keharusan pemenuhannya. Beberapa kata kunci memiliki tingkat yang sama, sebagai contoh ``MUST'', ``SHALL'', dan ``REQUIRED'' memiliki tingkat yang sama yaitu harus dipenuhi sesuai rekomendasi PSR. Maka dari itu, setiap kata kunci dikelompokkan berdasarkan tingkatan tersebut dan diterjemahkan ke bahasa Indonesia agar penulisan dokumen tugas akhir menjadi konsisten dan tidak mengubah makna dari standar yang asli. Misalnya, kata kunci ``MUST'' dan setingkatnya diterjemahkan menjadi ``HARUS''. Begitu pula dengan lawan katanya ``MUST NOT'' diterjemahkan menjadi ``TIDAK BOLEH''.
+			\item Setiap standar diberikan kode tertentu agar dapat digunakan sebagai acuan dari bab-bab lain dalam dokumen tugas akhir. Kode tersebut ditulis dengan format PSR-XXYY, di mana XX adalah nomor bab dan YY adalah nomor urut standar dalam bab tersebut. Sebagai contoh PSR-0402 berarti mengacu pada standar PSR nomor 2 dari bab PSR-04. Urutan tersebut didasarkan pada standar mana yang ditulis terlebih dahulu. Kode-kode ini tidak ada pada dokumentasi asli PSR dan hanya dibuat untuk kepentingan tugas akhir ini. Berikut adalah bab-bab dalam PSR berstatus \textit{Accepted} yang sudah ditulis:
+			\begin{itemize}
+				\item PSR-01: Basic Coding Standard
+				\begin{itemize}
+					\item \textit{File} (PSR-0101) HARUS menggunakan \textit{tag} \verb|<?php|  dan \verb|<?=| dan (PSR-0102)TIDAK menggunakan variasi \textit{tag} lainnya.
+					\item \textit{File} (PSR-0103) HARUS menggunakan UTF-8 tanpa Byte Order Mark (BOM) untuk kode PHP.
+					\item \textit{File} (PSR-0104) SEBAIKNYA mendeklarasikan simbol (kelas, fungsi, konstanta, dan lain-lain) atau menyebabkan efek samping (misalnya menghasilkan output, mengubah pengaturan .ini, dan lain-lain), tetapi (PSR-0105) SEBAIKNYA TIDAK keduanya.
+					\item \textit{Namespace} dan kelas (PSR-0106) HARUS mengikuti PSR ``autoloading'': [PSR-4].
+					\item Nama kelas (PSR-0107) HARUS dideklarasikan di \verb|StudlyCaps|.
+					\item Kode yang ditulis untuk PHP 5.3 dan setelahnya (PSR-0108) HARUS menggunakan \textit{namespace} formal.
+					\item Kode yang ditulis untuk PHP 5.2.x dan sebelumnya (PSR-0109) SEBAIKNYA menggunakan konvensi \textit{pseudo-namepsacing} dengan awalan  \verb|Vendor_|  pada nama kelas.
+					\item Konstanta kelas (PSR-0110) HARUS dideklarasikan dalam huruf kapital dengan pemisah garis bawah.
+					\item Konvensi penamaan apa pun (PSR-0111) SEBAIKNYA diterapkan secara konsisten dalam lingkup yang masuk akal, baik itu tingkat \textit{vendor}, tingkat \textit{package}, tingkat \textit{class}, atau tingkat \textit{method}.
+					\item Nama \textit{method} (PSR-0112) HARUS dideklarasikan dalam \verb|camelCase|.
+				\end{itemize}
+				
+				\item PSR-03: Logger Interface
+				\begin{itemize}
+					\item \verb|Logger Interface| memiliki delapan \textit{method} untuk menulis log ke delapan level RFC 5424 (debug, info, notice, warning, error, critical, alert, emergency). Terdapat satu \textit{method} lainnya, \verb|log|, menerima level log sebagai argumen pertama. Memanggil \textit{method} ini dengan salah satu konstanta level log (PSR-0301) HARUS memiliki hasil yang sama dengan memanggil \textit{method} pada level yang spesifik. Memanggil \textit{method} ini dengan level yang tidak ada pada spesifikasi ini (PSR-0302) HARUS melempar \verb|Psr\Log\InvalidArgumentException| jika implementasinya tidak tahu tentang level tersebut. Pengguna (PSR-0303) SEBAIKNYA JANGAN menggunakan level versi berbeda tanpa tahu dengan pasti jika implementasi yang sekarang mendukung. 
+					\item Setiap \textit{method} menerima string sebagai pesan, atau objek dengan \textit{method} \verb|__toString()|. \textit{Implementor} (PSR-0304) BISA memiliki \textit{handling} khusus untuk objek yang diteruskan. Jika bukan demikian, maka \textit{implementor} harus mengubahnya ke sebuah string.
+					\item Pesan (PSR-0305) BISA memiliki \textit{placeholder} yang (PSR-0306) BISA diganti oleh \textit{implementor} dari \textit{context array}.
+					\item Nama \textit{placeholder} harus sesuai dengan kunci dalam \textit{context array}.
+					\item Nama placeholder (PSR-0307) HARUS dipisahkan dengan kurung kurawal buka tunggal (\verb|{|)dan kurung kurawal tutup tunggal (\verb|}|). (PSR-0308) TIDAK BOLEH ada spasi kosong antara pembatas dan nama \textit{placeholder}.
+					\item Nama \textit{placeholder} (PSR-0309) SEBAIKNYA hanya terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, garis bawah (\verb|_|), dan titik (\verb|.|).
+					\item \textit{Implementor} (PSR-0310) BISA menggunakan \textit{placeholder} untuk menerapkan berbagai strategi \textit{escaping} dan menerjemahkan log untuk ditampilkan. Pengguna (PSR-0311) SEBAIKNYA TIDAK melakukan \textit{pre-escape} nilai dalam \textit{placeholder} karena mereka tidak tahu dalam konteks mana data akan ditampilkan. 
+					\item Setiap \textit{method} menerima array sebagai data konteks. Ini dimaksudkan untuk menyimpan informasi asing yang tidak sesuai dengan string. Array dapat berisi apa saja. \textit{Implementor} (PSR-0312) HARUS memastikan mereka memperlakukan data konteks dengan kelonggaran sebanyak mungkin. Nilai yang diberikan dalam konteks (PSR-0313) TIDAK BOLEH melempar \textit{exception} atau menimbulkan \textit{error}, peringatan, atau pemberitahuan PHP apa pun.
+					\item Jika objek \verb|Exception| diteruskan dalam data konteks, maka (PSR-0314) HARUS berada dalam \textit{key} \verb|`exception'|. \textit{Implementor} (PSR-0315) HARUS tetap memastikan bahwa \textit{key} \verb|`exception'| adalah sebuah objek \verb|Exception|, karena isinya (PSR-0316) BISA mengandung apa saja.
+				\end{itemize}
+				
+				\item PSR-04: Autoloading Standard
+				\begin{itemize}
+					\item Istilah ``kelas'' mengacu pada kelas, \textit{interface}, \textit{traits}, dan struktur lain yang serupa.
+					\item Nama kelas yang memenuhi syarat memiliki bentuk \texttt{\textbackslash<NamespaceName>(\textbackslash<SubNamespace
+						Names>)*\textbackslash<ClassName>} dengan spesifikasi berikut:
+					\begin{enumerate}
+						\item (PSR-0401) HARUS memiliki nama \textit{namespace} tingkat tertinggi, atau dikenal sebagai ``vendor namespace''.
+						\item (PSR-0402) BISA memiliki satu atau lebih nama \textit{sub-space}.
+						\item (PSR-0403) HARUS memiliki nama kelas di akhir.
+						\item Garis bawah tidak memiliki makna khusus.
+						\item Karakter abjad (PSR-0404) BISA berisi kombinasi dari huruf kapital dan huruf kecil.
+						\item Semua nama kelas harus direferensikan dengan cara yang \textit{case-sensitive}.
+					\end{enumerate}
+					\item Implementasi \textit{autoloader} (PSR-0405) TIDAK BOLEH melempar \textit{exception}, (PSR-0406) TIDAK BOLEH memunculkan \textit{error} dalam tingkat apa pun, dan (PSR-0407) SEBAIKNYA TIDAK mengembalikan nilai. 
+				\end{itemize}
+				
+				\item PSR-06: Caching Interface
+				\begin{itemize}
+					\item \textit{Library} pelaksana (PSR-0601) HARUS menyediakan kelas yang mengimplementasikan \textit{interface} \verb|Cache\CacheItemPoolInterface| dan \verb|Cache\CacheItemInterface|. Impementasinya (PSR-0602) HARUS mendukung fungsionalitas TTL minimum dengan perincian detik yang penuh. Time To Live (TTL) suatu item adalah jumlah waktu antara waktu saat item tersebut disimpan dan ketika item dianggap kedaluwarsa. TTL biasanya didefinisikan dalam bentuk bilangan bulat (integer) yang mewakili waktu dalam detik, atau sebuah objek DateInterval.
+					\item \textit{Libarary} pelaksana (PSR-0603) BISA mengakhiri masa berlaku item sebelum \textit{Expiration Time} yang diminta, tetapi (PSR-0604) HARUS mengakhiri masa berlaku item tersebut jika \textit{Expiration Time} sudah tercapai. Jika suatu \textit{libary} meminta item untuk disimpan tanpa menentukan waktu kedaluwarsa, atau ditentukan isinya null atau TTL,  \textit{library} pelaksana (PSR-0605) BISA menggunakan durasi default yang sudah dikonfigurasi. Jika belum ada durasi defaut yang dikonfigurasi, maka \textit{library} pelaksana (PSR-0606) HARUS menafsirkannya sebagai permintaan untuk menyimpan item dalam cache selamanya, atau selama implementasi yang mendasarinya mendukung.
+					\item \textit{Key} adalah suatu string yang terdiri dari minimal satu karakter yang secara unik mengidentifikasi item yang di-\textit{cache}. \textit{Library} pelaksana (PSR-0607) HARUS mendukung \textit{key} yang terdiri dari karakter \verb|A-Z|, \verb|a-z|, \verb|0-9|, \verb|_|, dan \verb|.| dengan urutan apa pun dalam pengkodean UTF-8 dan maksimum 64 karakter. \textit{Library} pelaksana (PSR-0608) BISA mendukung karakter tambahan dan pengkodean atau karakter yang lebih banyak, namun harus memenuhi syarat minimum di atas.
+					\item Dalam mengimplementasikan \textit{library} semuanya (PSR-0609) HARUS mendukung semua tipe data PHP bersambung, termasuk: 
+					\begin{itemize}
+						\item String
+						\item Integer
+						\item Float
+						\item Boolean
+						\item Null
+						\item Array
+						\item Object - Setiap Object (PSR-0610) BISA memanfaatkan antarmuka Serializable PHP, metode \verb|__sleep()| atau \verb|__wakeup()|, atau fungsi serupa lain jika diperlukan.
+					\end{itemize}
+					\item Semua data yang diteruskan ke \textit{library} Pelaksana (PSR-0611) HARUS dikembalikan sama persis seperti data yang diteruskan tersebut.
+					\item \textit{Library} Pelaksana (PSR-0612) BISA menggunakan fungsi PHP \verb|serialize()|/\verb|unserialize()| secara internal tetapi tidak diwajibkan.
+					\item Jika tidak dimungkinkan untuk mengembalikan \textit{value} yang tersimpan sama persis untuk alasan apa pun, \textit{library} pelaksana harus memberikan respons dengan kehilangan \textit{cache}, bukan data yang rusak (\textit{corrupted}).
+					\item Pool merepresentasikan kumpulan \textit{item} dalam sistem \textit{caching}. Pool adalah repositori logis dari \textit{item}-\textit{item} di dalamnya. Semua \textit{item} yang dapat di-\textit{cache} diambil dari Pool sebagai objek Item, dan semua interaksi yang terjadi antar objek yang di-\textit{cache} terjadi melalui Pool.
+					Item merepresentasikan satu pasangan \textit{key}/\textit{value} dalam suatu Pool. \textit{Key} adalah penanda unik untuk suatu \textit{item} dan (PSR-0613) HARUS \textit{immutable} (tidak dapat diubah). \textit{Value} BISA diubah setiap waktu.
+					\item Meskipun \textit{caching} sering kali merupakan bagian penting dari kinerja aplikasi, \textit{caching} tidak boleh memengaruhi fungsionalitas aplikasi. Oleh karena itu, kesalahan dalam sistem \textit{cache} (PSR-0614) TIDAK BOLEH mengakibatkan kegagalan aplikasi. Untuk alasan tersebut, \textit{Library}  Pelaksana (PSR-0615) TIDAK BOLEH melempar \textit{exception} selain yang ditentukan oleh antarmuka, dan (PSR-0616) HARUS menangkap \textit{error} atau \textit{exception} apa pun yang dipicu oleh penyimpanan data yang mendasarinya (dan tidak membiarkannya menggelembung).
+					\item \textit{Library} Pelaksana (PSR-0617) HARUS mencatat \textit{error} tersebut atau melaporkannya ke administrator sebagaimana mestinya.
+					\item Jika \textit{Library} Pemanggil meminta agar satu atau lebih Item dihapus, atau pool dibersihkan, maka (PSR-0618) TIDAK BOLEH dianggap sebagai kondisi \textit{error} jika \textit{key} yang ditentukan tidak ada. Kondisi pasca pun sama (\textit{key} tidak ada, atau pool kosong), sehingga tidak ada kondisi error.
+				\end{itemize}
+				
+				\item PSR-07: HTTP Message Interface
+				Standar PSR-07 tidak ditulis pada dokumen ini sebagaimana telah dicantumkan pada Batasan Masalah di Bab 1 Pendahuluan.
+				
+				\item PSR-11: Container Interface
+				\begin{itemize}
+					\item \textit{Entry identifier} adalah string legal PHP apa pun yang setidaknya terdiri dari satu karakter unik yang mengidentifikasi sebuah item dalam suatu \textit{container}. \textit{Entry identifier} adalah sebuah string buram, maka pemanggil (PSR-1101) SEBAIKNYA TIDAK berasumsi bahwa struktur string memiliki makna semantik apa pun.
+					\item Dalam \verb|Psr\Container\ContainerInterface| terdapat 2 metode: \verb|get| dan \verb|has|.
+					\item Pengecualian yang diberikan secara langsung oleh \textit{container} (PSR-1102) SEBAIKNYA mengimplementasi \verb|Psr\Container\ContainerExceptionInterface|.
+					\item Panggilan ke metode \verb|get| dengan id yang tidak ada (PSR-1103) HARUS memunculkan \verb|Psr\Container\NotFoundExceptionInterface|.
+					\item Pengguna (PSR-1104) SEBAIKNYA TIDAK meneruskan suatu \textit{container} ke objek sehingga objek dapat mengambil sendiri dependensinya. Hal ini berarti \textit{container} digunakan sebagai \textit{Service Locator} yang merupakan pola yang umumnya tidak dianjurkan.
+				\end{itemize}
+				
+				\item PSR-12: Extended Coding Style Guide
+				Standar PSR-12 tidak ditulis pada dokumen ini sebagaimana telah dicantumkan pada Batasan Masalah di Bab 1 Pendahuluan.
+				
+				
+				\item PSR-13: Hypermedia Links
+				\textit{Link} Hypermedia paling sedikit terdiri dari:
+				\begin{enumerate}
+					\item URI yang merepresentasikan \textit{resource} target yang direferensikan.
+					\item Suatu hubungan yang mendefinisikan bagaimana \textit{resource} target berhubungan dengan asal sumbernya.
+				\end{enumerate}
+				
+				Berbagai atribut \textit{Link} lainnya mungkin ada, tergantung pada format yang digunakan. Dikarenakan atribut tambahan tidak terstandarisasi dengan baik atau bersifat universal, spesifikasi ini tidak berupaya untuk membuatnya standar.
+				
+				Untuk keperluan spesifikasi ini, definisi berikut berlaku.
+				\begin{enumerate}
+					\item Implementing Object - Objek yang mengimplementasikan salah satu antarmuka yang ditentukan oleh spesifikasi ini.
+					\item Serializer - Sebuah \textit{library} atau sistem lain yang mengambil satu atau lebih objek Link dan membuat representasi serial dalam beberapa format yang ditentukan.
+				\end{enumerate}
+				
+				\begin{itemize}
+					\item Semua tautan (PSR-1301) BOLEH menyertakan nol atau lebih atribut tambahan di luar URI dan hubungannya.
+					\item Serializer (PSR-1302) BOLEH menghilangkan atribut pada objek \textit{link} jika diperlukan oleh format serialisasi. Namun, serializer (PSR-1303) HARUS menyandikan (\textit{encode}) semua atribut yang disediakan untuk memungkinkan ekstensi pengguna kecuali dicegah oleh definisi format serialisasi.
+				\end{itemize}
+				
+				
+				\item PSR-14: Event Dispatcher
+				\label{subsubsec:psr14}
+				\begin{itemize}
+					\item Sebuah \textit{Listener} (PSR-1401) BISA melakukan beberapa \textit{behavior} asinkron jika diinginkan.
+					\item Sebuah \textit{Dispatcher} bertanggung jawab untuk memastikan bahwa \textit{Event} diteruskan ke semua \textit{Listener} yang relevan, tetapi (PSR-1402) HARUS menunggu sesuai \textit{listener} yang bertanggung jawab ke \textit{Listener Provider}.
+					\item Sebuah \textit{Listener Provider} bertanggung jawab untuk menentukan \textit{Listener} apa yang relevan sesuai \textit{Event} tertentu, tetapi (PSR-1403) TIDAK BOLEH memanggil \textit{Listener} itu sendiri.
+					\item Objek \textit{Event} BISA berubah jika kasus penggunaannya memanggil \textit{Listener} yang memberikan informasi ke \textit{Emitter}.
+					\item Jika tidak ada komunikasi dua arah yang diperlukan, maka (PSR-1404) DIREKOMENDASIKAN agar \textit{Event} ditetapkan sebagai \textit{mutable}; yaitu didefinisikan sedemikian rupa sehingga tidak memiliki \textit{method} mutator.
+					\item Pengimplementasi (PSR-1405) HARUS berasumsi bahwa objek yang sama akan diteruskan ke semua \textit{Listener}.
+					\item (PSR-1406) DIREKOMENDASIKAN tetapi (PSR-1407) TIDAK DIHARUSKAN bahwa objek \textit{Event} mendukung serialisasi dan deserialisasi \textit{lossless}; 
+					
+					\verb|$event == unserialize(serialize($event))| (PSR-1408) SEBAIKNYA bernilai  \textit{true}.
+					\item Objek (PSR-1409) BISA memanfaatkan \textit{interface} PHP \verb|Serializable|, \verb|__sleep()| atau \verb|__wakeup()| \textit{magic method}, atau fungsionalitas bahasa yang serupa jika dibutuhkan.
+					\item Sebuah \textit{Event} yang mengimplementasikan \verb|StoppableEventInterface| (PSR-1410) HARUS mengembalikan \verb|true| dari \verb|isPropagationStopped()| ketika \textit{Event} apa pun yang direpresentasikannya telah selesai.
+					\item Sebuah \textit{Listener} (PSR-1411) HARUS memiliki satu dan hanya satu parameter, yaitu \textit{Event} yang diresponsnya.
+					\item \textit{Listener} (PSR-1412) SEBAIKNYA menuliskan petunjuk bahwa parameter secara spesifik relevan untuk kasus penggunaannya; yaitu \textit{Listener} (PSR-1413) BISA menuliskan petunjuk terhadap sebuah \textit{interface} untuk menunjukkan bahwa \textit{interface} tersebut kompatibel dengan semua jenis \textit{Event} yang mengimplementasikannya, atau dengan implementasi khusus dari antarmuka tersebut.
+				\end{itemize}
+				
+				\item PSR-15: HTTP Handlers
+				\begin{itemize}
+					\item \textit{Request handler} (PSR-1501) BOLEH memberi pengecualian jika kondisi permintaan mencegahnya untuk membuat respons. Jenis pengecualiannya tidak ditentukan.
+					\item Setiap \textit{request handler} yang menggunakan standar ini (PSR-1502) HARUS mengimplementasikan \textit{interface} \verb|Psr\Http\Server\RequestHandlerInterface|.
+					\item Komponen \textit{middleware} (PSR-1503) BOLEH membuat dan mengembalikan respons tanpa mendelegasikan ke \textit{request handler}, jika kondisi yang dibutuhkan sudah terpenuhi.
+					\item \textit{Middleware} yang menggunakan standar ini (PSR-1504) HARUS mengimplementasikan \textit{interface} \verb|Psr\Http\Server\MiddlewareInterface|.
+					\item Setiap \textit{middleware} atau \textit{request handler} yang menghasilkan respons (PSR-1505) DIREKOMENDASIKAN untuk membuat prototipe PSR-07 \verb|ResponseInterface| atau pabrik yang mampu menghasilkan \textit{instance} \verb|ResponseInterface| untuk mencegah ketergantungan pada implementasi pesan HTTP tertentu.
+					\item Setiap aplikasi yang menggunakan \textit{middleware} (PSR-1506) DIREKOMENDASIKAN untuk menyertakan komponen yang menangkap pengecualian dan mengubahnya menjadi respons. \textit{Middleware} ini (PSR-1507) HARUS menjadi komponen pertama yang dieksekusi dan mencakup semua pemrosesan lebih lanjut untuk memasukan bahwa respons selalu dibuat. 
+					\item Sebuah \textit{Listener} (PSR-1508) SEBAIKNYA memiliki kembalian \verb|void|, dan (PSR-1509) SEBAIKNYA menuliskan petunjuk yang mengembalikan secara eksplisit. Sebuah \textit{Dispatcher} (PSR-1510) HARUS mengabaikan nilai kembalian dari \textit{Listener}.
+					\item Sebuah \textit{Listener} (PSR-1511) BISA mendelegasikan tindakan ke kode lain. Hal ini termasuk \textit{Listener} yang menjadi pembungkus sebuah objek yang menjalankan \textit{business logic} yang sebenarnya.
+					\item Sebuah Listener (PSR-1512) BISA menyusun informasi dari \textit{Event} untuk diproses nanti oleh proses sekunder, menggunakan cron, sebuah server antrean, atau dengan teknik serupa. Hal ini (PSR-1513) BISA membuat serial objek \textit{Event} itu sendiri untuk melakukannya; namun harus berhati-hati agar tidak semua objek \textit{Event} dapat diserialkan dengan aman. Sebuah proses sekunder (PSR-1514) HARUS berasumsi bahwa setiap perubahan yang dibuatnya ke suatu objek \textit{Event} tidak akan menyebar ke \textit{Listener} lain. 
+				\end{itemize}
+				
+				\item PSR-16: Simple Cache
+				\begin{itemize}
+					\item \textit{Library} pelaksana HARUS menyediakan kelas yang mengimplementasikan antarmuka \verb|Psr\SimpleCache\CacheInterface interface|. \textit{Library} pelaksana HARUS mendukung fungsionalitas TTL minimum seperti yang disebutkan pada PSR-06.
+					
+				\end{itemize}
+				
+				\item PSR-17: HTTP Factories
+				\begin{itemize}
+					\item HTTP \textit{factory} adalah metode yang digunakan untuk membuat objek HTTP baru sesuai yang didefinisikan oleh PSR-07. Setiap HTTP \textit{factory} (PSR-1701) HARUS mengimplementasi semua \textit{interface} berikut untuk setiap tipe objek yang disediakan oleh \textit{package}. \textit{Interface} berikut ini (PSR-1701) BOLEH diimplementasikan bersama dalam satu kelas atau kelas terpisah.
+					\begin{enumerate}
+						\item RequestFactoryInterface
+						\item ResponseFactoryInterface
+						\item ServerRequestFactoryInterface
+						\item StreamFactoryInterface
+						\item UploadFileFactoryInterface
+						\item UriFactoryInterface
+					\end{enumerate} 
+				\end{itemize}
+				
+				\item PSR-18: HTTP Client
+				\begin{itemize}
+					\item Klien (PSR-1801) BOLEH mengirim permintaan HTTP yang diubah dari yang disediakan, misalnya melakukan \textit{compress} pada badan pesan yang dikirim.
+					\item Klien (PSR-1802) BOLEH memilih untuk mengubah respons HTTP yang diterima sebelum mengembalikannya ke \textit{library} pemanggil, misalnya melakukan \textit{decompress} isi pesan yang masuk. 
+					\item Jika klien memilih untuk mengubah permintaan HTTP atau respons HTTP, klien (PSR-1803) HARUS memastikan bahwa objek tetap konsisten secara internal. Misalnya, jika klien memilih untuk dekompresi isi pesan, maka klien juga (PSR-1804) HARUS menghapus header \verb|Content-Encoding| dan menyesuaikan header \verb|Content-Length|.
+					
+					\item Klien (PSR-1805) HARUS menyusun kembali respons HTTP 1xx multi-langkah secara mandiri sehingga apa yang dikembalikan ke \textit{library} pemanggil adalah respons HTTP yang valid dengan kode status 200 atau di atasnya.
+					
+					\item Klien (PSR-1806) TIDAK BOLEH memperlakukan permintaan atau respons HTTP yang dibuat dengan baik sebagai kondisi \textit{error}. Sebagai contoh, kode status respons dalam rentang 400 dan 500 (PSR-1807) TIDAK BOLEH menimbulkan pengecualian dan (PSR-1808) HARUS dikembalikan ke \textit{library} pemanggil seperti biasa.
+					\item Klien (PSR-1809) HARUS memberikan \textit{instance} \texttt{Psr\textbackslash Http\textbackslash Client\textbackslash ClientException-} \texttt{Interface} jika dan hanya jika tidak dapat mengirim permintaan HTTP sama sekali atau jika respons HTTP tidak dapat diuraikan menjadi objek respons PSR-07.
+					\item Jika permintaan tidak dapat dikirim karena pesan permintaan bukan permintaan HTTP yang dibuat dengan baik atau kehilangan beberapa informasi penting (seperti Host atau Method), klien (PSR-1810) HARUS memberikan \textit{instance} \texttt{Psr\textbackslash Http\textbackslash Client\textbackslash Request-} \texttt{ExceptionInterface}.
+					\item Jika permintaan tidak dapat dikirim karena kegagalan jaringan dalam bentuk apa pun, termasuk \textit{timeout}, klien (PSR-1811) HARUS memberi instance \texttt{Psr\textbackslash Http\textbackslash Client\textbackslash Net-} \texttt{workExceptionInterface}.
+					\item Klien (PSR-1812) MUNGKIN memberikan pengecualian yang lebih spesifik daripada yang ditentukan di sini (misalnya \verb|TimeOutException| atau \verb|HostNotFoundException|), asalkan mereka mengimplementasikan antarmuka yang sesuai yang ditentukan di atas.
+				\end{itemize}
+				
+				\item PSR-20: Clock
+				\begin{itemize}
+					\item Kembalian waktu (PSR-2001) HARUS ditulis sebagai \verb|\DateTimeImmutable|    
+				\end{itemize}
+			\end{itemize}
+			\item PHP Linter pada dasarnya digunakan untuk membantu melakukan pengecekan penulisan kode PHP secara keseluruhan dengan standar tertentu. Pada rencana kerja sebelumnya, PHP Linter yang digunakan adalah yang dibuat oleh pengguna GitHub dengan nama Brueggern. \textit{Linter} ini dapat memeriksa berdasarkan PSR-02 (\textit{Deprecated}) dan PSR-12. Fiturnya dapat menunjukkan kesalahan penulisan dan memberikan rekomendasi perbaikannya. Satu fitur lainnya yaitu perintah untuk memperbaiki kesalahan-kesalahan tersebut secara otomatis. Namun setelah dipelajari lebih lanjut, \textit{linter} tersebut menggunakan PHP Coding Standards Fixer (PHP CS Fixer) yang dimodifikasi menjadi lebih sederhana untuk digunakan. Pada dokumentasinya, PHP CS Fixer memiliki \textit{rule set} untuk PSR-01, PSR-02 (\textit{Deprecated}), dan PSR-12. PHP CS Fixer dapat diatur untuk memberikan tanda bagian mana saja dari kode yang perlu diperbaiki dan juga memberikan perbaikan secara otomatis tergantung perintah yang diberikan. Dengan PHP CS Fixer, proses pemeriksaan menjadi lebih fleksibel karena perintah yang diberikan lebih beragam dibandingkan PHP Linter sebelumnya yang hanya memiliki dua perintah utama. Maka dari itu, \textit{tool} yang digunakan adalah PHP CS Fixer. 
+			PHP Coding Standards Fixer (PHP CS Fixer) adalah sebuah \textit{tool} yang dapat memperbaiki kode program agar mengikuti standar tertentu, misalnya standar dari PSR-1, PSR-2, dan lainnya, atau standar berbasis komunitas lain seperti Symfony. Dari semua standar yang tersedia hanya satu standar yang akan ditentukan sebagai \textit{ruleset} yaitu PSR-12. 
+			
+			Pada dasarnya, PHP CS Fixer tidak perlu terintegrasi dengan SharIF Judge untuk menjalankan fungsinya. Salah satu cara untuk menginstalnya adalah dengan mengunduh \verb|php-cs-fixer-v3.phar| dari dokumentasi PHP CS Fixer dan menjalankannya dengan perintah dan \textit{flag} tertentu. Perintah dan \textit{flag} yang digunakan adalah:
+			\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+				columns=fullflexible, keepspaces=true, breaklines=true, label=ls:1]
+				php php-cs-fixer-v3.phar fix path/to/code.php --rules=@PSR12 --dry-run --diff
+			\end{lstlisting}
+			di mana
+			\begin{itemize}
+				\item \verb|--rules=@PSR12| untuk menentukan standar yang akan digunakan yaitu PSR-12
+				\item \verb|--dry-run| untuk menjalankan \textit{fixer} tanpa melakukan perubahan pada \textit{file}
+				\item \verb|--diff| untuk membuat \textit{fixer} mengembalikan semua perubahan dalam format \verb|udiff|
+			\end{itemize}
+		\end{enumerate}
+		
+		
+		\item \textbf{Mengevaluasi tingkat kepatuhan SharIF Judge terhadap PSR.}\\
+		{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+		{\bf Hasil :} Proses pemeriksaan dilakukan dengan cara mengecek terlebih dahulu menggunakan PHP CS Fixer lalu setelah itu diperiksa secara manual sesuai rekomendasi-rekomendasi PSR yang relevan. Dalam suatu \textit{file}, tidak semua rekomendasi akan relevan untuk digunakan karena belum tentu semua jenis perintah, aturan penulisan, dan fitur PHP yang diatur dalam PSR diimplementasikan dalam \textit{file} tersebut. Berikut adalah contoh keluaran dari PHP CS Fixer pada potongan kode \verb|application/controllers/Dashboard.php| dalam bentuk \textit{diff} yang isinya menampilkan kode asli (bertanda ``-'') dan rekomendasi perbaikannya (bertanda ``+''). 
+		\begin{lstlisting}[frame=single,language=diff]  
+			@@ -4,66 +4,70 @@
+			* @file Dashboard.php
+			* @author Mohammad Javad Naderi <mjnaderi@gmail.com>
+			*/
+			-defined('BASEPATH') OR exit('No direct script access allowed');
+			+defined('BASEPATH') or exit('No direct script access allowed');
+			
+			class Dashboard extends CI_Controller
+			{
+			+    public function __construct()
+			+    {
+			+        parent::__construct();
+			+        if (! $this->db->table_exists('sessions')) {
+			+            redirect('install');
+			+        }
+			+        if (! $this->session->userdata('logged_in')) { // if not logged in
+			+            redirect('login');
+			+        }
+			+        $this->load->model('notifications_model')->helper('text');
+			+    }
+				
+				
+			-		public function __construct()
+			-		{
+			-			parent::__construct();
+			-			if ( ! $this->db->table_exists('sessions'))
+			-				redirect('install');
+			-			if ( ! $this->session->userdata('logged_in')) // if not logged in
+			-				redirect('login');
+			-			$this->load->model('notifications_model')->helper('text');
+			-		}
+			\end{lstlisting}
+			Jika diperiksa dengan seksama, kode asli (bertanda ``-'') memiliki jarak indentasi satu kali \textit{tab} dari sisi kiri awal penulisan yang mana seharusnya dimulai dengan empat spasi untuk setiap level indentasi seperti yang ada dalam PSR-12: ``Kode HARUS menggunakan indentasi sebanyak 4 spasi untuk setiap level indentasi, dan TIDAK BOLEH menggunakan \textit{tab}-\textit{tab} untuk indentasi''. Hal ini mungkin tidak terlihat secara sekilas oleh mata sehingga harus diperiksa kembali setiap indentasinya. Hasil rekomendasi perbaikan yang diberikan keluaran (bertanda ``+'') di atas menampilkan indentasi sepanjang empat spasi dan kode aslinya (bertanda ``-'') sepanjang satu \textit{tab}. Hal ini akan lebih jelas jika diperiksa secara langsung melalui terminal. 
+			Sejauh ini, semua \textit{file} sudah diperiksa dengan PHP CS Fixer dan hasil keluarannya lebih lengkap ada di Lampiran dokumen Tugas Akhir karena terlalu panjang jika dicantumkan semuanya di Progress Report. Secara umum, standar yang belum terpenuhi sama dengan contoh di atas yaitu penggunaan \textit{tab} yang seharusnya menggunakan empat spasi. 			
+			\item \textbf{Mengimplementasikan rekomendasi PSR sesuai hasil evaluasi.}\\
+			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+			{\bf Hasil :} Proses implementasi berjalan beriringan dengan pemeriksaan. Dengan bantuan PHP CS Fixer, hasil keluaran dalam contoh potongan kode sebelumnya dapat diimplementasikan secara langsung untuk memenuhi PSR-12. Perintah yang diberikan dapat diubah untuk melakukan \textit{fix} secara langsung. Dikarenakan sejauh ini baru dilakukan pemeriksaan menyeluruh dengan \textit{fixer}, belum ada contoh rekomendasi perbaikan berdasarkan PSR yang lain selain yang ditentukan dalam PHP CS Fixer. Pemeriksaan secara manual sedang dalam tahap pengerjaan sambil mengecek standar-standar PSR yang relevan untuk setiap \textit{file} PHP. 
+			
+			\item \textbf{Menguji SharIF Judge yang sudah dievaluasi dan diperbaiki.}\\
+			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+			{\bf Hasil :} Belum terlaksana karena SharIF Judge belum berhasil dijalankan dan evaluasi belum selesai dilakukan. 
+			
+			\item \textbf{Menulis dokumen tugas akhir.}\\
+			{\bf Status :} Ada sejak rencana kerja tugas akhir.\\
+			{\bf Hasil :} Dokumen tugas akhir yang sudah dibuat adalah Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori, terutama PSR dan PHP CS Fixer. Tahap analisis, evaluasi, implementasi, dan pengujian (Bab 3 dan 4) sedang dalam proses sesuai yang dipaparkan pada poin-poin sebelumnya.  
+			
+		\end{enumerate}
+		
+		\section{Pencapaian Rencana Kerja}
+		Langkah-langkah kerja yang berhasil diselesaikan dalam Tugas Akhir 1 ini adalah sebagai berikut:
+		\begin{enumerate}
+			\item Membuat dokumen tugas akhir Bab 1 Pendahuluan dan sebagian besar Bab 2 Landasan Teori. 
+			\item Melakukan studi literasi PSR dan PHP CS Fixer.
+			\item Menentukan strategi untuk mengevaluasi keseluruhan PHP SharIF Judge.
+			\item Mengevaluasi sebagian PHP pada SharIF Judge, khususnya yang dapat dilakukan dengan bantuan PHP CS Fixer.
+		\end{enumerate}
+	
+	\section{Kendala yang Dihadapi}
+	%TULISKAN BAGIAN INI JIKA DOKUMEN ANDA TIPE A ATAU C
+	Kendala - kendala yang dihadapi selama mengerjakan Tugas Akhir :
+	\begin{itemize}
+		\item Terjadi runtutan peristiwa tidak terduga dan bekelanjutan yang menyebabkan terhambatnya proses pengerjaan tugas akhir dan bimbingan. Berikut adalah rinciannya.
+		\begin{itemize}
+			\item Meninggalnya kakek di Yogyakarta, saya dan sebagian kerabat pergi ke tempat dan menetap sekitar satu minggu. Terpaksa bimbingan diundur.
+			\item Menghadiri sidang promosi gelar doktor Ayah di Makassar yang sudah direncanakan jauh sebelum kakek meninggal di minggu berikutnya sepulang dari Yogyakarta. Menetap di Makassar sekitar lima hari dan lima malam. Awalnya acara ini tidak mengganggu kegiatan bimbingan, namun karena diundur di minggu sebelumnya maka terpaksa bimbingan diundur kembali.
+			\item Jatuh sakit sejak pulang dari Yogyakarta, demam, batuk, dan sakit kepala yang diperparah ketika naik pesawat ke Makassar karena saluran napas THT tersumbat saat terjadi perubahan tekanan udara. Selain menghadiri acara sidang promosi, hari-hari lain di Makassar diisi dengan istirahat dan berobat ke dokter. Sempat membaik saat akhir pekan sepulang dari Makassar. Pada minggu berikutnya, jatuh sakit kembali sepulang dari kegiatan kuliah pada hari Senin. Berlangsung selama 4 hari. Bimbingan terpaksa diundur kembali dan dilaksanakan minggu berikutnya.
+		\end{itemize} 
+		Peristiwa-peristiwa ini terjadi sejak pertengahan November sampai awal Desember. 
+		\item Penambahan \textit{progress} yang lamban. 
+		\item Kurangnya rencana pengerjaan yang baik dan penanggulangan peristiwa-peristiwa yang tidak diinginkan. 
+	\end{itemize}
+		
+		
+		\vspace{1cm}
+		\centering Bandung, \tanggal\\
+		\vspace{2cm} \nama \\ 
+		\vspace{1cm}
+		
+		Menyetujui, \\
+		\ifdefstring{\jumpemb}{2}{
+			\vspace{1.5cm}
+			\begin{centering} Menyetujui,\\ \end{centering} \vspace{0.75cm}
+			\begin{minipage}[b]{0.45\linewidth}
+				% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013 \\
+				\vspace{2cm} Nama: \pembA \\ Pembimbing Utama
+			\end{minipage} \hspace{0.5cm}
+			\begin{minipage}[b]{0.45\linewidth}
+				% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+				\vspace{2cm} Nama: \pembB \\ Pembimbing Pendamping
+			\end{minipage}
+			\vspace{0.5cm}
+		}{
+			% \centering Bandung, \makebox[0.5cm]{\hrulefill}/\makebox[0.5cm]{\hrulefill}/2013\\
+			\vspace{2cm} Nama: \pembA \\ Pembimbing Tunggal
+		}
+	\end{document}
+	
