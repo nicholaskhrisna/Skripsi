@@ -8,7 +8,8 @@ Bab ini membahas tentang analisis terkait evaluasi yang akan dilakukan pada Shar
 
 Sebelum menentukan metodologi yang akan digunakan, ada beberapa hal yang perlu dipertimbangkan terlebih dahulu. Hal ini akan memengaruhi cara serta hasil akhir pemeriksaan dan evaluasi. Hal-hal tersebut antara lain sebegai berikut.
 \begin{itemize}
-	\item Jumlah aturan dalam PSR berjumlah ... sehingga akan membutuhkan banyak waktu untuk memeriksa seluruh \textit{file} PHP dalam SharIF Judge. Jumlah kode dalam \textit{file} PHP dari SharIF Judge yang perlu diperiksa berjumlah 34.
+	%\item Jumlah aturan dalam PSR berjumlah ... sehingga akan membutuhkan banyak waktu untuk memeriksa seluruh \textit{file} PHP dalam SharIF Judge. 
+	\item Jumlah \textit{file} PHP dari SharIF Judge yang diperiksa berjumlah 34. Jumlah ini didasarkan pada jumlah \textit{file} yang memiliki tanda ``SharIF Judge'' di dalamnya. \textit{File}-\textit{file} yang dibuat oleh \textit{framework} atau \textit{library} lainnya tidak diperiksa. Walaupun ada kemungkinan bahwa telah dilakukan perubahan atau tambahan kode pada \textit{file}-\textit{file} yang dibuat \textit{framework}, pemeriksaan tetap tidak dilakukan karena akan cukup sulit dan memakan waktu yang sangat banyak untuk mencarinya satu per satu. 
 	\item Saat dokumen ini dibuat, hanya tersedia \textit{tools} yang dapat membantu memeriksa penulisan kode sesuai PSR-12. Selain dari itu pemeriksaan harus dilakukan secara manual.
 	\item Beberapa aturan PSR mungkin tidak relevan dengan \textit{file} PHP yang diperiksa. Sebagai contoh, tidak semua \textit{file} PHP menggunakan fungsi yang berkaitan dengan waktu dan tanggal dalam kodenya sehingga PSR-20: Clock tidak relevan dalam pemeriksan \textit{file}-\textit{file} tersebut.
 \end{itemize} 
@@ -159,8 +160,8 @@ Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksa
 
 \subsubsection{Assignments.php} 
 \begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
+	\item \textbf{PSR-01} terpenuhi.
+	\item \textbf{PSR-03} 
 	\item \textbf{PSR-04}
 	\item \textbf{PSR-06}
 	\item \textbf{PSR-07}
@@ -176,7 +177,7 @@ Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksa
 
 \subsubsection{Dashboard.php} 
 \begin{itemize}
-	\item \textbf{PSR-01} 
+	\item \textbf{PSR-01} terpenuhi.
 	\item \textbf{PSR-03}
 	\item \textbf{PSR-04}
 	\item \textbf{PSR-06}
@@ -193,7 +194,7 @@ Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksa
 
 \subsubsection{Halloffame.php}
 \begin{itemize}
-	\item \textbf{PSR-01} 
+	\item \textbf{PSR-01} terpenuhi.
 	\item \textbf{PSR-03}
 	\item \textbf{PSR-04}
 	\item \textbf{PSR-06}
@@ -210,7 +211,7 @@ Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksa
 
 \subsubsection{Install.php}
 \begin{itemize}
-	\item \textbf{PSR-01} 
+	\item \textbf{PSR-01} terpenuhi.
 	\item \textbf{PSR-03}
 	\item \textbf{PSR-04}
 	\item \textbf{PSR-06}
@@ -225,9 +226,9 @@ Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksa
 	\item \textbf{PSR-20} tidak relevan.
 \end{itemize}
 
-\subsubsection{Login.php}
+\subsubsection{Login.php} 
 \begin{itemize}
-	\item \textbf{PSR-01} 
+	\item \textbf{PSR-01} terpenuhi.
 	\item \textbf{PSR-03}
 	\item \textbf{PSR-04}
 	\item \textbf{PSR-06}
