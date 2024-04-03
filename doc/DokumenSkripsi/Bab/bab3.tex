@@ -154,9 +154,66 @@ class Dashboard extends CI_Controller
 
 \end{lstlisting}
 
+Jika diperiksa dengan seksama, kode asli (bertanda ``-'') memiliki jarak indentasi satu kali \textit{tab} dari sisi kiri awal penulisan yang mana seharusnya dimulai dengan empat spasi untuk setiap level indentasi seperti yang ada dalam PSR-12: ``Kode HARUS menggunakan indentasi sebanyak 4 spasi untuk setiap level indentasi, dan TIDAK BOLEH menggunakan \textit{tab}-\textit{tab} untuk indentasi''. Hal ini mungkin tidak terlihat secara sekilas oleh mata sehingga harus diperiksa kembali setiap indentasinya. Hasil rekomendasi perbaikan yang diberikan keluaran (bertanda ``+'') di atas menampilkan indentasi sepanjang empat spasi dan kode aslinya (bertanda ``-'') sepanjang satu \textit{tab}. Hal ini akan lebih jelas jika diperiksa secara langsung melalui terminal. 
+Sejauh ini, semua \textit{file} sudah diperiksa dengan PHP CS Fixer dan hasil keluarannya lebih lengkap ada di Lampiran dokumen Tugas Akhir karena terlalu panjang jika dicantumkan semuanya di Progress Report. Secara umum, standar yang belum terpenuhi sama dengan contoh di atas yaitu penggunaan \textit{tab} yang seharusnya menggunakan empat spasi. 			
+
+
 \subsection{Pemeriksaan Tanpa PHP CS Fixer}
 \label{periksa_manual}
 Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksaan sesuai rekomendasi PSR selain PSR-12 pada setiap \textit{file} PHP secara manual. Setiap hasil pemeriksaan akan ditandai sebagai ``terpenuhi'' jika rekomendasi PSR sudah terpenuhi, ``belum terpenuhi'' jika rekomendasi PSR belum terpenuhi, dan ``tidak relevan'' jika rekomendasi dari PSR tersebut tidak relevan dengan kode program yang diperiksa.
+
+\subsubsection{PSR-01}
+\begin{itemize}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	%\item Server_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	%\item shj_helper.php
+	%\item form_validation_lang.php
+	%\item MY_Form_validation.php
+	%\item MY_Profiler.php
+	%\item Shj_pagination.php
+	%\item Assignment_model.php
+	%\item Hof_model.php
+	%\item Logs_model.php
+	%\item Notifications_model.php
+	%\item Queue_model.php
+	%\item Scoreboard_model.php
+	%\item Settings_model.php
+	%\item Submit_model.php
+	%\item User_model.php
+	\item User.php
+	\item 
+\end{itemize}
+
+\begin{comment}
+\subsubsection{PSR-03}
+\subsubsection{PSR-04}
+\subsubsection{PSR-06}
+\subsubsection{PSR-07}
+\subsubsection{PSR-11}
+\subsubsection{PSR-13}
+\subsubsection{PSR-14}
+\subsubsection{PSR-15}
+\subsubsection{PSR-16}
+\subsubsection{PSR-17}
+\subsubsection{PSR-18}
+\subsubsection{PSR-20}
 
 \subsubsection{Assignments.php} 
 \begin{itemize}
@@ -735,3 +792,4 @@ Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksa
 	\item \textbf{PSR-18} 
 	\item \textbf{PSR-20} tidak relevan.
 \end{itemize}
+\end{comment}

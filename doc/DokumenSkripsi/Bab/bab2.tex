@@ -82,7 +82,7 @@ Berikut adalah langkah-langkah instalasi SharIF Judge.
 \section{PHP Standards Recommendations}
 \label{sec:psr}
 
-PHP Standards Recommendations (PSR) adalah kumpulan rekomendasi yang dibuat oleh PHP Framework Interop Group (PHP-FIG) untuk membantu para pengembang PHP dalam menciptakan kode yang lebih mudah dibaca, dipahami, dan dipelihara. 
+PHP Standards Recommendations (PSR) adalah kumpulan rekomendasi yang dibuat oleh PHP Framework Interop Group (PHP-FIG) untuk membantu para pengembang PHP dalam menciptakan kode yang lebih mudah dibaca, dipahami, dan dipelihara. Walaupun tidak resmi, PSR secara \textit{de facto} diakui oleh banyak pengembang sebagai standar penulisan PHP, terutama PSR-01: Basic Coding Standard. Dalam berbagai proyek aplikasi yang menggunakan PHP setidaknya penulisannya mengikuti PSR-01, misalnya penggunaan \textit{tag} \verb|<?php ?>| dan \verb|<?= ?>|. Selain itu, kredibilitas PSR didukung juga oleh orang-orang yang pernah atau masih terlibat dalam grup PHP-FIG seperti Taylor Otwell selaku pendiri Laravel, Jordi Boggiano salah satu pendiri Composer, Cees-Jan Kiewiet salah satu pendiri ReactPHP, dan lain-lain. 
 Dalam PSR, terdapat kata kunci prioritas yang diatur dalam dokumen RFC 2119. RFC 2119 \cite{RFC2119} berisi tentang penggunaan kata kunci yang menunjukkan spesifikasi \textit{requirement}-nya. Misalnya beberapa kode harus diaplikasikan sesuai standar, sedangkan beberapa lainnya bersifat opsional. 
 Dikarenakan sumber referensi berbahasa Inggris, maka ada beberapa penyesuaian yang diperlukan untuk dokumen ini \footnote{Beberapa kata kunci memiliki tingkatan yang setara sehingga dikategorikan dan ditulis dalam satu poin. Misalnya, ``MUST'', ``REQUIRED'', dan ``SHALL'' berada dalam satu tingkatan yang setara sesuai deskripsi pada RFC 2119. Pemilihan kata ``HARUS'', ``DILARANG'', dan sebagainya digunakan untuk penyesuaian dalam bahasa Indonesia agar struktur kalimat tidak rancu.}.
 
@@ -371,44 +371,32 @@ Untuk keperluan spesifikasi ini, definisi berikut berlaku.
 \label{subsec:draft}
 Status ''Draft'' adalah bab-bab yang masih dalam tahap diskusi dan pengembangan lebih lanjut agar isinya layak untuk menjadi standar.
 
-\subsubsection{PSR-05: PHPDoc Standard}
-\label{subsubsec:psr05}
-
-\subsubsection{PSR-19: PHPDoc tags}
-\label{subsubsec:psr19}
-
-\subsubsection{PSR-21: Internationalization}
-\label{subsubsec:psr21}
-
-\subsubsection{PSR-22: Application Tracing}
-\label{subsubsec:psr22}
+\begin{itemize}
+	\item PSR-05: PHPDoc Standard
+	\item PSR-19: PHPDoc tags
+	\item PSR-21: Internationalization
+	\item PSR-22: Application Tracing
+\end{itemize}
 
 
 \subsection{Abandoned}
 \label{subsec:abandoned}
 Status ''Abandoned'' adalah bab-bab yang tidak lagi dikerjakan ataupun dikembangkan. oleh tim kerja yang bersangkutan. 
 
-\subsubsection{PSR-08: Huggable Interface}
-\label{subsubsec:psr08}
-
-\subsubsection{PSR-09: Security Advisories}
-\label{subsubsec:psr09}
-
-\subsubsection{PSR-10: Security Reporting Process}
-\label{subsubsec:psr10}
-
+\begin{itemize}
+		\item PSR-08: Huggable Interface
+		\item PSR-09: Security Advisories
+		\item PSR-10: Security Reporting Process
+\end{itemize}
 
 \subsection{Deprecated}
 \label{subsec:deprecated}
 Status ''Deprecated'' adalah bab-bab yang sudah pernah disetujui sebelumnya, namun dianggap sudah tidak relevan karena perubahan-perubahan seiring berjalannya waktu. Bab-bab ini tidak direkomendasikan untuk digunakan. Salah satu alasan lain adalah karena adanya bab baru yang lebih baik untuk menggantikannya.
 
-\subsubsection{PSR-00: Autoloading Standard}
-\label{subsubsec:psr00}
-
-\subsubsection{PSR-02: Coding Style Guide}
-\label{subsubsec:psr02}
-
-%\dtext{13-14}
+\begin{itemize}
+	\item PSR-00: Autoloading Standard
+	\item PSR-02: Coding Style Guide
+\end{itemize}
 
 
 \section{PHP Coding Standards Fixer}
