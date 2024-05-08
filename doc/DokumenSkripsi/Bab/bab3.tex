@@ -29,7 +29,7 @@ Jumlah \textit{file} PHP yang diperiksa adalah 34, di luar \textit{file}-\textit
 PHP CS Fixer menyediakan fitur untuk menampilkan kode program yang diperiksa beserta dengan rekomendasi perubahannya sesuai dengan \textit{ruleset} yang sudah ditentukan sebelumnya yaitu PSR-12. Maka dari itu, PHP CS Fixer sudah memeriksa dan memberikan rekomendasi perbaikannya sekaligus. Berikut adalah salah satu contoh ketika melakukan pemeriksaan pada \textit{Dashboard.php}.  Setelah menjalankan perintah dan \textit{flag} yang ditentukan, keluaran yang dihasilkan dapat dilihat pada Kode~\ref{ck:31}. 
 
 \begin{lstlisting}[language=diff, basicstyle=\ttfamily, frame=single,
-	columns=fullflexible, keepspaces=true, breaklines=true, label=ck:31, caption=Contoh penggunaan PHP CS Fixer pada \textit{Dashboard.php}]
+	columns=fullflexible, showtabs=true, keepspaces=true, breaklines=true, label=ck:31, caption=Contoh penggunaan PHP CS Fixer pada \textit{Dashboard.php}]
 @@ -4,66 +4,70 @@
 * @file Dashboard.php
 * @author Mohammad Javad Naderi <mjnaderi@gmail.com>
@@ -163,7 +163,7 @@ Sejauh ini, semua \textit{file} sudah diperiksa dengan PHP CS Fixer dan hasil ke
 Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksaan sesuai rekomendasi PSR selain PSR-12 pada setiap \textit{file} PHP secara manual. Setiap hasil pemeriksaan akan ditandai sebagai ``terpenuhi'' jika rekomendasi PSR sudah terpenuhi, ``belum terpenuhi'' jika rekomendasi PSR belum terpenuhi, dan ``tidak relevan'' jika rekomendasi dari PSR tersebut tidak relevan dengan kode program yang diperiksa.
 
 \subsubsection{PSR-01}
-\begin{itemize}
+\begin{enumerate}
 	\item Assignments.php
 	\item Dashboard.php
 	\item Halloffame.php
@@ -178,618 +178,500 @@ Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksa
 	\item Queueprocess.php
 	\item Rejudge.php
 	\item Scoreboard.php
-	%\item Server_time.php
+	\item Server\_time.php
 	\item Settings.php
 	\item Submissions.php
 	\item Submit.php
 	\item Users.php
-	%\item shj_helper.php
-	%\item form_validation_lang.php
-	%\item MY_Form_validation.php
-	%\item MY_Profiler.php
-	%\item Shj_pagination.php
-	%\item Assignment_model.php
-	%\item Hof_model.php
-	%\item Logs_model.php
-	%\item Notifications_model.php
-	%\item Queue_model.php
-	%\item Scoreboard_model.php
-	%\item Settings_model.php
-	%\item Submit_model.php
-	%\item User_model.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
 	\item User.php
-	\item 
-\end{itemize}
+\end{enumerate}
 
-\begin{comment}
+
 \subsubsection{PSR-03}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-04}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-06}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-07}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-11}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-13}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-14}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-15}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-16}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-17}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-18}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php
+	\item Halloffame.php
+	\item Install.php
+	\item Login.php
+	\item Logs.php
+	\item Moss.php
+	\item Notifications.php
+	\item Problems.php
+	\item Profile.php
+	\item Queue.php
+	\item Queueprocess.php
+	\item Rejudge.php
+	\item Scoreboard.php
+	\item Server\_time.php
+	\item Settings.php
+	\item Submissions.php
+	\item Submit.php
+	\item Users.php
+	\item shj\_helper.php
+	\item form\_validation\_lang.php
+	\item MY\_Form\_validation.php
+	\item MY\_Profiler.php
+	\item Shj\_pagination.php
+	\item Assignment\_model.php
+	\item Hof\_model.php
+	\item Logs\_model.php
+	\item Notifications\_model.php
+	\item Queue\_model.php
+	\item Scoreboard\_model.php
+	\item Settings\_model.php
+	\item Submit\_model.php
+	\item User\_model.php
+	\item User.php
+\end{enumerate}
+
+
 \subsubsection{PSR-20}
+\begin{enumerate}
+	\item Assignments.php
+	\item Dashboard.php -- tidak relevan
+	\item Halloffame.php -- tidak relevan
+	\item Install.php -- tidak memenuhi.
+	Ada fungsi waktu namun tidak menggunakan Clock Interface.
+	\item Login.php -- tidak relevan.
+	\item Logs.php -- tidak relevan.
+	\item Moss.php -- tidak memenuhi.
+	Ada fungsi waktu namun tidak menggunakan Clock Interface.
+	\item Notifications.php -- tidak relevan.
+	\item Problems.php -- tidak relevan.
+	\item Profile.php -- tidak relevan.
+	\item Queue.php -- tidak relevan.
+	\item Queueprocess.php -- tidak relevan.
+	\item Rejudge.php -- tidak relevan.
+	\item Scoreboard.php -- tidak relevan.
+	\item Server\_time.php -- tidak relevan.
+	\item Settings.php -- tidak relevan.
+	\item Submissions.php -- tidak memenuhi.
+	Ada fungsi waktu namun tidak menggunakan Clock Interface.
+	\item Submit.php -- tidak memenuhi.
+	Ada fungsi waktu namun tidak menggunakan Clock Interface.
+	\item Users.php -- tidak memenuhi.
+	Ada fungsi waktu namun tidak menggunakan Clock Interface.
+	\item shj\_helper.php -- tidak memenuhi.
+	Ada fungsi waktu namun tidak menggunakan Clock Interface.
+	\item form\_validation\_lang.php -- tidak relevan.
+	\item MY\_Form\_validation.php -- tidak relevan.
+	\item MY\_Profiler.php -- tidak relevan.
+	\item Shj\_pagination.php -- tidak relevan.
+	\item Assignment\_model.php -- tidak relevan.
+	\item Hof\_model.php -- tidak relevan.
+	\item Logs\_model.php -- tidak relevan.
+	\item Notifications\_model.php -- tidak relevan.
+	\item Queue\_model.php -- tidak relevan.
+	\item Scoreboard\_model.php -- tidak relevan.
+	\item Settings\_model.php -- tidak relevan.
+	\item Submit\_model.php -- tidak relevan.
+	\item User\_model.php -- tidak memenuhi.
+	Ada fungsi waktu namun tidak menggunakan Clock Interface.
+	\item User.php
+\end{enumerate}
 
-\subsubsection{Assignments.php} 
-\begin{itemize}
-	\item \textbf{PSR-01} terpenuhi.
-	\item \textbf{PSR-03} 
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} tidak relevan.
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Dashboard.php} 
-\begin{itemize}
-	\item \textbf{PSR-01} terpenuhi.
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Halloffame.php}
-\begin{itemize}
-	\item \textbf{PSR-01} terpenuhi.
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Install.php}
-\begin{itemize}
-	\item \textbf{PSR-01} terpenuhi.
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Login.php} 
-\begin{itemize}
-	\item \textbf{PSR-01} terpenuhi.
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Logs.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Moss.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Notifications.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Problems.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Profile.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Queue.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Queueprocess.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Rejudge.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Scoreboard.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Server\_time.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Settings.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Submissions.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Submit.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Users.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{shj\_helper.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{form\_validation\_lang.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{MY\_Form\_validation.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{MY\_Profiler.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Shj\_pagination.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Assignment\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Hof\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Logs\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Notifications\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Queue\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Scoreboard\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Settings\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{Submit\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{User\_model.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-
-\subsubsection{User.php}
-\begin{itemize}
-	\item \textbf{PSR-01} 
-	\item \textbf{PSR-03}
-	\item \textbf{PSR-04}
-	\item \textbf{PSR-06}
-	\item \textbf{PSR-07}
-	\item \textbf{PSR-11}
-	\item \textbf{PSR-13}
-	\item \textbf{PSR-14}
-	\item \textbf{PSR-15}
-	\item \textbf{PSR-16}
-	\item \textbf{PSR-17} 
-	\item \textbf{PSR-18} 
-	\item \textbf{PSR-20} tidak relevan.
-\end{itemize}
-\end{comment}
