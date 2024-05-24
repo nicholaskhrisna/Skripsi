@@ -26,10 +26,10 @@ Jumlah \textit{file} PHP yang diperiksa adalah 34, di luar \textit{file}-\textit
 
 \subsection{Pemeriksaan dengan PHP CS Fixer}
 \label{subsec:periksa_otomatis}
-PHP CS Fixer menyediakan fitur untuk menampilkan kode program yang diperiksa beserta dengan rekomendasi perubahannya sesuai dengan \textit{ruleset} yang sudah ditentukan sebelumnya yaitu PSR-12. Maka dari itu, PHP CS Fixer sudah memeriksa dan memberikan rekomendasi perbaikannya sekaligus. Berikut adalah salah satu contoh ketika melakukan pemeriksaan pada \textit{Dashboard.php}.  Setelah menjalankan perintah dan \textit{flag} yang ditentukan, keluaran yang dihasilkan dapat dilihat pada Kode~\ref{ck:31}. 
+PHP CS Fixer menyediakan fitur untuk menampilkan kode program yang diperiksa beserta dengan rekomendasi perubahannya sesuai dengan \textit{ruleset} yang sudah ditentukan sebelumnya, di mana \textit{ruleset} yang dipakai yaitu PSR-01 dan PSR-12. Maka dari itu, PHP CS Fixer sudah memeriksa dan memberikan rekomendasi perbaikannya sekaligus. Berikut adalah salah satu contoh ketika melakukan pemeriksaan pada \textit{Dashboard.php}.  Setelah menjalankan perintah dan \textit{flag} yang ditentukan sesuai contoh pada~\ref{subsubsec:phpcsfixer-flag}, keluaran yang dihasilkan dapat dilihat pada Kode~\ref{ck:31} dan~\ref{ck:32}. 
 
 \begin{lstlisting}[language=diff, basicstyle=\ttfamily, frame=single,
-	columns=fullflexible, showtabs=true, keepspaces=true, breaklines=true, label=ck:31, caption=Contoh penggunaan PHP CS Fixer pada \textit{Dashboard.php}]
+	columns=fullflexible, showtabs=true, keepspaces=true, breaklines=true, label=ck:31, caption=Contoh penggunaan PHP CS Fixer pada sebagian kode \textit{Dashboard.php} dengan mengaktifkan parameter \textit{showtabs} yang menampilkan jarak \textit{tab}]
 @@ -4,66 +4,70 @@
 * @file Dashboard.php
 * @author Mohammad Javad Naderi <mjnaderi@gmail.com>
@@ -61,97 +61,43 @@ class Dashboard extends CI_Controller
 -			redirect('login');
 -		$this->load->model('notifications_model')->helper('text');
 -	}
-+    // ------------------------------------------------------------------------
-	
-	
--	// ------------------------------------------------------------------------
-+    public function index()
-+    {
-+        $data = array(
-+            'all_assignments' => $this->assignment_model->all_assignments(),
-+            'week_start' => $this->settings_model->get_setting('week_start'),
-+            'wp' => $this->user->get_widget_positions(),
-+            'notifications' => $this->notifications_model->get_latest_notifications()
-+        );
-		
-+        // detecting errors:
-+        $data['errors'] = array();
-+        if($this->user->level === 3) {
-+            $path = $this->settings_model->get_setting('assignments_root');
-+            if (! file_exists($path)) {
-+                array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
-+            } elseif (! is_writable($path)) {
-+                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
-+            }
-			
--	public function index()
--	{
--		$data = array(
--			'all_assignments'=>$this->assignment_model->all_assignments(),
--			'week_start'=>$this->settings_model->get_setting('week_start'),
--			'wp'=>$this->user->get_widget_positions(),
--			'notifications' => $this->notifications_model->get_latest_notifications()
--		);
-+            $path = $this->settings_model->get_setting('tester_path');
-+            if (! file_exists($path)) {
-+                array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
-+            } elseif (! is_writable($path)) {
-+                array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
-+            }
-+        }
-			
--		// detecting errors:
--		$data['errors'] = array();
--		if($this->user->level === 3){
--			$path = $this->settings_model->get_setting('assignments_root');
--			if ( ! file_exists($path))
--				array_push($data['errors'], 'The path to folder "assignments" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
--			elseif ( ! is_writable($path))
--				array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you. Codes will be saved in this folder!');
-+        $this->twig->display('pages/dashboard.twig', $data);
-+    }
-			
--			$path = $this->settings_model->get_setting('tester_path');
--			if ( ! file_exists($path))
--				array_push($data['errors'], 'The path to folder "tester" is not set correctly. Move this folder somewhere not publicly accessible, and set its full path in Settings.');
--			elseif ( ! is_writable($path))
--				array_push($data['errors'], 'The folder <code>"'.$path.'"</code> is not writable by PHP. Make it writable. But make sure that this folder is only accessible by you.');
--		}
-		
--		$this->twig->display('pages/dashboard.twig', $data);
--	}
-+    // ------------------------------------------------------------------------
-	
-+    /**
-+     * Used by ajax request, for saving the user's Dashboard widget positions
-+     */
-+    public function widget_positions()
-+    {
-+        if (! $this->input->is_ajax_request()) {
-+            show_404();
-+        }
-+        if ($this->input->post('positions') !== null) {
-+            $this->user->save_widget_positions($this->input->post('positions'));
-+        }
-+    }
-	
--	// ------------------------------------------------------------------------
--
--	/**
--	 * Used by ajax request, for saving the user's Dashboard widget positions
--	 */
--	public function widget_positions()
--	{
--		if ( ! $this->input->is_ajax_request() )
--			show_404();
--		if ($this->input->post('positions') !== NULL)
--			$this->user->save_widget_positions($this->input->post('positions'));
--	}
--
--}
-\ No newline at end of file
-+}
 
+\end{lstlisting}
+
+\begin{lstlisting}[language=diff, basicstyle=\ttfamily, frame=single,
+	columns=fullflexible, showspaces=true, keepspaces=true, breaklines=true, label=ck:32, caption=Contoh penggunaan PHP CS Fixer pada sebagian kode \textit{Dashboard.php} dengan mengaktifkan parameter \textit{showspaces} yang menampilkan jarak \textit{space}]
+@@ -4,66 +4,70 @@
+* @file Dashboard.php
+* @author Mohammad Javad Naderi <mjnaderi@gmail.com>
+*/
+- defined('BASEPATH') OR exit('No direct script access allowed');
++ defined('BASEPATH') or exit('No direct script access allowed');
+
+class Dashboard extends CI_Controller
+{
++    public function __construct()
++    {
++        parent::__construct();
++        if (! $this->db->table_exists('sessions')) {
++            redirect('install');
++        }
++        if (! $this->session->userdata('logged_in')) { // if not logged in
++            redirect('login');
++        }
++        $this->load->model('notifications_model')->helper('text');
++    }
+	
+	
+- public function __construct()
+-	{
+-		parent::__construct();
+-		if ( ! $this->db->table_exists('sessions'))
+-			redirect('install');
+-		if ( ! $this->session->userdata('logged_in')) // if not logged in
+-			redirect('login');
+-		$this->load->model('notifications_model')->helper('text');
+-	}
+		
 \end{lstlisting}
 
 Jika diperiksa dengan seksama, kode asli (bertanda ``-'') memiliki jarak indentasi satu kali \textit{tab} dari sisi kiri awal penulisan yang mana seharusnya dimulai dengan empat spasi untuk setiap level indentasi seperti yang ada dalam PSR-12: ``Kode HARUS menggunakan indentasi sebanyak 4 spasi untuk setiap level indentasi, dan TIDAK BOLEH menggunakan \textit{tab}-\textit{tab} untuk indentasi''. Hal ini mungkin tidak terlihat secara sekilas oleh mata sehingga harus diperiksa kembali setiap indentasinya. Hasil rekomendasi perbaikan yang diberikan keluaran (bertanda ``+'') di atas menampilkan indentasi sepanjang empat spasi dan kode aslinya (bertanda ``-'') sepanjang satu \textit{tab}. Hal ini akan lebih jelas jika diperiksa secara langsung melalui terminal. 
@@ -160,518 +106,214 @@ Sejauh ini, semua \textit{file} sudah diperiksa dengan PHP CS Fixer dan hasil ke
 
 \subsection{Pemeriksaan Tanpa PHP CS Fixer}
 \label{periksa_manual}
-Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksaan sesuai rekomendasi PSR selain PSR-12 pada setiap \textit{file} PHP secara manual. Setiap hasil pemeriksaan akan ditandai sebagai ``terpenuhi'' jika rekomendasi PSR sudah terpenuhi, ``belum terpenuhi'' jika rekomendasi PSR belum terpenuhi, dan ``tidak relevan'' jika rekomendasi dari PSR tersebut tidak relevan dengan kode program yang diperiksa.
+Setelah pemeriksaan dengan bantuan PHP CS Fixer, selanjutnya dilakukan pemeriksaan sesuai rekomendasi PSR selain PSR-12 pada setiap \textit{file} PHP secara manual. Setiap hasil pemeriksaan akan ditandai sebagai ``Terpenuhi'' jika rekomendasi PSR sudah terpenuhi, ``Belum terpenuhi'' jika rekomendasi PSR belum terpenuhi, dan ``Tidak Relevan'' jika rekomendasi dari PSR tersebut tidak relevan dengan kode program yang diperiksa.
 
-\subsubsection{PSR-01}
+\subsubsection{PSR-01: Basic Coding Standard}
+Selain menggunakan PHP CS Fixer, pemeriksaan PSR-01 juga dilakukan secara manual untuk memastikan kembali bahwa rekomendasinya benar terpenuhi.
 \begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+	\item Assignments.php (Belum Terpenuhi)
+	
+	Ada beberapa metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|downloadtestsdesc()|,  \verb|download_submissions()|, dan \verb|_add|.
+	
+	\item Dashboard.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|widget_positions()|.
+	
+	\item Halloffame.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|hof_details()|.
+	
+	\item Install.php (Terpenuhi)
+	\item Login.php (Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|_registration_code()|.
+	
+	\item Logs.php (Terpenuhi)
+	\item Moss.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|_detect()|.
+	
+	\item Notifications.php (Terpenuhi)
+	\item Problems.php (Terpenuhi)
+	\item Profile.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|_password_check()|.
+	%ada yg lain
+	
+	\item Queue.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|empty_queue()|.
+	
+	\item Queueprocess.php (Terpenuhi)
+	\item Rejudge.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|rejudge_single()|.
+	
+	\item Scoreboard.php (Terpenuhi)
+	\item Server\_time.php (Terpenuhi)
+	\item Settings.php (Terpenuhi)
+	\item Submissions.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|_download_excel()|.
+	%ada yg lain
+	\item Submit.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|_language_to_type()|.
+	%ada yg lain
+	\item Users.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|delete_submissions()|.
+	%ada yg lain
+	\item shj\_helper.php (Terpenuhi)
+	\item form\_validation\_lang.php (Terpenuhi)
+	\item MY\_Form\_validation.php (Terpenuhi)
+	\item MY\_Profiler.php (Terpenuhi)
+	\item Shj\_pagination.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|create_links()|.
+	
+	\item Assignment\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|add_assignment()|. %ada yg lain
+	
+	\item Hof\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|get_all_final_submission()|. %ada yg lain
+	
+	\item Logs\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|insert_to_logs()|. %ada yg lain
+	
+	\item Notifications\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|get_all_notifications()|. %ada yg lain
+	
+	\item Queue\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|in_queue()|. %ada yg lain
+	
+	\item Scoreboard\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|_generate_scoreboard()|. %ada yg lain
+	
+	\item Settings\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|get_setting()|. %ada yg lain
+	
+	\item Submit\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|get_submission()|. %ada yg lain
+	
+	\item User\_model.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|have_user()|. %ada yg lain
+	
+	\item User.php (Belum Terpenuhi)
+	
+	Ada metode yang tidak dideklarasikan dengan \texttt{camelCase}, yaitu \verb|select_assignment()|. %ada yg lain
+	
+\end{enumerate}	
 
 
-\subsubsection{PSR-03}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+\subsubsection{PSR-03: Logger Interface}
+Rekomendasi ini sudah ``Terpenuhi''. Implementasi \textit{Logger} ini tidak dapat diperiksa pada \textit{file} PHP satu per satu namun dapat dilihat pada \verb|application/vendor/psr/log/Psr/Log/|.
 
 
-\subsubsection{PSR-04}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+
+\subsubsection{PSR-04: Autoloading Standard}
+Rekomendasi ini sudah ``Terpenuhi''. Implementasi \textit{Autoloading} ini tidak dapat diperiksa pada \textit{file} PHP satu per satu namun dapat dilihat dari \textit{composer.json} pada \verb|/container/|, \verb|/log/|, dan \verb|/simple-cache/| di dalam \verb|application/vendor/psr/|.
 
 
-\subsubsection{PSR-06}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+\subsubsection{PSR-06: Caching Interface}
+Rekomendasi ini ``Tidak Relevan'' untuk diimplementasikan karena \textit{caching} keseluruhan ditangani oleh PSR-16: Simple Cache. 
 
-
-\subsubsection{PSR-07}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+\subsubsection{PSR-07: HTTP Message Interface}
+Rekomendasi ini ``Belum Terpenuhi'' karena tidak diimplementasikannya \verb|Psr/Http/Message/RequestInterface| atau pun \verb|Psr/Http/Message/ResponseInterface|.
 
 
 \subsubsection{PSR-11}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
-
+Rekomendasi ini sudah ``Terpenuhi''. Implementasi \textit{Container} ini tidak dapat diperiksa pada \textit{file} PHP satu per satu namun dapat dilihat pada \verb|application/vendor/psr/container/src/|.
+%teliti lagi nanti
 
 \subsubsection{PSR-13}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+Rekomendasi ini ``Belum Terpenuhi'' karena tidak diimplementasikannya paket-paket dari \verb|Psr/Link/|.
 
 
 \subsubsection{PSR-14}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+Rekomendasi ini ``Belum Terpenuhi'' karena tidak diimplementasikannya \verb|Psr/EventDispacther/|.
+%tapi ditangain adldap
 
 
-\subsubsection{PSR-15}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
-
+\subsubsection{PSR-15: HTTP Server Request Handlers}
+Rekomendasi ini ``Belum Terpenuhi'' karena tidak diimplementasikannya \verb|Psr/Http/Server/RequestHandlerInterface|.
+%tapi ditangain pihak lain?
 
 \subsubsection{PSR-16}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+Rekomendasi ini sudah ``Terpenuhi''. Implementasi \textit{Cache} ini tidak dapat diperiksa pada \textit{file} PHP satu per satu namun dapat dilihat pada \verb|application/vendor/psr/simple-cache/src/|.
 
 
-\subsubsection{PSR-17}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
+\subsubsection{PSR-17:HTTP Factories}
+Rekomendasi ini ``Belum Terpenuhi'' karena tidak ada implementasi apa pun dari \verb|Psr/Http/Message/|. 
 
-
-\subsubsection{PSR-18}
-\begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php
-	\item Halloffame.php
-	\item Install.php
-	\item Login.php
-	\item Logs.php
-	\item Moss.php
-	\item Notifications.php
-	\item Problems.php
-	\item Profile.php
-	\item Queue.php
-	\item Queueprocess.php
-	\item Rejudge.php
-	\item Scoreboard.php
-	\item Server\_time.php
-	\item Settings.php
-	\item Submissions.php
-	\item Submit.php
-	\item Users.php
-	\item shj\_helper.php
-	\item form\_validation\_lang.php
-	\item MY\_Form\_validation.php
-	\item MY\_Profiler.php
-	\item Shj\_pagination.php
-	\item Assignment\_model.php
-	\item Hof\_model.php
-	\item Logs\_model.php
-	\item Notifications\_model.php
-	\item Queue\_model.php
-	\item Scoreboard\_model.php
-	\item Settings\_model.php
-	\item Submit\_model.php
-	\item User\_model.php
-	\item User.php
-\end{enumerate}
-
+\subsubsection{PSR-18: HTTP Client}
+Rekomendasi ini ``Belum Terpenuhi'' karena tidak ada implementasi apa pun dari \verb|ClientInterface|.
 
 \subsubsection{PSR-20}
 \begin{enumerate}
-	\item Assignments.php
-	\item Dashboard.php -- tidak relevan
-	\item Halloffame.php -- tidak relevan
-	\item Install.php -- tidak memenuhi.
+	\item Assignments.php (Tidak relevan) %cek lagi
+	\item Dashboard.php (Tidak Relevan)
+	\item Halloffame.php (Tidak Relevan)
+	\item Install.php (Belum Terpenuhi)
+	
 	Ada fungsi waktu namun tidak menggunakan Clock Interface.
-	\item Login.php -- tidak relevan.
-	\item Logs.php -- tidak relevan.
-	\item Moss.php -- tidak memenuhi.
+	
+	\item Login.php (Tidak Relevan)
+	\item Logs.php (Tidak Relevan)
+	\item Moss.php (Belum Terpenuhi)
+	
 	Ada fungsi waktu namun tidak menggunakan Clock Interface.
-	\item Notifications.php -- tidak relevan.
-	\item Problems.php -- tidak relevan.
-	\item Profile.php -- tidak relevan.
-	\item Queue.php -- tidak relevan.
-	\item Queueprocess.php -- tidak relevan.
-	\item Rejudge.php -- tidak relevan.
-	\item Scoreboard.php -- tidak relevan.
-	\item Server\_time.php -- tidak relevan.
-	\item Settings.php -- tidak relevan.
-	\item Submissions.php -- tidak memenuhi.
+	
+	\item Notifications.php (Tidak Relevan)
+	\item Problems.php (Tidak Relevan)
+	\item Profile.php (Tidak Relevan)
+	\item Queue.php (Tidak Relevan)
+	\item Queueprocess.php (Tidak Relevan)
+	\item Rejudge.php (Tidak Relevan)
+	\item Scoreboard.php (Tidak Relevan)
+	\item Server\_time.php (Tidak Relevan)
+	\item Settings.php (Tidak Relevan)
+	\item Submissions.php (Belum Terpenuhi)
+	
 	Ada fungsi waktu namun tidak menggunakan Clock Interface.
-	\item Submit.php -- tidak memenuhi.
+	
+	\item Submit.php (Belum Terpenuhi)
+	
 	Ada fungsi waktu namun tidak menggunakan Clock Interface.
-	\item Users.php -- tidak memenuhi.
+	
+	\item Users.php (Belum Terpenuhi)
+	
 	Ada fungsi waktu namun tidak menggunakan Clock Interface.
-	\item shj\_helper.php -- tidak memenuhi.
+	
+	\item shj\_helper.php (Belum Terpenuhi)
+	
 	Ada fungsi waktu namun tidak menggunakan Clock Interface.
-	\item form\_validation\_lang.php -- tidak relevan.
-	\item MY\_Form\_validation.php -- tidak relevan.
-	\item MY\_Profiler.php -- tidak relevan.
-	\item Shj\_pagination.php -- tidak relevan.
-	\item Assignment\_model.php -- tidak relevan.
-	\item Hof\_model.php -- tidak relevan.
-	\item Logs\_model.php -- tidak relevan.
-	\item Notifications\_model.php -- tidak relevan.
-	\item Queue\_model.php -- tidak relevan.
-	\item Scoreboard\_model.php -- tidak relevan.
-	\item Settings\_model.php -- tidak relevan.
-	\item Submit\_model.php -- tidak relevan.
-	\item User\_model.php -- tidak memenuhi.
+	
+	\item form\_validation\_lang.php (Tidak Relevan)
+	\item MY\_Form\_validation.php (Tidak Relevan)
+	\item MY\_Profiler.php (Tidak Relevan)
+	\item Shj\_pagination.php (Tidak Relevan)
+	\item Assignment\_model.php (Tidak Relevan)
+	\item Hof\_model.php (Tidak Relevan)
+	\item Logs\_model.php (Tidak Relevan)
+	\item Notifications\_model.php (Tidak Relevan)
+	\item Queue\_model.php (Tidak Relevan)
+	\item Scoreboard\_model.php (Tidak Relevan)
+	\item Settings\_model.php (Tidak Relevan)
+	\item Submit\_model.php (Tidak Relevan)
+	\item User\_model.php (Belum Terpenuhi)
+	
 	Ada fungsi waktu namun tidak menggunakan Clock Interface.
-	\item User.php
+	
+	\item User.php (Tidak Relevan)
 \end{enumerate}
 

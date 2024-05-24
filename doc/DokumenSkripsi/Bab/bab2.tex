@@ -442,7 +442,7 @@ Status ''Deprecated'' adalah bab-bab yang sudah pernah disetujui sebelumnya, nam
  	\end{enumerate}
  \end{comment}
 
-PHP Coding Standards Fixer (PHP CS Fixer) \cite{PHP_CS_Fixer} adalah sebuah \textit{tool} yang dapat memperbaiki kode program agar mengikuti standar tertentu, misalnya standar dari PSR-1, PSR-2, dan lainnya, atau standar berbasis komunitas lain seperti Symfony. Dari semua standar yang tersedia hanya satu standar yang akan ditentukan sebagai \textit{ruleset} yaitu PSR-12. 
+PHP Coding Standards Fixer (PHP CS Fixer) \cite{PHP_CS_Fixer} adalah sebuah \textit{tool} yang dapat memperbaiki kode program agar mengikuti standar tertentu, misalnya standar dari PSR-1, PSR-2, dan lainnya, atau standar berbasis komunitas lain seperti Symfony. Dari semua standar yang tersedia ada dua standar yang akan ditentukan sebagai \textit{ruleset} yaitu PSR-01 dan PSR-12. 
 
 Pada dasarnya, PHP CS Fixer tidak perlu terintegrasi dengan SharIF Judge untuk menjalankan fungsinya. Salah satu cara untuk menginstalnya adalah dengan mengunduh \verb|php-cs-fixer-v3.phar| dari dokumentasi PHP CS Fixer dan menjalankannya dengan perintah dan \textit{flag} tertentu. Berikut adalah perintah dan \textit{flag} yang dapat digunakan.
 \subsubsection{Perintah} 
@@ -458,11 +458,11 @@ Pada dasarnya, PHP CS Fixer tidak perlu terintegrasi dengan SharIF Judge untuk m
 	 	php php-cs-fixer-v3.phar fix .
 	 	\end{lstlisting}
  		Selain itu, perintah ini dapat dijalankan untuk \textit{file}-\textit{file} pada \textit{path} tertentu dengan perintah:
-		 \begin{lstlisting}[basicstyle=\ttfamily, frame=single,
+\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
  	columns=fullflexible, keepspaces=true, breaklines=true, label=ls:1]
- 	php php-cs-fixer-v3.phar fix /path/to/dir
- 	php php-cs-fixer-v3.phar fix /path/to/file
- 		\end{lstlisting}
+ php php-cs-fixer-v3.phar fix /path/to/dir
+ php php-cs-fixer-v3.phar fix /path/to/file
+\end{lstlisting}
 
 	\item Perintah \verb|check| adalah versi singkat dari \verb|fix --dry-run| dan menyediakan semua opsi dan argumen sebagai perintah \verb|fix|. Perbedaannya adalah perintah \verb|check| tidak akan menerapkan perubahan apa pun, tetapi hanya mencetak hasil analisis.
 	
@@ -474,6 +474,7 @@ Pada dasarnya, PHP CS Fixer tidak perlu terintegrasi dengan SharIF Judge untuk m
 	\end{itemize}
 
 \subsubsection{\textit{Flag}}
+\label{subsubsec:phpcsfixer-flag}
 \begin{itemize}
 	\item \textit{Flag} \verb|--rules| digunakan untuk menentukan \textit{rules} yang akan diterapkan dalam \textit{project}:
 	\begin{lstlisting}[basicstyle=\ttfamily, frame=single,
